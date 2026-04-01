@@ -4,11 +4,14 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 
+import { Analytics } from "@vercel/analytics/next";
+
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+      <Analytics />
       <section id="center">
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
