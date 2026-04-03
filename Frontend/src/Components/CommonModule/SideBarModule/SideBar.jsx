@@ -1,9 +1,27 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { ThemeContext } from "../../../Context/ThemeContext";
 
 const SideBar = () => {
-    const [active, setActive] = useState("dashboard");
     const navigate = useNavigate();
+    const location = useLocation();
+    const { isDarkMode } = useContext(ThemeContext);
+
+    // Map pathnames to active item IDs
+    const getActiveFromPath = (pathname) => {
+        const pathMap = {
+            "/": "dashboard",
+            "/transactions": "transactions",
+            "/insights": "insights",
+            "/settings": "settings",
+        };
+        return pathMap[pathname] || "dashboard";
+    };
+
+    // Initialize state based on current pathname
+    const [active, setActive] = useState(() =>
+        getActiveFromPath(location.pathname),
+    );
 
     const navItems = [
         {
@@ -47,7 +65,12 @@ const SideBar = () => {
 
     return (
         <>
-            <aside className="flex flex-col w-60 border-r border-slate-200 p-6 pt-3 shadow-sm bg-white">
+            <aside
+                className={`flex flex-col w-60 border-r ${
+                    isDarkMode
+                        ? "bg-slate-950 border-slate-800"
+                        : "bg-white border-slate-200"
+                } p-6 pt-3 pb-3 shadow-sm`}>
                 {/* Navigation items*/}
                 <ul className="flex-1 space-y-2 overflow-y-auto">
                     {navItems.map((item) => (
@@ -56,8 +79,12 @@ const SideBar = () => {
                             onClick={() => handleNavClick(item)}
                             className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-all duration-300 ${
                                 active === item.id
-                                    ? "bg-blue-100 text-blue-600 font-bold"
-                                    : "text-slate-700 font-medium hover:bg-slate-100"
+                                    ? isDarkMode
+                                        ? "bg-blue-900 text-blue-400 font-bold"
+                                        : "bg-blue-100 text-blue-600 font-bold"
+                                    : isDarkMode
+                                      ? "text-slate-300 font-medium hover:bg-slate-800"
+                                      : "text-slate-700 font-medium hover:bg-slate-100"
                             }`}>
                             <svg
                                 width="18"
@@ -80,8 +107,13 @@ const SideBar = () => {
                 </ul>
 
                 {/* Bottom section*/}
-                <div className="mt-auto space-y-3">
-                    <button className="flex items-center justify-center text-center gap-2 w-full px-6 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-550 active:bg-blue-500 transition-all duration-300 font-medium shadow-[0_10px_15px_-3px_rgba(0,83,221,0.20),0_4px_6px_-4px_rgba(0,83,221,0.20)] hover:shadow-[0_10px_15px_-3px_rgba(0,83,221,0.35),0_4px_6px_-4px_rgba(0,83,221,0.35)] mb-6">
+                <div className={`mt-auto space-y-3 pt-3`}>
+                    <button
+                        className={`flex items-center justify-center text-center gap-2 w-full px-6 py-2.5 rounded-xl transition-all duration-300 font-medium ${
+                            isDarkMode
+                                ? "bg-blue-600 text-white hover:bg-blue-550 active:bg-blue-500 shadow-[0_10px_15px_-3px_rgba(0,83,221,0.40),0_4px_6px_-4px_rgba(0,83,221,0.40)] hover:shadow-[0_10px_15px_-3px_rgba(0,83,221,0.60),0_4px_6px_-4px_rgba(0,83,221,0.60)]"
+                                : "bg-blue-600 text-white hover:bg-blue-550 active:bg-blue-500 shadow-[0_10px_15px_-3px_rgba(0,83,221,0.20),0_4px_6px_-4px_rgba(0,83,221,0.20)] hover:shadow-[0_10px_15px_-3px_rgba(0,83,221,0.35),0_4px_6px_-4px_rgba(0,83,221,0.35)]"
+                        } mb-6`}>
                         <svg
                             width="9"
                             height="9"
@@ -96,9 +128,15 @@ const SideBar = () => {
                         Add Transaction
                     </button>
 
-                    <div className="border-t border-slate-200 pt-3 mb-3">
+                    <div
+                        className={`pt-3 border-t ${isDarkMode ? "border-slate-800" : "border-slate-200"}`}>
                         <ul className="space-y-2">
-                            <li className="group flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-all duration-300 text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600">
+                            <li
+                                className={`group flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-all duration-300 font-medium ${
+                                    isDarkMode
+                                        ? "text-slate-300 hover:bg-blue-900/30 hover:text-blue-400"
+                                        : "text-slate-700 hover:bg-blue-50 hover:text-blue-600"
+                                }`}>
                                 <svg
                                     width="17"
                                     height="17"
@@ -107,13 +145,20 @@ const SideBar = () => {
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M8.29167 13.3333C8.58333 13.3333 8.82986 13.2326 9.03125 13.0312C9.23264 12.8299 9.33333 12.5833 9.33333 12.2917C9.33333 12 9.23264 11.7535 9.03125 11.5521C8.82986 11.3507 8.58333 11.25 8.29167 11.25C8 11.25 7.75347 11.3507 7.55208 11.5521C7.35069 11.7535 7.25 12 7.25 12.2917C7.25 12.5833 7.35069 12.8299 7.55208 13.0312C7.75347 13.2326 8 13.3333 8.29167 13.3333ZM7.54167 10.125H9.08333C9.08333 9.66667 9.13542 9.30556 9.23958 9.04167C9.34375 8.77778 9.63889 8.41667 10.125 7.95833C10.4861 7.59722 10.7708 7.25347 10.9792 6.92708C11.1875 6.60069 11.2917 6.20833 11.2917 5.75C11.2917 4.97222 11.0069 4.375 10.4375 3.95833C9.86806 3.54167 9.19444 3.33333 8.41667 3.33333C7.625 3.33333 6.98264 3.54167 6.48958 3.95833C5.99653 4.375 5.65278 4.875 5.45833 5.45833L6.83333 6C6.90278 5.75 7.05903 5.47917 7.30208 5.1875C7.54514 4.89583 7.91667 4.75 8.41667 4.75C8.86111 4.75 9.19444 4.87153 9.41667 5.11458C9.63889 5.35764 9.75 5.625 9.75 5.91667C9.75 6.19444 9.66667 6.45486 9.5 6.69792C9.33333 6.94097 9.125 7.16667 8.875 7.375C8.26389 7.91667 7.88889 8.32639 7.75 8.60417C7.61111 8.88194 7.54167 9.38889 7.54167 10.125ZM8.33333 16.6667C7.18056 16.6667 6.09722 16.4479 5.08333 16.0104C4.06944 15.5729 3.1875 14.9792 2.4375 14.2292C1.6875 13.4792 1.09375 12.5972 0.65625 11.5833C0.21875 10.5694 0 9.48611 0 8.33333C0 7.18056 0.21875 6.09722 0.65625 5.08333C1.09375 4.06944 1.6875 3.1875 2.4375 2.4375C3.1875 1.6875 4.06944 1.09375 5.08333 0.65625C6.09722 0.21875 7.18056 0 8.33333 0C9.48611 0 10.5694 0.21875 11.5833 0.65625C12.5972 1.09375 13.4792 1.6875 14.2292 2.4375C14.9792 3.1875 15.5729 4.06944 16.0104 5.08333C16.4479 6.09722 16.6667 7.18056 16.6667 8.33333C16.6667 9.48611 16.4479 10.5694 16.0104 11.5833C15.5729 12.5972 14.9792 13.4792 14.2292 14.2292C13.4792 14.9792 12.5972 15.5729 11.5833 16.0104C10.5694 16.4479 9.48611 16.6667 8.33333 16.6667ZM8.33333 15C10.1944 15 11.7708 14.3542 13.0625 13.0625C14.3542 11.7708 15 10.1944 15 8.33333C15 6.47222 14.3542 4.89583 13.0625 3.60417C11.7708 2.3125 10.1944 1.66667 8.33333 1.66667C6.47222 1.66667 4.89583 2.3125 3.60417 3.60417C2.3125 4.89583 1.66667 6.47222 1.66667 8.33333C1.66667 10.1944 2.3125 11.7708 3.60417 13.0625C4.89583 14.3542 6.47222 15 8.33333 15Z"
-                                        fill="#475569"
-                                        className="group-hover:fill-blue-600 transition-colors"
+                                        fill={
+                                            isDarkMode ? "#64748B" : "#475569"
+                                        }
+                                        className="group-hover:fill-blue-400 transition-colors"
                                     />
                                 </svg>
                                 Help
                             </li>
-                            <li className="group flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-all duration-300 text-slate-700 font-medium hover:bg-red-50 hover:text-red-600">
+                            <li
+                                className={`group flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-all duration-300 font-medium ${
+                                    isDarkMode
+                                        ? "text-slate-300 hover:bg-red-900/30 hover:text-red-400"
+                                        : "text-slate-700 hover:bg-red-50 hover:text-red-600"
+                                }`}>
                                 <svg
                                     width="15"
                                     height="15"
@@ -122,8 +167,10 @@ const SideBar = () => {
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M1.66667 15C1.20833 15 0.815972 14.8368 0.489583 14.5104C0.163194 14.184 0 13.7917 0 13.3333V1.66667C0 1.20833 0.163194 0.815972 0.489583 0.489583C0.815972 0.163194 1.20833 0 1.66667 0H7.5V1.66667H1.66667V13.3333H7.5V15H1.66667ZM10.8333 11.6667L9.6875 10.4583L11.8125 8.33333H5V6.66667H11.8125L9.6875 4.54167L10.8333 3.33333L15 7.5L10.8333 11.6667Z"
-                                        fill="#475569"
-                                        className="group-hover:fill-red-600 transition-colors"
+                                        fill={
+                                            isDarkMode ? "#64748B" : "#475569"
+                                        }
+                                        className="group-hover:fill-red-400 transition-colors"
                                     />
                                 </svg>
                                 Logout

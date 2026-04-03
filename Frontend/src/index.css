@@ -6,6 +6,54 @@
     font-family: "Inter", sans-serif;
 }
 
+/* Base transitions - removed global 500ms */
+* {
+    @apply transition-all duration-300;
+}
+
+/* Large surfaces - slower, more deliberate */
+div[class*="bg-slate-950"],
+div[class*="bg-slate-900"],
+div[class*="bg-slate-50"],
+div[class*="bg-white"] {
+    @apply transition-colors duration-500;
+}
+
+/* Text and smaller elements - faster */
+h1,
+h2,
+h3,
+p,
+span {
+    @apply transition-colors duration-200;
+}
+
+/* SVG icons */
+svg path {
+    @apply transition-colors duration-200;
+}
+
+/* Borders and shadows */
+[class*="border"] {
+    @apply transition-colors duration-300;
+}
+
+/* Input fields */
+input,
+textarea {
+    @apply transition-all duration-200;
+}
+
+/* Buttons and interactive */
+button {
+    @apply transition-all duration-200;
+}
+
+/* Dropdowns and modals */
+[class*="z-50"] {
+    @apply transition-all duration-150;
+}
+
 body {
     margin: 0;
     background-color: #f8fafc;
