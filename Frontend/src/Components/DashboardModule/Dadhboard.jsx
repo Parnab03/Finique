@@ -2,6 +2,11 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext";
 import {
+    getCategoryName,
+    getCategoryIcon,
+    getCategoryById,
+} from "../../Constants/transactionCategories.jsx";
+import {
     BarChart,
     Bar,
     PieChart,
@@ -149,41 +154,42 @@ const Dashboard = () => {
     const chartTextColor = isDarkMode ? "#e2e8f0" : "#1e293b";
     const gridColor = isDarkMode ? "#334155" : "#e2e8f0";
 
-    // Transaction data
+    // Transaction data - use predefined categories
     const allTransactions = [
         {
             id: 1,
             name: "Gourmet Garden Bistro",
             description: "Fine Dining",
             date: "24 Oct, 2023",
-            category: "FOOD & DRINK",
+            categoryId: "food",
             amount: 4250,
             type: "expense",
-            icon: "🍴",
         },
         {
             id: 2,
             name: "Global Tech Corp",
             description: "Monthly Salary",
             date: "01 Oct, 2023",
-            category: "INCOME",
+            categoryId: "income",
             amount: 125000,
             type: "income",
-            icon: "💰",
         },
         {
             id: 3,
             name: "Skyways Aviation",
             description: "Business Trip",
             date: "28 Sep, 2023",
-            category: "TRAVEL",
+            categoryId: "travel",
             amount: 12800,
             type: "expense",
-            icon: "✈️",
         },
+        // Add more transactions here...
     ];
 
-    const filteredTransactions = allTransactions.filter((tx) => {
+    // Show only first 3 transactions on dashboard
+    const dashboardTransactions = allTransactions.slice(0, 3);
+
+    const filteredTransactions = dashboardTransactions.filter((tx) => {
         if (transactionFilter === "Income") return tx.type === "income";
         if (transactionFilter === "Expenses") return tx.type === "expense";
         return true;
@@ -701,12 +707,23 @@ const Dashboard = () => {
                                     <td className="py-4 px-6">
                                         <div className="flex items-center gap-4">
                                             <div
-                                                className={`w-12 h-12 rounded-full flex items-center justify-center text-lg font-semibold ${
+                                                className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
                                                     isDarkMode
-                                                        ? "bg-slate-700"
-                                                        : "bg-slate-100"
-                                                }`}>
-                                                {transaction.icon}
+                                                        ? "bg-slate-700 text-slate-300"
+                                                        : "bg-slate-100 text-slate-600"
+                                                }`}
+                                                style={{
+                                                    color: getCategoryById(
+                                                        transaction.categoryId,
+                                                    )?.color,
+                                                }}>
+                                                {(() => {
+                                                    const IconComponent =
+                                                        getCategoryIcon(
+                                                            transaction.categoryId,
+                                                        );
+                                                    return <IconComponent />;
+                                                })()}
                                             </div>
                                             <div>
                                                 <p
@@ -745,7 +762,9 @@ const Dashboard = () => {
                                                       ? "bg-slate-700 text-slate-300"
                                                       : "bg-slate-200 text-slate-700"
                                             }`}>
-                                            {transaction.category}
+                                            {getCategoryName(
+                                                transaction.categoryId,
+                                            )}
                                         </span>
                                     </td>
 
