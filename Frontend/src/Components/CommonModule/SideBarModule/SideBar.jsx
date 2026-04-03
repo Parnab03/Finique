@@ -1,11 +1,13 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ThemeContext } from "../../../Context/ThemeContext";
+import { TransactionContext } from "../../../Context/TransactionContext";
 
 const SideBar = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { isDarkMode } = useContext(ThemeContext);
+    const { isModalOpen, setIsModalOpen } = useContext(TransactionContext);
 
     // Map pathnames to active item IDs
     const getActiveFromPath = (pathname) => {
@@ -114,6 +116,7 @@ const SideBar = () => {
                 {/* Bottom section*/}
                 <div className={`mt-auto space-y-3 pt-3`}>
                     <button
+                        onClick={() => setIsModalOpen(true)}
                         className={`flex items-center justify-center text-center gap-2 w-full px-6 py-2.5 rounded-xl transition-all duration-300 font-medium ${
                             isDarkMode
                                 ? "bg-blue-600 text-white hover:bg-blue-550 active:bg-blue-500 shadow-[0_10px_15px_-3px_rgba(0,83,221,0.40),0_4px_6px_-4px_rgba(0,83,221,0.40)] hover:shadow-[0_10px_15px_-3px_rgba(0,83,221,0.60),0_4px_6px_-4px_rgba(0,83,221,0.60)]"
@@ -184,6 +187,15 @@ const SideBar = () => {
                     </div>
                 </div>
             </aside>
+            <button
+                onClick={() => setIsModalOpen(true)}
+                className={`w-full mt-6 px-4 py-3 rounded-lg font-semibold transition-all ${
+                    isDarkMode
+                        ? "bg-blue-600 text-white hover:bg-blue-700"
+                        : "bg-blue-100 text-blue-600 hover:bg-blue-200"
+                }`}>
+                + Add Transaction
+            </button>
         </>
     );
 };

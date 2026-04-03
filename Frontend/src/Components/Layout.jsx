@@ -1,13 +1,18 @@
 import { useContext } from "react";
 import { ThemeContext } from "../Context/ThemeContext";
+import { TransactionContext } from "../Context/TransactionContext";
 import Navbar from "./CommonModule/NavbarModule/Navbar";
 import SideBar from "./CommonModule/SideBarModule/SideBar";
+import AddTransactionModal from "./TransactionsModule/AddTransactionModal";
 
 const Layout = ({ children }) => {
     const { isDarkMode } = useContext(ThemeContext);
+    const { isModalOpen, setIsModalOpen, addTransaction } =
+        useContext(TransactionContext);
 
     return (
-        <div className={`fixed inset-0 ${isDarkMode ? "bg-slate-950" : "bg-slate-50"}`}>
+        <div
+            className={`fixed inset-0 ${isDarkMode ? "bg-slate-950" : "bg-slate-50"}`}>
             {/* Fixed Navbar */}
             <div className="fixed top-0 left-0 right-0 z-40">
                 <Navbar />
@@ -26,6 +31,13 @@ const Layout = ({ children }) => {
                     {children}
                 </main>
             </div>
+
+            {/* Modal */}
+            <AddTransactionModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onAddTransaction={addTransaction}
+            />
         </div>
     );
 };
