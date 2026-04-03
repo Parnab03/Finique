@@ -7,13 +7,22 @@ const Layout = ({ children }) => {
     const { isDarkMode } = useContext(ThemeContext);
 
     return (
-        <div
-            className={`flex flex-col min-h-screen ${isDarkMode ? "bg-slate-950" : "bg-slate-50"}`}>
-            <Navbar />
-            <div className="flex flex-1">
-                <SideBar />
+        <div className={`fixed inset-0 ${isDarkMode ? "bg-slate-950" : "bg-slate-50"}`}>
+            {/* Fixed Navbar */}
+            <div className="fixed top-0 left-0 right-0 z-40">
+                <Navbar />
+            </div>
+
+            {/* Main Layout with Fixed Sidebar */}
+            <div className="fixed top-[70px] left-0 right-0 bottom-0 flex">
+                {/* Fixed Sidebar */}
+                <div className="fixed left-0 top-[70px] bottom-0 w-60 z-30 overflow-y-auto">
+                    <SideBar />
+                </div>
+
+                {/* Main Content Area with Left Margin */}
                 <main
-                    className={`flex-1 ${isDarkMode ? "bg-slate-900" : "bg-white"}`}>
+                    className={`flex-1 ml-60 ${isDarkMode ? "bg-slate-900" : "bg-white"} overflow-y-auto`}>
                     {children}
                 </main>
             </div>

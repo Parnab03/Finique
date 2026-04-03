@@ -23,6 +23,11 @@ const SideBar = () => {
         getActiveFromPath(location.pathname),
     );
 
+    // Update active state when location changes
+    useEffect(() => {
+        setActive(getActiveFromPath(location.pathname));
+    }, [location.pathname]);
+
     const navItems = [
         {
             id: "dashboard",
@@ -66,7 +71,7 @@ const SideBar = () => {
     return (
         <>
             <aside
-                className={`flex flex-col w-60 border-r ${
+                className={`h-full flex flex-col w-60 border-r ${
                     isDarkMode
                         ? "bg-slate-950 border-slate-800"
                         : "bg-white border-slate-200"
