@@ -146,6 +146,9 @@ export const TransactionProvider = ({ children }) => {
         setAllTransactions([newTransaction, ...allTransactions]);
     };
 
+    const [isManageGoalsOpen, setIsManageGoalsOpen] = useState(false);
+    const [selectedGoalsMonth, setSelectedGoalsMonth] = useState("JUN");
+
     return (
         <TransactionContext.Provider
             value={{
@@ -153,6 +156,10 @@ export const TransactionProvider = ({ children }) => {
                 setIsModalOpen,
                 allTransactions,
                 addTransaction,
+                isManageGoalsOpen,
+                setIsManageGoalsOpen,
+                selectedGoalsMonth,
+                setSelectedGoalsMonth,
             }}>
             {children}
         </TransactionContext.Provider>

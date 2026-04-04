@@ -58,3 +58,16 @@ body {
     margin: 0;
     background-color: #f8fafc;
 }
+
+/* Hide number input spinners (Chrome, Safari, Edge, Opera) */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide number input spinners (Firefox) */
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
