@@ -283,6 +283,56 @@ const Insights = () => {
         ]);
     };
 
+    const exportAsPdf = () => {
+        const rows = allTransactions
+            .map(
+                (t) =>
+                    `<tr>
+                        <td style="padding:8px;border:1px solid #ddd;">${t.date || "-"}</td>
+                        <td style="padding:8px;border:1px solid #ddd;">${t.type || "-"}</td>
+                        <td style="padding:8px;border:1px solid #ddd;">${t.categoryId || "-"}</td>
+                        <td style="padding:8px;border:1px solid #ddd;text-align:right;">₹${Number(
+                            t.amount || 0,
+                        ).toLocaleString()}</td>
+                    </tr>`,
+            )
+            .join("");
+
+        const win = window.open("", "_blank", "width=1000,height=800");
+        if (!win) return;
+
+        win.document.write(`
+            <html>
+            <head>
+                <title>Finique Financial Report</title>
+            </head>
+            <body style="font-family:Arial, sans-serif;padding:24px;">
+                <h1 style="margin-bottom:8px;">Finique Financial Report</h1>
+                <p style="margin:0 0 20px;">Currency: INR</p>
+                <p style="margin:0 0 8px;">Total Income: ₹${totalIncome.toLocaleString()}</p>
+                <p style="margin:0 0 8px;">Total Expense: ₹${totalExpense.toLocaleString()}</p>
+                <p style="margin:0 0 20px;">Net Balance: ₹${netBalance.toLocaleString()}</p>
+                <h2>Transactions</h2>
+                <table style="border-collapse:collapse;width:100%;font-size:14px;">
+                    <thead>
+                        <tr>
+                            <th style="padding:8px;border:1px solid #ddd;text-align:left;">Date</th>
+                            <th style="padding:8px;border:1px solid #ddd;text-align:left;">Type</th>
+                            <th style="padding:8px;border:1px solid #ddd;text-align:left;">Category</th>
+                            <th style="padding:8px;border:1px solid #ddd;text-align:right;">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows || ""}</tbody>
+                </table>
+            </body>
+            </html>
+        `);
+
+        win.document.close();
+        win.focus();
+        win.print();
+    };
+
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [chatMessages, isBotTyping]);
@@ -680,6 +730,44 @@ const Insights = () => {
                             </div>
                         ))}
                     </div>
+                </div>
+            </div>
+
+            <div
+                className={`rounded-2xl border p-6 transition-all duration-300 ${
+                    isDarkMode
+                        ? "bg-slate-800 border-slate-700"
+                        : "bg-white border-slate-200"
+                }`}>
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                        <p
+                            className={`text-xs font-bold tracking-wider mb-1 ${
+                                isDarkMode ? "text-blue-400" : "text-blue-600"
+                            }`}>
+                            EXPORT
+                        </p>
+                        <h3
+                            className={`text-lg font-semibold ${
+                                isDarkMode ? "text-white" : "text-slate-900"
+                            }`}>
+                            Export Financial Data
+                        </h3>
+                        <p
+                            className={`text-sm mt-1 ${
+                                isDarkMode ? "text-slate-300" : "text-slate-600"
+                            }`}>
+                            Download a printable PDF report with totals and
+                            transactions.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        onClick={exportAsPdf}
+                        className="px-5 py-2.5 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-all">
+                        Export as PDF
+                    </button>
                 </div>
             </div>
         </div>
