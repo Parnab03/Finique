@@ -187,15 +187,6 @@ const SideBar = () => {
                     </div>
                 </div>
             </aside>
-            <button
-                onClick={() => setIsModalOpen(true)}
-                className={`w-full mt-6 px-4 py-3 rounded-lg font-semibold transition-all ${
-                    isDarkMode
-                        ? "bg-blue-600 text-white hover:bg-blue-700"
-                        : "bg-blue-100 text-blue-600 hover:bg-blue-200"
-                }`}>
-                + Add Transaction
-            </button>
         </>
     );
 };

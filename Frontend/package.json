@@ -12,6 +12,7 @@
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "react": "^19.2.4",
+    "react-datepicker": "^9.1.0",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.72.1",
     "react-router-dom": "^7.13.2",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "@types/react": "^19.2.14",
+    "@types/react-datepicker": "^6.2.0",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
     "autoprefixer": "^10.4.27",
