@@ -21,6 +21,7 @@ const Insights = () => {
     const [chatInput, setChatInput] = useState("");
     const [isBotTyping, setIsBotTyping] = useState(false);
     const chatEndRef = useRef(null);
+    const chatScrollTriggeredRef = useRef(false);
     const [chatMessages, setChatMessages] = useState([
         {
             id: 1,
@@ -237,6 +238,7 @@ const Insights = () => {
     };
 
     const handleChatSend = (presetText) => {
+        chatScrollTriggeredRef.current = true; // Enable scrolling ONLY after user action
         const text = (presetText ?? chatInput).trim();
         if (!text) return;
 
@@ -270,6 +272,7 @@ const Insights = () => {
     };
 
     const handleClearChat = () => {
+        chatScrollTriggeredRef.current = false; // Disable scroll on clear
         setChatMessages([
             {
                 id: 1,
@@ -334,7 +337,9 @@ const Insights = () => {
     };
 
     useEffect(() => {
-        chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        if (chatScrollTriggeredRef.current) {
+            chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        }
     }, [chatMessages, isBotTyping]);
 
     const quickPrompts = [
