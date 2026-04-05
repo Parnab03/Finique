@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -27,6 +27,13 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
 
     const transactionType = watch("type");
 
+    // Auto-set category to "income" when transaction type is income
+    useEffect(() => {
+        if (transactionType === "income") {
+            control._formValues.categoryId = "income";
+        }
+    }, [transactionType, control]);
+
     // Handle modal close with form reset
     const handleClose = () => {
         reset();
@@ -40,10 +47,12 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
     };
 
     const onSubmit = (data) => {
-        if (data.categoryId === "select-category") {
+        // Only validate category for expense transactions
+        if (data.type === "expense" && data.categoryId === "select-category") {
             alert("Please select a category");
             return;
         }
+
         const newTransaction = {
             id: Date.now(),
             name: data.title || data.description,

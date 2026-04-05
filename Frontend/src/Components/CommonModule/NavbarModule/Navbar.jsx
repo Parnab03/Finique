@@ -1,20 +1,29 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { ThemeContext } from "../../../Context/ThemeContext";
+import { RoleContext } from "../../../Context/RoleContext";
 import { TransactionContext } from "../../../Context/TransactionContext";
 import Light_mode_logo from "./assets/Logo_light_mode.svg";
 import Dark_mode_logo from "./assets/Logo_dark_mode.svg";
 
+const STORAGE_KEY = "finique_settings_v1";
+
 const Navbar = () => {
     const [viewOpen, setViewOpen] = useState(false);
     const [roleOpen, setRoleOpen] = useState(false);
-    const [selectedRole, setSelectedRole] = useState("Admin");
+    const { selectedRole, setSelectedRole } = useContext(RoleContext);
     const location = useLocation();
     const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
     const navigate = useNavigate();
     const { allTransactions } = useContext(TransactionContext);
     const [searchQuery, setSearchQuery] = useState("");
+
+    // Profile data from Settings
+    const [adminName, setAdminName] = useState("Admin Profile");
+    const [adminImage, setAdminImage] = useState("");
+    const [viewerName, setViewerName] = useState("Public Viewer");
+    const [viewerImage, setViewerImage] = useState("");
 
     const pageNames = {
         "/": "Finance Dashboard",
@@ -25,10 +34,34 @@ const Navbar = () => {
 
     const currentPageName = pageNames[location.pathname] || "Finance Dashboard";
 
+    // Load profile data from Settings storage
+    useEffect(() => {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+
+        try {
+            const saved = JSON.parse(raw);
+            setAdminName(saved.userName || "Admin Profile");
+            setAdminImage(saved.profileImage || "");
+            setViewerName(saved.viewerName || "Public Viewer");
+            setViewerImage(saved.viewerProfileImage || "");
+        } catch {
+            // Ignore malformed storage
+        }
+    }, [location]); // Re-check when navigating back from Settings
+
+    const currentName = selectedRole === "Admin" ? adminName : viewerName;
+    const currentImage = selectedRole === "Admin" ? adminImage : viewerImage;
+    const currentInitials = currentName
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase();
+
     const handleSearch = (e) => {
         if (e.key === "Enter" && searchQuery.trim()) {
             navigate(`/transactions?search=${encodeURIComponent(searchQuery)}`);
-            setSearchQuery(""); // Clear search input
+            setSearchQuery("");
         }
     };
 
@@ -40,7 +73,7 @@ const Navbar = () => {
                 <div className="w-[239px] flex items-center px-6 py-4 flex-shrink-0">
                     <img
                         className="w-25 h-auto"
-                        src={isDarkMode ? Dark_mode_logo : Light_mode_logo} // Toggle logo here
+                        src={isDarkMode ? Dark_mode_logo : Light_mode_logo}
                         alt="Logo"
                     />
                 </div>
@@ -119,20 +152,16 @@ const Navbar = () => {
 
                         {/* Dark Mode Toggle */}
                         <button
-                            onClick={() => setIsDarkMode(!isDarkMode)} // Toggle theme here
+                            onClick={() => setIsDarkMode(!isDarkMode)}
                             className={`p-2 rounded-lg transition-colors flex-shrink-0 ${isDarkMode ? "hover:bg-slate-800" : "hover:bg-slate-100"}`}
                             title="Toggle dark mode">
                             {isDarkMode ? (
-                                // Sun Icon (Light Mode)
                                 <svg
                                     width="20"
                                     height="20"
                                     viewBox="0 0 25 25"
                                     fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    style={{
-                                        transition: "opacity 0.3s ease-in-out",
-                                    }}>
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         fillRule="evenodd"
                                         clipRule="evenodd"
@@ -141,16 +170,12 @@ const Navbar = () => {
                                     />
                                 </svg>
                             ) : (
-                                // Moon Icon (Dark Mode)
                                 <svg
                                     width="20"
                                     height="20"
                                     viewBox="0 0 20 20"
                                     fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    style={{
-                                        transition: "opacity 0.3s ease-in-out",
-                                    }}>
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         fillRule="evenodd"
                                         clipRule="evenodd"
@@ -163,27 +188,31 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                {/* Right - User profile */}
+                {/* Right - User profile - Now using synced data */}
                 <div
                     className={`flex items-center h-10 gap-3 flex-shrink-0 px-6 py-4 ${isDarkMode ? "border-l border-slate-800" : "border-l border-slate-200"}`}>
                     <div className="text-right">
                         <p
                             className={`text-sm font-semibold ${isDarkMode ? "text-white" : "text-slate-900"}`}>
-                            {selectedRole === "Admin"
-                                ? "Alex Rivera"
-                                : "Aryan Mccall"}
+                            {currentName}
                         </p>
                         <p
                             className={`text-xs ${isDarkMode ? "text-slate-400" : "text-slate-500"}`}>
-                            {selectedRole === "Admin"
-                                ? "Head of Finance"
-                                : "Finance Viewer"}
+                            {selectedRole === "Admin" ? "Admin" : "Viewer"}
                         </p>
                     </div>
-                    <div
-                        className={`w-10 h-10 ${isDarkMode ? "bg-gradient-to-br from-blue-600 to-blue-800" : "bg-gradient-to-br from-blue-400 to-blue-600"} rounded-full flex items-center justify-center text-white font-bold`}>
-                        {selectedRole === "Admin" ? "AR" : "AM"}
-                    </div>
+                    {currentImage ? (
+                        <img
+                            src={currentImage}
+                            alt={currentName}
+                            className="w-10 h-10 rounded-full object-cover"
+                        />
+                    ) : (
+                        <div
+                            className={`w-10 h-10 ${isDarkMode ? "bg-gradient-to-br from-blue-600 to-blue-800" : "bg-gradient-to-br from-blue-400 to-blue-600"} rounded-full flex items-center justify-center text-white font-bold text-sm`}>
+                            {currentInitials}
+                        </div>
+                    )}
                 </div>
             </div>
         </nav>

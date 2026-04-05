@@ -7,6 +7,13 @@ const STORAGE_KEY = "finique_settings_v1";
 
 const PRESET_OPTIONS = [
     {
+        id: "no-presets",
+        title: "No Presets",
+        fileName: "none",
+        description:
+            "Start fresh - no presets are chosen. Add your own transactions.",
+    },
+    {
         id: "student-budget", // Changed from "preset-student"
         title: "Student Budget",
         fileName: "student-budget.json",
@@ -41,7 +48,8 @@ const PRESET_OPTIONS = [
 
 const Settings = () => {
     const { isDarkMode } = useContext(ThemeContext);
-    const { loadPresetData } = useContext(TransactionContext);
+    const { loadPresetData, reloadTransactions } =
+        useContext(TransactionContext);
     const navigate = useNavigate();
 
     const [profileImage, setProfileImage] = useState("");
@@ -49,7 +57,7 @@ const Settings = () => {
     const [userPassword, setUserPassword] = useState("");
     const [viewerName, setViewerName] = useState("Public Viewer");
     const [viewerPassword, setViewerPassword] = useState("");
-    const [selectedPreset, setSelectedPreset] = useState("");
+    const [selectedPreset, setSelectedPreset] = useState("no-presets");
 
     const [deleteConfirmText, setDeleteConfirmText] = useState("");
     const [statusMessage, setStatusMessage] = useState("");
@@ -73,7 +81,11 @@ const Settings = () => {
 
     useEffect(() => {
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return;
+        if (!raw) {
+            // Set default preset to "no-presets" for new users
+            setSelectedPreset("no-presets");
+            return;
+        }
 
         try {
             const saved = JSON.parse(raw);
@@ -87,9 +99,10 @@ const Settings = () => {
             setDraftViewerName(saved.viewerName || "Public Viewer");
             setViewerProfileImage(saved.viewerProfileImage || "");
             setViewerPassword(saved.viewerPassword || "");
-            setSelectedPreset(saved.selectedPreset || "");
+            setSelectedPreset(saved.selectedPreset || "no-presets");
         } catch {
             // Ignore malformed storage
+            setSelectedPreset("no-presets");
         }
     }, []);
 
@@ -361,6 +374,37 @@ const Settings = () => {
 
     const handleUsePreset = async (presetId) => {
         try {
+            // Special case: No Presets - restore custom data
+            if (presetId === "no-presets") {
+                setSelectedPreset("no-presets");
+                setStatusMessage(
+                    "✓ No preset selected. Switched to your custom data!",
+                );
+                setTimeout(() => setStatusMessage(""), 2000);
+
+                // Clear goals from localStorage when no preset is selected
+                localStorage.removeItem("finique_goals");
+
+                // Save to localStorage
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify({
+                        profileImage,
+                        userName,
+                        userPassword,
+                        viewerName,
+                        viewerPassword,
+                        viewerProfileImage,
+                        selectedPreset: "no-presets",
+                        updatedAt: new Date().toISOString(),
+                    }),
+                );
+
+                // Reload transactions from custom storage
+                setTimeout(() => reloadTransactions(), 0);
+                return;
+            }
+
             const presetData = await loadPresetData(presetId);
             if (presetData) {
                 setSelectedPreset(presetId);
@@ -383,6 +427,9 @@ const Settings = () => {
                         updatedAt: new Date().toISOString(),
                     }),
                 );
+
+                // Reload transactions from preset storage
+                setTimeout(() => reloadTransactions(), 0);
             } else {
                 setStatusMessage("✗ Failed to load preset. Please try again.");
                 setTimeout(() => setStatusMessage(""), 2000);
