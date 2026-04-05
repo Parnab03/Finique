@@ -1,15 +1,20 @@
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { ThemeContext } from "../../../Context/ThemeContext";
+import { TransactionContext } from "../../../Context/TransactionContext";
 import Light_mode_logo from "./assets/Logo_light_mode.svg";
-import Dark_mode_logo from "./assets/Logo_dark_mode.svg"; // Add this import
+import Dark_mode_logo from "./assets/Logo_dark_mode.svg";
 
 const Navbar = () => {
     const [viewOpen, setViewOpen] = useState(false);
     const [roleOpen, setRoleOpen] = useState(false);
     const [selectedRole, setSelectedRole] = useState("Admin");
     const location = useLocation();
-    const { isDarkMode, setIsDarkMode } = useContext(ThemeContext); // Add this
+    const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
+    const navigate = useNavigate();
+    const { allTransactions } = useContext(TransactionContext);
+    const [searchQuery, setSearchQuery] = useState("");
 
     const pageNames = {
         "/": "Finance Dashboard",
@@ -19,6 +24,13 @@ const Navbar = () => {
     };
 
     const currentPageName = pageNames[location.pathname] || "Finance Dashboard";
+
+    const handleSearch = (e) => {
+        if (e.key === "Enter" && searchQuery.trim()) {
+            navigate(`/transactions?search=${encodeURIComponent(searchQuery)}`);
+            setSearchQuery(""); // Clear search input
+        }
+    };
 
     return (
         <nav
@@ -36,7 +48,7 @@ const Navbar = () => {
                     className={`h-10 border-r ${isDarkMode ? "border-slate-800" : "border-slate-200"}`}></div>
 
                 {/* Center - Title with Dropdowns and Search */}
-                <div className="flex items-center gap-8 flex-1 px-8 py-4 pr-4">
+                <div className="flex items-center gap-8 flex-1 px-8 py-4 pr-0">
                     <div className="flex items-center gap-2">
                         <h1
                             className={`text-2xl font-bold ${isDarkMode ? "text-white" : "text-slate-900"} whitespace-nowrap`}>
@@ -81,7 +93,7 @@ const Navbar = () => {
                     </div>
 
                     {/* Search Bar with Theme Toggle */}
-                    <div className="flex items-center gap-3 ml-auto">
+                    <div className="flex flex-end items-center gap-3 ml-auto w-full max-w-md">
                         <div className="relative flex-1 max-w-sm">
                             <svg
                                 className={`absolute left-3 top-2.5 w-5 h-5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}
@@ -97,7 +109,10 @@ const Navbar = () => {
                             </svg>
                             <input
                                 type="text"
-                                placeholder="Search insights..."
+                                placeholder="Search transactions by name, date, amount..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onKeyDown={handleSearch}
                                 className={`w-full pl-10 pr-4 py-2 rounded-lg text-sm ${isDarkMode ? "bg-slate-800 border-slate-700 text-white placeholder-slate-500 focus:bg-slate-750 focus:border-blue-500" : "bg-slate-50 border border-slate-200 text-slate-700 placeholder-slate-400 focus:bg-white focus:border-blue-300"} border transition-colors focus:outline-none`}
                             />
                         </div>

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState, useMemo } from "react";
 import {
     LineChart,
     Line,
@@ -11,6 +11,10 @@ import {
 import { ThemeContext } from "../../Context/ThemeContext";
 import { TransactionContext } from "../../Context/TransactionContext";
 import ManageGoalsModal from "./ManageGoalsModal";
+import {
+    calculateWeeklyData,
+    getLastSixMonths,
+} from "../../utils/dataCalculations";
 
 const Insights = () => {
     const { isDarkMode } = useContext(ThemeContext);
@@ -34,126 +38,87 @@ const Insights = () => {
         },
     ]);
 
-    // Last 6 months data with weekly breakdown
-    const monthsData = {
-        JAN: [
-            { month: "JAN W1", amount: 2200 },
-            { month: "JAN W2", amount: 2400 },
-            { month: "JAN W3", amount: 2100 },
-            { month: "JAN W4", amount: 2150 },
-        ],
-        FEB: [
-            { month: "FEB W1", amount: 2500 },
-            { month: "FEB W2", amount: 2600 },
-            { month: "FEB W3", amount: 2400 },
-            { month: "FEB W4", amount: 2450 },
-        ],
-        MAR: [
-            { month: "MAR W1", amount: 2400 },
-            { month: "MAR W2", amount: 2350 },
-            { month: "MAR W3", amount: 2500 },
-            { month: "MAR W4", amount: 2300 },
-        ],
-        APR: [
-            { month: "APR W1", amount: 2400 },
-            { month: "APR W2", amount: 2600 },
-            { month: "APR W3", amount: 2300 },
-            { month: "APR W4", amount: 2200 },
-        ],
-        MAY: [
-            { month: "MAY W1", amount: 3200 },
-            { month: "MAY W2", amount: 3100 },
-            { month: "MAY W3", amount: 3300 },
-            { month: "MAY W4", amount: 3000 },
-        ],
-        JUN: [
-            { month: "JUN W1", amount: 2800 },
-            { month: "JUN W2", amount: 2900 },
-            { month: "JUN W3", amount: 2700 },
-            { month: "JUN W4", amount: 2800 },
-        ],
-    };
+    const availableMonths = useMemo(
+        () => getLastSixMonths(allTransactions),
+        [allTransactions],
+    );
 
-    const chartData = monthsData[selectedMonth];
-    const lastSixMonths = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN"];
+    // Set initial month to last available month from data
+    useEffect(() => {
+        if (
+            availableMonths.length > 0 &&
+            availableMonths[availableMonths.length - 1]
+        ) {
+            setSelectedMonth(availableMonths[availableMonths.length - 1]);
+        }
+    }, [availableMonths]);
 
-    // Savings goals data - NOW MUTABLE
-    const [savingsGoalsData, setSavingsGoalsData] = useState({
-        APR: [
-            {
-                id: 1,
-                title: "Down Payment Fund",
-                current: 10200,
-                target: 20000,
-                color: "#2563eb",
-            },
-            {
-                id: 2,
-                title: "Emergency Reserve",
-                current: 4200,
-                target: 5000,
-                color: "#16a34a",
-            },
-            {
-                id: 3,
-                title: "Vacation Fund",
-                current: 5800,
-                target: 10000,
-                color: "#f59e0b",
-            },
-        ],
-        MAY: [
-            {
-                id: 1,
-                title: "Down Payment Fund",
-                current: 11300,
-                target: 20000,
-                color: "#2563eb",
-            },
-            {
-                id: 2,
-                title: "Emergency Reserve",
-                current: 4600,
-                target: 5000,
-                color: "#16a34a",
-            },
-            {
-                id: 3,
-                title: "Vacation Fund",
-                current: 6500,
-                target: 10000,
-                color: "#f59e0b",
-            },
-        ],
-        JUN: [
-            {
-                id: 1,
-                title: "Down Payment Fund",
-                current: 12400,
-                target: 20000,
-                color: "#2563eb",
-            },
-            {
-                id: 2,
-                title: "Emergency Reserve",
-                current: 4900,
-                target: 5000,
-                color: "#16a34a",
-            },
-            {
-                id: 3,
-                title: "Vacation Fund",
-                current: 7200,
-                target: 10000,
-                color: "#f59e0b",
-            },
-        ],
-    });
+    const chartData = useMemo(
+        () => calculateWeeklyData(allTransactions, selectedMonth),
+        [allTransactions, selectedMonth],
+    );
 
-    const savingsGoals = savingsGoalsData[selectedGoalsMonth];
-    const lastThreeMonths = ["APR", "MAY", "JUN"];
+    const lastSixMonths = useMemo(() => availableMonths, [availableMonths]);
 
-    // Handle saving goals from modal
+    // Load savings goals from student-budget.json preset
+    const [savingsGoalsData, setSavingsGoalsData] = useState({});
+    const [baseGoals, setBaseGoals] = useState([]);
+
+    useEffect(() => {
+        const loadGoalsFromPreset = async () => {
+            try {
+                // First try to get from localStorage
+                const storedGoals = localStorage.getItem("finique_goals");
+                if (storedGoals) {
+                    try {
+                        const goals = JSON.parse(storedGoals);
+                        setBaseGoals(goals);
+                    } catch (err) {
+                        console.error("Failed to parse stored goals:", err);
+                    }
+                }
+
+                // If not in localStorage, fetch from preset
+                if (!storedGoals) {
+                    const response = await fetch(
+                        "/presets/student-budget.json",
+                    );
+                    if (response.ok) {
+                        const preset = await response.json();
+                        if (preset.goals && Array.isArray(preset.goals)) {
+                            setBaseGoals(preset.goals);
+                            localStorage.setItem(
+                                "finique_goals",
+                                JSON.stringify(preset.goals),
+                            );
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error("Error loading goals:", error);
+            }
+        };
+
+        loadGoalsFromPreset();
+    }, []);
+
+    // Apply base goals to all available months
+    useEffect(() => {
+        if (availableMonths.length > 0 && baseGoals.length > 0) {
+            const goalsDataByMonth = {};
+            availableMonths.forEach((month) => {
+                goalsDataByMonth[month] = baseGoals;
+            });
+            setSavingsGoalsData(goalsDataByMonth);
+
+            // Set initial selected month to last available month
+            setSelectedGoalsMonth(availableMonths[availableMonths.length - 1]);
+        }
+    }, [availableMonths, baseGoals]);
+
+    const savingsGoals =
+        savingsGoalsData[selectedGoalsMonth] || baseGoals || [];
+
     const handleSaveGoals = (updatedGoals) => {
         setSavingsGoalsData((prev) => ({
             ...prev,
@@ -365,7 +330,7 @@ const Insights = () => {
                             className={`text-lg font-semibold ${
                                 isDarkMode ? "text-white" : "text-slate-900"
                             }`}>
-                            Weekly Spending Trends
+                            Monthly Spending Trends
                         </h3>
 
                         <div className="flex gap-2">
@@ -464,23 +429,6 @@ const Insights = () => {
                             }`}>
                             Monthly Goals
                         </h2>
-
-                        <div className="flex gap-2">
-                            {lastThreeMonths.map((month) => (
-                                <button
-                                    key={month}
-                                    onClick={() => setSelectedGoalsMonth(month)}
-                                    className={`px-3 py-1 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                        selectedGoalsMonth === month
-                                            ? "bg-blue-600 text-white"
-                                            : isDarkMode
-                                              ? "bg-slate-700 text-slate-300 hover:bg-slate-600"
-                                              : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                                    }`}>
-                                    {month}
-                                </button>
-                            ))}
-                        </div>
                     </div>
 
                     <div

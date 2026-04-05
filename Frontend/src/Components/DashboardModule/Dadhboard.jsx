@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext";
 import {
@@ -18,182 +18,224 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from "recharts";
+import { TransactionContext } from "../../Context/TransactionContext";
+import {
+    calculateMonthlyData,
+    calculateCategoryByMonth,
+    calculateTotals,
+    getLastSixMonths,
+} from "../../utils/dataCalculations";
 
 const Dashboard = () => {
     const { isDarkMode } = useContext(ThemeContext);
+    const { allTransactions } = useContext(TransactionContext); // Add this
     const navigate = useNavigate();
     const [monthFilter, setMonthFilter] = useState(6);
-    const [categoryMonthFilter, setCategoryMonthFilter] = useState("JUN");
     const [hoveredCategory, setHoveredCategory] = useState(null);
     const [transactionFilter, setTransactionFilter] = useState("All");
+    const [categoryMonthFilter, setCategoryMonthFilter] = useState(null);
 
-    // Different datasets for different filters (3/6/9/12 months aggregate)
-    const allMonthsData = {
-        3: [
-            { month: "APR", spending: 55000 },
-            { month: "MAY", spending: 48000 },
-            { month: "JUN", spending: 65000 },
-        ],
-        6: [
-            { month: "JAN", spending: 35000 },
-            { month: "FEB", spending: 42000 },
-            { month: "MAR", spending: 38000 },
-            { month: "APR", spending: 55000 },
-            { month: "MAY", spending: 48000 },
-            { month: "JUN", spending: 65000 },
-        ],
-        9: [
-            { month: "OCT", spending: 32000 },
-            { month: "NOV", spending: 38000 },
-            { month: "DEC", spending: 41000 },
-            { month: "JAN", spending: 35000 },
-            { month: "FEB", spending: 42000 },
-            { month: "MAR", spending: 38000 },
-            { month: "APR", spending: 55000 },
-            { month: "MAY", spending: 48000 },
-            { month: "JUN", spending: 65000 },
-        ],
-        12: [
-            { month: "JUL", spending: 52000 },
-            { month: "AUG", spending: 48000 },
-            { month: "SEP", spending: 45000 },
-            { month: "OCT", spending: 32000 },
-            { month: "NOV", spending: 38000 },
-            { month: "DEC", spending: 41000 },
-            { month: "JAN", spending: 35000 },
-            { month: "FEB", spending: 42000 },
-            { month: "MAR", spending: 38000 },
-            { month: "APR", spending: 55000 },
-            { month: "MAY", spending: 48000 },
-            { month: "JUN", spending: 65000 },
-        ],
-    };
+    // Dynamic data from transactions
+    const totals = useMemo(
+        () => calculateTotals(allTransactions),
+        [allTransactions],
+    );
+    const lastSixMonths = useMemo(
+        () => getLastSixMonths(allTransactions),
+        [allTransactions],
+    );
 
-    const monthlyData = allMonthsData[monthFilter];
+    // Update categoryMonthFilter to always default to last month (most recent)
+    useEffect(() => {
+        if (lastSixMonths.length > 0) {
+            setCategoryMonthFilter(lastSixMonths[lastSixMonths.length - 1]);
+        }
+    }, [lastSixMonths]);
 
-    // Individual month data for category-wise chart (last 6 months)
-    const categoryMonthData = {
-        JAN: [
-            { name: "Housing", value: 45, amount: 35000, color: "#2563eb" },
-            { name: "Investment", value: 30, amount: 23000, color: "#059669" },
-            { name: "Travel", value: 15, amount: 11000, color: "#dc2626" },
-            { name: "Food", value: 10, amount: 8000, color: "#f59e0b" },
-        ],
-        FEB: [
-            { name: "Housing", value: 42, amount: 42000, color: "#2563eb" },
-            { name: "Investment", value: 32, amount: 32000, color: "#059669" },
-            { name: "Travel", value: 15, amount: 15000, color: "#dc2626" },
-            { name: "Food", value: 8, amount: 8000, color: "#f59e0b" },
-            {
-                name: "Entertainment",
-                value: 3,
-                amount: 3000,
-                color: "#8b5cf6",
-            },
-        ],
-        MAR: [
-            { name: "Housing", value: 40, amount: 38000, color: "#2563eb" },
-            {
-                name: "Investment",
-                value: 28,
-                amount: 27000,
-                color: "#059669",
-            },
-            { name: "Travel", value: 18, amount: 17000, color: "#dc2626" },
-            { name: "Food", value: 9, amount: 9000, color: "#f59e0b" },
-            {
-                name: "Entertainment",
-                value: 5,
-                amount: 5000,
-                color: "#8b5cf6",
-            },
-        ],
-        APR: [
-            { name: "Housing", value: 45, amount: 55000, color: "#2563eb" },
-            { name: "Investment", value: 25, amount: 30000, color: "#059669" },
-            { name: "Travel", value: 15, amount: 18000, color: "#dc2626" },
-            { name: "Food", value: 10, amount: 12000, color: "#f59e0b" },
-            {
-                name: "Entertainment",
-                value: 4,
-                amount: 5000,
-                color: "#8b5cf6",
-            },
-            { name: "Shopping", value: 1, amount: 2000, color: "#ec4899" },
-        ],
-        MAY: [
-            { name: "Housing", value: 40, amount: 48000, color: "#2563eb" },
-            { name: "Investment", value: 30, amount: 36000, color: "#059669" },
-            { name: "Travel", value: 15, amount: 18000, color: "#dc2626" },
-            { name: "Food", value: 10, amount: 12000, color: "#f59e0b" },
-            {
-                name: "Entertainment",
-                value: 3,
-                amount: 4000,
-                color: "#8b5cf6",
-            },
-            { name: "Shopping", value: 2, amount: 2000, color: "#ec4899" },
-        ],
-        JUN: [
-            { name: "Housing", value: 38, amount: 65000, color: "#2563eb" },
-            { name: "Investment", value: 28, amount: 48000, color: "#059669" },
-            { name: "Travel", value: 18, amount: 30000, color: "#dc2626" },
-            { name: "Food", value: 7, amount: 12000, color: "#f59e0b" },
-            {
-                name: "Entertainment",
-                value: 6,
-                amount: 10000,
-                color: "#8b5cf6",
-            },
-            { name: "Shopping", value: 2, amount: 3000, color: "#ec4899" },
-            { name: "Utilities", value: 1, amount: 2000, color: "#10b981" },
-        ],
-    };
+    // Monthly data changes based on monthFilter
+    const monthlyData = useMemo(() => {
+        const allData = calculateMonthlyData(allTransactions);
+        // Filter to last N months based on monthFilter
+        const monthCount = { 3: 3, 6: 6, 9: 9, 12: 12 }[monthFilter];
+        return allData.slice(-monthCount);
+    }, [allTransactions, monthFilter]);
 
-    const categoryData = categoryMonthData[categoryMonthFilter];
+    // Category data for selected month
+    const categoryData = useMemo(
+        () => calculateCategoryByMonth(allTransactions, categoryMonthFilter),
+        [allTransactions, categoryMonthFilter],
+    );
+
+    // Helper function to get monthly data
+    const getMonthlyData = useMemo(() => {
+        if (allTransactions.length === 0) {
+            return { monthlyMap: {}, dateMap: {}, sortedKeys: [] };
+        }
+
+        const monthlyMap = {};
+        const dateMap = {};
+
+        allTransactions.forEach((tx) => {
+            try {
+                const date = new Date(tx.date);
+                const monthName = date
+                    .toLocaleString("default", { month: "short" })
+                    .toUpperCase();
+                const year = date.getFullYear();
+                const key = `${year}-${monthName}`;
+
+                if (!monthlyMap[key]) {
+                    monthlyMap[key] = { income: 0, expense: 0 };
+                    dateMap[key] = date;
+                }
+
+                if (tx.type === "income") {
+                    monthlyMap[key].income += tx.amount;
+                } else {
+                    monthlyMap[key].expense += tx.amount;
+                }
+            } catch (e) {
+                console.error("Error parsing date:", tx.date);
+            }
+        });
+
+        const sortedKeys = Object.keys(monthlyMap).sort(
+            (a, b) => dateMap[a] - dateMap[b],
+        );
+
+        return { monthlyMap, dateMap, sortedKeys };
+    }, [allTransactions]);
+
+    // Calculate balance change from last month
+    const balanceChangeData = useMemo(() => {
+        const { monthlyMap, sortedKeys } = getMonthlyData;
+
+        if (sortedKeys.length < 2) {
+            return {
+                percentage: 0,
+                isPositive: true,
+                text: "Insufficient data",
+            };
+        }
+
+        const currentMonthKey = sortedKeys[sortedKeys.length - 1];
+        const previousMonthKey = sortedKeys[sortedKeys.length - 2];
+
+        const currentBalance =
+            monthlyMap[currentMonthKey].income -
+            monthlyMap[currentMonthKey].expense;
+        const previousBalance =
+            monthlyMap[previousMonthKey].income -
+            monthlyMap[previousMonthKey].expense;
+
+        let percentage = 0;
+        if (previousBalance !== 0) {
+            percentage = Math.abs(
+                ((currentBalance - previousBalance) / previousBalance) * 100,
+            );
+        } else if (currentBalance > 0) {
+            percentage = 100;
+        }
+
+        const isPositive = currentBalance >= previousBalance;
+
+        return {
+            percentage: percentage.toFixed(1),
+            isPositive,
+            text: `${isPositive ? "+" : "-"}${percentage.toFixed(1)}% from last month`,
+        };
+    }, [getMonthlyData]);
+
+    // Calculate income change from last month
+    const incomeChangeData = useMemo(() => {
+        const { monthlyMap, sortedKeys } = getMonthlyData;
+
+        if (sortedKeys.length < 2) {
+            return {
+                percentage: 0,
+                isPositive: true,
+                text: "Insufficient data",
+            };
+        }
+
+        const currentMonthKey = sortedKeys[sortedKeys.length - 1];
+        const previousMonthKey = sortedKeys[sortedKeys.length - 2];
+
+        const currentIncome = monthlyMap[currentMonthKey].income;
+        const previousIncome = monthlyMap[previousMonthKey].income;
+
+        let percentage = 0;
+        if (previousIncome !== 0) {
+            percentage = Math.abs(
+                ((currentIncome - previousIncome) / previousIncome) * 100,
+            );
+        } else if (currentIncome > 0) {
+            percentage = 100;
+        }
+
+        const isPositive = currentIncome >= previousIncome;
+
+        return {
+            percentage: percentage.toFixed(1),
+            isPositive,
+            amount: currentIncome,
+        };
+    }, [getMonthlyData]);
+
+    // Calculate expense change from last month
+    const expenseChangeData = useMemo(() => {
+        const { monthlyMap, sortedKeys } = getMonthlyData;
+
+        if (sortedKeys.length < 2) {
+            return {
+                percentage: 0,
+                isPositive: true,
+                text: "Insufficient data",
+            };
+        }
+
+        const currentMonthKey = sortedKeys[sortedKeys.length - 1];
+        const previousMonthKey = sortedKeys[sortedKeys.length - 2];
+
+        const currentExpense = monthlyMap[currentMonthKey].expense;
+        const previousExpense = monthlyMap[previousMonthKey].expense;
+
+        let percentage = 0;
+        if (previousExpense !== 0) {
+            percentage = Math.abs(
+                ((currentExpense - previousExpense) / previousExpense) * 100,
+            );
+        } else if (currentExpense > 0) {
+            percentage = 100;
+        }
+
+        // For expenses, positive is when it decreased (good)
+        const isPositive = currentExpense <= previousExpense;
+
+        return {
+            percentage: percentage.toFixed(1),
+            isPositive,
+            amount: currentExpense,
+        };
+    }, [getMonthlyData]);
+
+    // For recent transactions display - Show 8 latest transactions
+    const filteredTransactions = useMemo(() => {
+        const filtered = allTransactions.filter((tx) => {
+            if (transactionFilter === "All") return true;
+            if (transactionFilter === "Income") return tx.type === "income";
+            if (transactionFilter === "Expenses") return tx.type === "expense";
+            return true;
+        });
+
+        // Sort by date (newest first) and take 8 latest
+        return [...filtered]
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .slice(0, 8);
+    }, [allTransactions, transactionFilter]);
+
     const chartTextColor = isDarkMode ? "#e2e8f0" : "#1e293b";
     const gridColor = isDarkMode ? "#334155" : "#e2e8f0";
-
-    // Transaction data - use predefined categories
-    const allTransactions = [
-        {
-            id: 1,
-            name: "Gourmet Garden Bistro",
-            description: "Fine Dining",
-            date: "24 Oct, 2023",
-            categoryId: "food",
-            amount: 4250,
-            type: "expense",
-        },
-        {
-            id: 2,
-            name: "Global Tech Corp",
-            description: "Monthly Salary",
-            date: "01 Oct, 2023",
-            categoryId: "income",
-            amount: 125000,
-            type: "income",
-        },
-        {
-            id: 3,
-            name: "Skyways Aviation",
-            description: "Business Trip",
-            date: "28 Sep, 2023",
-            categoryId: "travel",
-            amount: 12800,
-            type: "expense",
-        },
-        // Add more transactions here...
-    ];
-
-    // Show only first 3 transactions on dashboard
-    const dashboardTransactions = allTransactions.slice(0, 3);
-
-    const filteredTransactions = dashboardTransactions.filter((tx) => {
-        if (transactionFilter === "Income") return tx.type === "income";
-        if (transactionFilter === "Expenses") return tx.type === "expense";
-        return true;
-    });
 
     return (
         <div className={`p-8 space-y-8`}>
@@ -221,20 +263,36 @@ const Dashboard = () => {
                             </svg>
                         </div>
                     </div>
-                    <h2 className="text-6xl font-bold text-white">₹4,28,450</h2>
+                    <h2 className="text-6xl font-bold text-white">
+                        ₹{totals.balance.toLocaleString("en-IN")}
+                    </h2>
                     <p className="flex items-center text-center content-center gap-1.5 text-blue-100 text-sm font-medium pt-2 pb-1">
-                        <svg
-                            width="10"
-                            height="6"
-                            viewBox="0 0 10 6"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M0.7 6L0 5.3L3.7 1.575L5.7 3.575L8.3 1H7V0H10V3H9V1.7L5.7 5L3.7 3L0.7 6Z"
-                                fill="rgb(219 234 254 / 1)"
-                            />
-                        </svg>
-                        +2.4% from last month
+                        {balanceChangeData.isPositive ? (
+                            <svg
+                                width="10"
+                                height="6"
+                                viewBox="0 0 10 6"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0.7 6L0 5.3L3.7 1.575L5.7 3.575L8.3 1H7V0H10V3H9V1.7L5.7 5L3.7 3L0.7 6Z"
+                                    fill="rgb(219 234 254 / 1)"
+                                />
+                            </svg>
+                        ) : (
+                            <svg
+                                width="10"
+                                height="6"
+                                viewBox="0 0 10 6"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0.7 0L0 0.7L3.7 4.425L5.7 2.425L8.3 5H7V6H10V3H9V4.3L5.7 1L3.7 3L0.7 0Z"
+                                    fill="rgb(219 234 254 / 1)"
+                                />
+                            </svg>
+                        )}
+                        {balanceChangeData.text}
                     </p>
                 </div>
 
@@ -267,12 +325,13 @@ const Dashboard = () => {
                             </svg>
 
                             <div
-                                className={`w-16 h-7 rounded-full flex items-center justify-center text-sm font-medium text-emerald-400 ${
-                                    isDarkMode
-                                        ? "bg-emerald-500/20"
-                                        : "bg-emerald-100"
+                                className={`w-16 h-7 rounded-full flex items-center justify-center text-sm font-medium ${
+                                    incomeChangeData.isPositive
+                                        ? "text-emerald-400 bg-emerald-500/20"
+                                        : "text-red-400 bg-red-500/20"
                                 }`}>
-                                +12%
+                                {incomeChangeData.isPositive ? "+" : "-"}
+                                {incomeChangeData.percentage}%
                             </div>
                         </div>
                         <div>
@@ -282,13 +341,16 @@ const Dashboard = () => {
                                         ? "text-slate-400"
                                         : "text-slate-500"
                                 }`}>
-                                TOTAL INCOME
+                                MONTHLY INCOME
                             </p>
                             <h3
                                 className={`text-4xl font-bold ${
                                     isDarkMode ? "text-white" : "text-slate-900"
                                 }`}>
-                                ₹1,85,200
+                                ₹
+                                {incomeChangeData.amount.toLocaleString(
+                                    "en-IN",
+                                )}
                             </h3>
                         </div>
                     </div>
@@ -323,10 +385,13 @@ const Dashboard = () => {
                             </svg>
 
                             <div
-                                className={`w-16 h-7 rounded-full flex items-center justify-center text-sm font-medium text-red-400 ${
-                                    isDarkMode ? "bg-red-500/20" : "bg-red-100"
+                                className={`w-16 h-7 rounded-full flex items-center justify-center text-sm font-medium ${
+                                    expenseChangeData.isPositive
+                                        ? "text-emerald-400 bg-emerald-500/20"
+                                        : "text-red-400 bg-red-500/20"
                                 }`}>
-                                -5.4%
+                                {expenseChangeData.isPositive ? "-" : "+"}
+                                {expenseChangeData.percentage}%
                             </div>
                         </div>
                         <div>
@@ -336,13 +401,16 @@ const Dashboard = () => {
                                         ? "text-slate-400"
                                         : "text-slate-500"
                                 }`}>
-                                TOTAL EXPENSES
+                                MONTHLY EXPENSES
                             </p>
                             <h3
                                 className={`text-4xl font-bold ${
                                     isDarkMode ? "text-white" : "text-slate-900"
                                 }`}>
-                                ₹92,340
+                                ₹
+                                {expenseChangeData.amount.toLocaleString(
+                                    "en-IN",
+                                )}
                             </h3>
                         </div>
                     </div>
@@ -452,24 +520,22 @@ const Dashboard = () => {
 
                         {/* Month Filter Buttons */}
                         <div className="flex gap-2">
-                            {["JAN", "FEB", "MAR", "APR", "MAY", "JUN"].map(
-                                (month) => (
-                                    <button
-                                        key={month}
-                                        onClick={() =>
-                                            setCategoryMonthFilter(month)
-                                        }
-                                        className={`px-2 py-1 rounded-lg text-xs font-medium transition-all duration-200 ${
-                                            categoryMonthFilter === month
-                                                ? "bg-blue-600 text-white"
-                                                : isDarkMode
-                                                  ? "bg-slate-700 text-slate-300 hover:bg-slate-600"
-                                                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                                        }`}>
-                                        {month}
-                                    </button>
-                                ),
-                            )}
+                            {lastSixMonths.map((month) => (
+                                <button
+                                    key={month}
+                                    onClick={() =>
+                                        setCategoryMonthFilter(month)
+                                    }
+                                    className={`px-2 py-1 rounded-lg text-xs font-medium transition-all duration-200 ${
+                                        categoryMonthFilter === month
+                                            ? "bg-blue-600 text-white"
+                                            : isDarkMode
+                                              ? "bg-slate-700 text-slate-300 hover:bg-slate-600"
+                                              : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                                    }`}>
+                                    {month}
+                                </button>
+                            ))}
                         </div>
                     </div>
 
@@ -486,57 +552,66 @@ const Dashboard = () => {
                                     display: none;
                                 }
                             `}</style>
-                            {categoryData.map((item, index) => (
-                                <div
-                                    key={index}
-                                    onMouseEnter={() =>
-                                        setHoveredCategory(index)
-                                    }
-                                    onMouseLeave={() =>
-                                        setHoveredCategory(null)
-                                    }
-                                    className={`flex items-center gap-3 p-3 rounded-lg transition-all duration-200 cursor-pointer ${
-                                        hoveredCategory === index
-                                            ? isDarkMode
-                                                ? "bg-slate-700/50"
-                                                : "bg-slate-100"
-                                            : ""
-                                    }`}>
+                            {categoryData
+                                .filter(
+                                    (entry) =>
+                                        Math.round(entry.amount / 1000) > 0,
+                                )
+                                .map((item, index) => (
                                     <div
-                                        className="w-3 h-3 rounded-full flex-shrink-0"
-                                        style={{
-                                            backgroundColor: item.color,
-                                        }}></div>
-                                    <div className="flex-1 min-w-0">
-                                        <p
-                                            className={`text-sm font-medium ${
-                                                isDarkMode
-                                                    ? "text-slate-200"
-                                                    : "text-slate-700"
-                                            }`}>
-                                            {item.name}
-                                        </p>
-                                        <p
-                                            className={`text-xs ${
-                                                isDarkMode
-                                                    ? "text-slate-500"
-                                                    : "text-slate-500"
-                                            }`}>
-                                            {item.value}%
-                                        </p>
+                                        key={index}
+                                        onMouseEnter={() =>
+                                            setHoveredCategory(index)
+                                        }
+                                        onMouseLeave={() =>
+                                            setHoveredCategory(null)
+                                        }
+                                        className={`flex items-center gap-3 p-3 rounded-lg transition-all duration-200 cursor-pointer ${
+                                            hoveredCategory === index
+                                                ? isDarkMode
+                                                    ? "bg-slate-700/50"
+                                                    : "bg-slate-100"
+                                                : ""
+                                        }`}>
+                                        <div
+                                            className="w-3 h-3 rounded-full flex-shrink-0"
+                                            style={{
+                                                backgroundColor: item.color,
+                                            }}></div>
+                                        <div className="flex-1 min-w-0">
+                                            <p
+                                                className={`text-sm font-medium ${
+                                                    isDarkMode
+                                                        ? "text-slate-200"
+                                                        : "text-slate-700"
+                                                }`}>
+                                                {item.name}
+                                            </p>
+                                            <p
+                                                className={`text-xs ${
+                                                    isDarkMode
+                                                        ? "text-slate-500"
+                                                        : "text-slate-500"
+                                                }`}>
+                                                {item.value}%
+                                            </p>
+                                        </div>
+                                        <div className="text-right flex-shrink-0">
+                                            <p
+                                                className={`text-sm font-bold ${
+                                                    isDarkMode
+                                                        ? "text-white"
+                                                        : "text-slate-900"
+                                                }`}>
+                                                ₹
+                                                {(item.amount / 1000).toFixed(
+                                                    0,
+                                                )}
+                                                k
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div className="text-right flex-shrink-0">
-                                        <p
-                                            className={`text-sm font-bold ${
-                                                isDarkMode
-                                                    ? "text-white"
-                                                    : "text-slate-900"
-                                            }`}>
-                                            ₹{(item.amount / 1000).toFixed(0)}k
-                                        </p>
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
                         </div>
 
                         {/* Right Side - Chart */}
@@ -544,7 +619,12 @@ const Dashboard = () => {
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie
-                                        data={categoryData}
+                                        data={categoryData.filter(
+                                            (entry) =>
+                                                Math.round(
+                                                    entry.amount / 1000,
+                                                ) > 0,
+                                        )}
                                         cx="50%"
                                         cy="50%"
                                         innerRadius={40}
@@ -558,22 +638,32 @@ const Dashboard = () => {
                                         onMouseLeave={() =>
                                             setHoveredCategory(null)
                                         }>
-                                        {categoryData.map((entry, index) => (
-                                            <Cell
-                                                key={`cell-${index}`}
-                                                fill={entry.color}
-                                                opacity={
-                                                    hoveredCategory === null ||
-                                                    hoveredCategory === index
-                                                        ? 1
-                                                        : 0.5
-                                                }
-                                                style={{
-                                                    cursor: "pointer",
-                                                    transition: "opacity 0.2s",
-                                                }}
-                                            />
-                                        ))}
+                                        {categoryData
+                                            .filter(
+                                                (entry) =>
+                                                    Math.round(
+                                                        entry.amount / 1000,
+                                                    ) > 0,
+                                            )
+                                            .map((entry, index) => (
+                                                <Cell
+                                                    key={`cell-${index}`}
+                                                    fill={entry.color}
+                                                    opacity={
+                                                        hoveredCategory ===
+                                                            null ||
+                                                        hoveredCategory ===
+                                                            index
+                                                            ? 1
+                                                            : 0.5
+                                                    }
+                                                    style={{
+                                                        cursor: "pointer",
+                                                        transition:
+                                                            "opacity 0.2s",
+                                                    }}
+                                                />
+                                            ))}
                                     </Pie>
                                     <Tooltip
                                         formatter={(value) => `${value}%`}
@@ -684,14 +774,6 @@ const Dashboard = () => {
                                     }`}>
                                     AMOUNT
                                 </th>
-                                <th
-                                    className={`text-center py-4 px-6 text-xs font-semibold tracking-wide ${
-                                        isDarkMode
-                                            ? "text-slate-400"
-                                            : "text-slate-600"
-                                    }`}>
-                                    ACTIONS
-                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -779,60 +861,6 @@ const Dashboard = () => {
                                             ? "+"
                                             : "-"}
                                         ₹{transaction.amount.toLocaleString()}
-                                    </td>
-
-                                    {/* Actions */}
-                                    <td className="py-4 px-6">
-                                        <div className="flex gap-3 justify-center">
-                                            {/* Edit Button */}
-                                            <button
-                                                className={`p-2 rounded-lg transition-all duration-200 ${
-                                                    isDarkMode
-                                                        ? "hover:bg-slate-700 text-slate-400 hover:text-white"
-                                                        : "hover:bg-slate-100 text-slate-600 hover:text-slate-900"
-                                                }`}>
-                                                <svg
-                                                    width="18"
-                                                    height="18"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth="2">
-                                                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                                                </svg>
-                                            </button>
-
-                                            {/* Delete Button */}
-                                            <button
-                                                className={`p-2 rounded-lg transition-all duration-200 ${
-                                                    isDarkMode
-                                                        ? "hover:bg-slate-700 text-slate-400 hover:text-red-400"
-                                                        : "hover:bg-slate-100 text-slate-600 hover:text-red-600"
-                                                }`}>
-                                                <svg
-                                                    width="18"
-                                                    height="18"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth="2">
-                                                    <polyline points="3 6 5 6 21 6" />
-                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                                                    <line
-                                                        x1="10"
-                                                        y1="11"
-                                                        x2="10"
-                                                        y2="17"
-                                                    />
-                                                    <line
-                                                        x1="14"
-                                                        y1="11"
-                                                        x2="14"
-                                                        y2="17"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </div>
                                     </td>
                                 </tr>
                             ))}

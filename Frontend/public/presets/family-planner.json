@@ -1,0 +1,966 @@
+{
+    "id": "family-planner",
+    "name": "Family Planner",
+    "description": "Household essentials, bills, and monthly planning flow.",
+    "transactions": [
+        {
+            "id": 1,
+            "name": "Dad Salary",
+            "description": "Monthly salary",
+            "date": "01 Apr, 2025",
+            "categoryId": "income",
+            "amount": 65000,
+            "type": "income"
+        },
+        {
+            "id": 2,
+            "name": "Mom Salary",
+            "description": "Part-time income",
+            "date": "01 Apr, 2025",
+            "categoryId": "income",
+            "amount": 30000,
+            "type": "income"
+        },
+        {
+            "id": 3,
+            "name": "House Rent",
+            "description": "Monthly rent",
+            "date": "01 Apr, 2025",
+            "categoryId": "housing",
+            "amount": 35000,
+            "type": "expense"
+        },
+        {
+            "id": 4,
+            "name": "Weekly Groceries",
+            "description": "Food supplies",
+            "date": "05 Apr, 2025",
+            "categoryId": "food",
+            "amount": 3500,
+            "type": "expense"
+        },
+        {
+            "id": 5,
+            "name": "School Fees",
+            "description": "Child education",
+            "date": "02 Apr, 2025",
+            "categoryId": "education",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 6,
+            "name": "Electricity Bill",
+            "description": "Monthly utility",
+            "date": "10 Apr, 2025",
+            "categoryId": "utilities",
+            "amount": 2500,
+            "type": "expense"
+        },
+        {
+            "id": 7,
+            "name": "Water Bill",
+            "description": "Monthly water",
+            "date": "12 Apr, 2025",
+            "categoryId": "utilities",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 8,
+            "name": "Family Movie",
+            "description": "Cinema outing",
+            "date": "15 Apr, 2025",
+            "categoryId": "entertainment",
+            "amount": 1200,
+            "type": "expense"
+        },
+        {
+            "id": 9,
+            "name": "Kids Medicines",
+            "description": "Health supplies",
+            "date": "18 Apr, 2025",
+            "categoryId": "healthcare",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 10,
+            "name": "Family Commute",
+            "description": "Travel passes",
+            "date": "03 Apr, 2025",
+            "categoryId": "travel",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 11,
+            "name": "Restaurant Dinner",
+            "description": "Family dining",
+            "date": "20 Apr, 2025",
+            "categoryId": "food",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 12,
+            "name": "Kids Clothes",
+            "description": "School uniform",
+            "date": "22 Apr, 2025",
+            "categoryId": "shopping",
+            "amount": 2500,
+            "type": "expense"
+        },
+        {
+            "id": 13,
+            "name": "Dad Salary",
+            "description": "Monthly salary",
+            "date": "01 May, 2025",
+            "categoryId": "income",
+            "amount": 65000,
+            "type": "income"
+        },
+        {
+            "id": 14,
+            "name": "Mom Salary",
+            "description": "Part-time income",
+            "date": "01 May, 2025",
+            "categoryId": "income",
+            "amount": 30000,
+            "type": "income"
+        },
+        {
+            "id": 15,
+            "name": "House Rent",
+            "description": "Monthly rent",
+            "date": "01 May, 2025",
+            "categoryId": "housing",
+            "amount": 35000,
+            "type": "expense"
+        },
+        {
+            "id": 16,
+            "name": "Weekly Groceries",
+            "description": "Food supplies",
+            "date": "05 May, 2025",
+            "categoryId": "food",
+            "amount": 3400,
+            "type": "expense"
+        },
+        {
+            "id": 17,
+            "name": "School Fees",
+            "description": "Child education",
+            "date": "02 May, 2025",
+            "categoryId": "education",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 18,
+            "name": "Electricity Bill",
+            "description": "Monthly utility",
+            "date": "10 May, 2025",
+            "categoryId": "utilities",
+            "amount": 2600,
+            "type": "expense"
+        },
+        {
+            "id": 19,
+            "name": "Gas Cylinder",
+            "description": "Cooking gas",
+            "date": "12 May, 2025",
+            "categoryId": "utilities",
+            "amount": 600,
+            "type": "expense"
+        },
+        {
+            "id": 20,
+            "name": "Doctor Visit",
+            "description": "Medical checkup",
+            "date": "14 May, 2025",
+            "categoryId": "healthcare",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 21,
+            "name": "Tuition Class",
+            "description": "Extra classes",
+            "date": "16 May, 2025",
+            "categoryId": "education",
+            "amount": 3000,
+            "type": "expense"
+        },
+        {
+            "id": 22,
+            "name": "Pizza Dinner",
+            "description": "Family treat",
+            "date": "20 May, 2025",
+            "categoryId": "food",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 23,
+            "name": "Dad Salary",
+            "description": "Monthly salary",
+            "date": "01 Jun, 2025",
+            "categoryId": "income",
+            "amount": 65000,
+            "type": "income"
+        },
+        {
+            "id": 24,
+            "name": "Mom Salary",
+            "description": "Part-time income",
+            "date": "01 Jun, 2025",
+            "categoryId": "income",
+            "amount": 30000,
+            "type": "income"
+        },
+        {
+            "id": 25,
+            "name": "House Rent",
+            "description": "Monthly rent",
+            "date": "01 Jun, 2025",
+            "categoryId": "housing",
+            "amount": 35000,
+            "type": "expense"
+        },
+        {
+            "id": 26,
+            "name": "Weekly Groceries",
+            "description": "Food supplies",
+            "date": "05 Jun, 2025",
+            "categoryId": "food",
+            "amount": 3600,
+            "type": "expense"
+        },
+        {
+            "id": 27,
+            "name": "Electricity Bill",
+            "description": "Monthly utility",
+            "date": "10 Jun, 2025",
+            "categoryId": "utilities",
+            "amount": 3000,
+            "type": "expense"
+        },
+        {
+            "id": 28,
+            "name": "School Supplies",
+            "description": "Books and materials",
+            "date": "08 Jun, 2025",
+            "categoryId": "education",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 29,
+            "name": "Summer Camp",
+            "description": "Kids activity",
+            "date": "15 Jun, 2025",
+            "categoryId": "entertainment",
+            "amount": 5000,
+            "type": "expense"
+        },
+        {
+            "id": 30,
+            "name": "Family Doctor",
+            "description": "Health checkup",
+            "date": "18 Jun, 2025",
+            "categoryId": "healthcare",
+            "amount": 1800,
+            "type": "expense"
+        },
+        {
+            "id": 31,
+            "name": "Dad Salary",
+            "description": "Monthly salary",
+            "date": "01 Jul, 2025",
+            "categoryId": "income",
+            "amount": 67000,
+            "type": "income"
+        },
+        {
+            "id": 32,
+            "name": "Mom Salary",
+            "description": "Part-time income",
+            "date": "01 Jul, 2025",
+            "categoryId": "income",
+            "amount": 30000,
+            "type": "income"
+        },
+        {
+            "id": 33,
+            "name": "House Rent",
+            "description": "Monthly rent",
+            "date": "01 Jul, 2025",
+            "categoryId": "housing",
+            "amount": 35000,
+            "type": "expense"
+        },
+        {
+            "id": 34,
+            "name": "Weekly Groceries",
+            "description": "Food supplies",
+            "date": "05 Jul, 2025",
+            "categoryId": "food",
+            "amount": 3500,
+            "type": "expense"
+        },
+        {
+            "id": 35,
+            "name": "Electricity Bill",
+            "description": "Monthly utility",
+            "date": "10 Jul, 2025",
+            "categoryId": "utilities",
+            "amount": 3200,
+            "type": "expense"
+        },
+        {
+            "id": 36,
+            "name": "School Fees",
+            "description": "Child education",
+            "date": "02 Jul, 2025",
+            "categoryId": "education",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 37,
+            "name": "Entertainment Subscription",
+            "description": "Streaming service",
+            "date": "01 Jul, 2025",
+            "categoryId": "entertainment",
+            "amount": 600,
+            "type": "expense"
+        },
+        {
+            "id": 38,
+            "name": "Medicine and Vitamins",
+            "description": "Health supplements",
+            "date": "12 Jul, 2025",
+            "categoryId": "healthcare",
+            "amount": 2500,
+            "type": "expense"
+        },
+        {
+            "id": 39,
+            "name": "Dad Salary",
+            "description": "Monthly salary",
+            "date": "01 Aug, 2025",
+            "categoryId": "income",
+            "amount": 65000,
+            "type": "income"
+        },
+        {
+            "id": 40,
+            "name": "Mom Salary",
+            "description": "Part-time income",
+            "date": "01 Aug, 2025",
+            "categoryId": "income",
+            "amount": 30000,
+            "type": "income"
+        },
+        {
+            "id": 41,
+            "name": "House Rent",
+            "description": "Monthly rent",
+            "date": "01 Aug, 2025",
+            "categoryId": "housing",
+            "amount": 35000,
+            "type": "expense"
+        },
+        {
+            "id": 42,
+            "name": "Weekly Groceries",
+            "description": "Food supplies",
+            "date": "05 Aug, 2025",
+            "categoryId": "food",
+            "amount": 3700,
+            "type": "expense"
+        },
+        {
+            "id": 43,
+            "name": "Electricity Bill",
+            "description": "Monthly utility",
+            "date": "10 Aug, 2025",
+            "categoryId": "utilities",
+            "amount": 3500,
+            "type": "expense"
+        },
+        {
+            "id": 44,
+            "name": "Back to School",
+            "description": "School uniform",
+            "date": "12 Aug, 2025",
+            "categoryId": "shopping",
+            "amount": 4000,
+            "type": "expense"
+        },
+        {
+            "id": 45,
+            "name": "School Fees",
+            "description": "Child education",
+            "date": "02 Aug, 2025",
+            "categoryId": "education",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 46,
+            "name": "Family Vacation",
+            "description": "Weekend trip",
+            "date": "20 Aug, 2025",
+            "categoryId": "travel",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 47,
+            "name": "Dad Salary",
+            "description": "Monthly salary",
+            "date": "01 Sep, 2025",
+            "categoryId": "income",
+            "amount": 65000,
+            "type": "income"
+        },
+        {
+            "id": 48,
+            "name": "Mom Salary",
+            "description": "Part-time income",
+            "date": "01 Sep, 2025",
+            "categoryId": "income",
+            "amount": 32000,
+            "type": "income"
+        },
+        {
+            "id": 49,
+            "name": "House Rent",
+            "description": "Monthly rent",
+            "date": "01 Sep, 2025",
+            "categoryId": "housing",
+            "amount": 35000,
+            "type": "expense"
+        },
+        {
+            "id": 50,
+            "name": "Weekly Groceries",
+            "description": "Food supplies",
+            "date": "05 Sep, 2025",
+            "categoryId": "food",
+            "amount": 3600,
+            "type": "expense"
+        },
+        {
+            "id": 51,
+            "name": "Electricity Bill",
+            "description": "Monthly utility",
+            "date": "10 Sep, 2025",
+            "categoryId": "utilities",
+            "amount": 2800,
+            "type": "expense"
+        },
+        {
+            "id": 52,
+            "name": "School Fees",
+            "description": "Child education",
+            "date": "02 Sep, 2025",
+            "categoryId": "education",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 53,
+            "name": "Kids Entertainment",
+            "description": "Theme park",
+            "date": "15 Sep, 2025",
+            "categoryId": "entertainment",
+            "amount": 3000,
+            "type": "expense"
+        },
+        {
+            "id": 54,
+            "name": "Doctor Consultation",
+            "description": "Annual checkup",
+            "date": "20 Sep, 2025",
+            "categoryId": "healthcare",
+            "amount": 2500,
+            "type": "expense"
+        },
+        {
+            "id": 55,
+            "name": "Dad Salary",
+            "description": "Monthly salary",
+            "date": "01 Oct, 2025",
+            "categoryId": "income",
+            "amount": 68000,
+            "type": "income"
+        },
+        {
+            "id": 56,
+            "name": "Mom Salary",
+            "description": "Part-time income",
+            "date": "01 Oct, 2025",
+            "categoryId": "income",
+            "amount": 30000,
+            "type": "income"
+        },
+        {
+            "id": 57,
+            "name": "House Rent",
+            "description": "Monthly rent",
+            "date": "01 Oct, 2025",
+            "categoryId": "housing",
+            "amount": 35000,
+            "type": "expense"
+        },
+        {
+            "id": 58,
+            "name": "Weekly Groceries",
+            "description": "Food supplies",
+            "date": "05 Oct, 2025",
+            "categoryId": "food",
+            "amount": 3500,
+            "type": "expense"
+        },
+        {
+            "id": 59,
+            "name": "Electricity Bill",
+            "description": "Monthly utility",
+            "date": "10 Oct, 2025",
+            "categoryId": "utilities",
+            "amount": 2700,
+            "type": "expense"
+        },
+        {
+            "id": 60,
+            "name": "School Fees",
+            "description": "Child education",
+            "date": "02 Oct, 2025",
+            "categoryId": "education",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 61,
+            "name": "Diwali Shopping",
+            "description": "Festival clothes",
+            "date": "18 Oct, 2025",
+            "categoryId": "shopping",
+            "amount": 5000,
+            "type": "expense"
+        },
+        {
+            "id": 62,
+            "name": "Diwali Entertainment",
+            "description": "Celebration",
+            "date": "20 Oct, 2025",
+            "categoryId": "entertainment",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 63,
+            "name": "Dad Salary",
+            "description": "Monthly salary",
+            "date": "01 Nov, 2025",
+            "categoryId": "income",
+            "amount": 72000,
+            "type": "income"
+        },
+        {
+            "id": 64,
+            "name": "Mom Salary",
+            "description": "Part-time income",
+            "date": "01 Nov, 2025",
+            "categoryId": "income",
+            "amount": 30000,
+            "type": "income"
+        },
+        {
+            "id": 65,
+            "name": "House Rent",
+            "description": "Monthly rent",
+            "date": "01 Nov, 2025",
+            "categoryId": "housing",
+            "amount": 35000,
+            "type": "expense"
+        },
+        {
+            "id": 66,
+            "name": "Weekly Groceries",
+            "description": "Food supplies",
+            "date": "05 Nov, 2025",
+            "categoryId": "food",
+            "amount": 3800,
+            "type": "expense"
+        },
+        {
+            "id": 67,
+            "name": "Electricity Bill",
+            "description": "Monthly utility",
+            "date": "10 Nov, 2025",
+            "categoryId": "utilities",
+            "amount": 2500,
+            "type": "expense"
+        },
+        {
+            "id": 68,
+            "name": "School Fees",
+            "description": "Child education",
+            "date": "02 Nov, 2025",
+            "categoryId": "education",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 69,
+            "name": "Winter Clothes",
+            "description": "Seasonal shopping",
+            "date": "15 Nov, 2025",
+            "categoryId": "shopping",
+            "amount": 6000,
+            "type": "expense"
+        },
+        {
+            "id": 70,
+            "name": "Family Gift Exchange",
+            "description": "Holiday gifts",
+            "date": "28 Nov, 2025",
+            "categoryId": "shopping",
+            "amount": 4000,
+            "type": "expense"
+        },
+        {
+            "id": 71,
+            "name": "Dad Salary",
+            "description": "Monthly salary",
+            "date": "01 Dec, 2025",
+            "categoryId": "income",
+            "amount": 65000,
+            "type": "income"
+        },
+        {
+            "id": 72,
+            "name": "Mom Salary",
+            "description": "Part-time income",
+            "date": "01 Dec, 2025",
+            "categoryId": "income",
+            "amount": 30000,
+            "type": "income"
+        },
+        {
+            "id": 73,
+            "name": "House Rent",
+            "description": "Monthly rent",
+            "date": "01 Dec, 2025",
+            "categoryId": "housing",
+            "amount": 35000,
+            "type": "expense"
+        },
+        {
+            "id": 74,
+            "name": "Weekly Groceries",
+            "description": "Food supplies",
+            "date": "05 Dec, 2025",
+            "categoryId": "food",
+            "amount": 4000,
+            "type": "expense"
+        },
+        {
+            "id": 75,
+            "name": "Christmas Gifts",
+            "description": "Holiday shopping",
+            "date": "10 Dec, 2025",
+            "categoryId": "shopping",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 76,
+            "name": "Electricity Bill",
+            "description": "Monthly utility",
+            "date": "12 Dec, 2025",
+            "categoryId": "utilities",
+            "amount": 3000,
+            "type": "expense"
+        },
+        {
+            "id": 77,
+            "name": "School Fees",
+            "description": "Child education",
+            "date": "02 Dec, 2025",
+            "categoryId": "education",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 78,
+            "name": "Year-end Holiday Trip",
+            "description": "Family vacation",
+            "date": "20 Dec, 2025",
+            "categoryId": "travel",
+            "amount": 15000,
+            "type": "expense"
+        },
+        {
+            "id": 79,
+            "name": "Dad Salary",
+            "description": "Monthly salary",
+            "date": "01 Jan, 2026",
+            "categoryId": "income",
+            "amount": 68000,
+            "type": "income"
+        },
+        {
+            "id": 80,
+            "name": "Mom Salary",
+            "description": "Part-time income",
+            "date": "01 Jan, 2026",
+            "categoryId": "income",
+            "amount": 30000,
+            "type": "income"
+        },
+        {
+            "id": 81,
+            "name": "House Rent",
+            "description": "Monthly rent",
+            "date": "01 Jan, 2026",
+            "categoryId": "housing",
+            "amount": 35000,
+            "type": "expense"
+        },
+        {
+            "id": 82,
+            "name": "Weekly Groceries",
+            "description": "Food supplies",
+            "date": "05 Jan, 2026",
+            "categoryId": "food",
+            "amount": 3600,
+            "type": "expense"
+        },
+        {
+            "id": 83,
+            "name": "School Fees",
+            "description": "Child education",
+            "date": "02 Jan, 2026",
+            "categoryId": "education",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 84,
+            "name": "Electricity Bill",
+            "description": "Monthly utility",
+            "date": "10 Jan, 2026",
+            "categoryId": "utilities",
+            "amount": 2900,
+            "type": "expense"
+        },
+        {
+            "id": 85,
+            "name": "Family Doctor",
+            "description": "Annual checkup",
+            "date": "15 Jan, 2026",
+            "categoryId": "healthcare",
+            "amount": 3000,
+            "type": "expense"
+        },
+        {
+            "id": 86,
+            "name": "Entertainment",
+            "description": "Cinema",
+            "date": "22 Jan, 2026",
+            "categoryId": "entertainment",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 87,
+            "name": "Dad Salary",
+            "description": "Monthly salary",
+            "date": "01 Feb, 2026",
+            "categoryId": "income",
+            "amount": 65000,
+            "type": "income"
+        },
+        {
+            "id": 88,
+            "name": "Mom Salary",
+            "description": "Part-time income",
+            "date": "01 Feb, 2026",
+            "categoryId": "income",
+            "amount": 30000,
+            "type": "income"
+        },
+        {
+            "id": 89,
+            "name": "House Rent",
+            "description": "Monthly rent",
+            "date": "01 Feb, 2026",
+            "categoryId": "housing",
+            "amount": 35000,
+            "type": "expense"
+        },
+        {
+            "id": 90,
+            "name": "Weekly Groceries",
+            "description": "Food supplies",
+            "date": "05 Feb, 2026",
+            "categoryId": "food",
+            "amount": 3500,
+            "type": "expense"
+        },
+        {
+            "id": 91,
+            "name": "School Fees",
+            "description": "Child education",
+            "date": "02 Feb, 2026",
+            "categoryId": "education",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 92,
+            "name": "Valentine's Dinner",
+            "description": "Restaurant",
+            "date": "14 Feb, 2026",
+            "categoryId": "entertainment",
+            "amount": 2500,
+            "type": "expense"
+        },
+        {
+            "id": 93,
+            "name": "Kids Birthday",
+            "description": "Birthday party",
+            "date": "20 Feb, 2026",
+            "categoryId": "shopping",
+            "amount": 3000,
+            "type": "expense"
+        },
+        {
+            "id": 94,
+            "name": "Electricity Bill",
+            "description": "Monthly utility",
+            "date": "10 Feb, 2026",
+            "categoryId": "utilities",
+            "amount": 2600,
+            "type": "expense"
+        },
+        {
+            "id": 95,
+            "name": "Family Commute",
+            "description": "Travel passes",
+            "date": "03 Feb, 2026",
+            "categoryId": "travel",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 96,
+            "name": "Dad Salary",
+            "description": "Monthly salary",
+            "date": "01 Mar, 2026",
+            "categoryId": "income",
+            "amount": 70000,
+            "type": "income"
+        },
+        {
+            "id": 97,
+            "name": "Mom Salary",
+            "description": "Part-time income",
+            "date": "01 Mar, 2026",
+            "categoryId": "income",
+            "amount": 32000,
+            "type": "income"
+        },
+        {
+            "id": 98,
+            "name": "House Rent",
+            "description": "Monthly rent",
+            "date": "01 Mar, 2026",
+            "categoryId": "housing",
+            "amount": 35000,
+            "type": "expense"
+        },
+        {
+            "id": 99,
+            "name": "Weekly Groceries",
+            "description": "Food supplies",
+            "date": "05 Mar, 2026",
+            "categoryId": "food",
+            "amount": 3700,
+            "type": "expense"
+        },
+        {
+            "id": 100,
+            "name": "School Fees",
+            "description": "Child education",
+            "date": "02 Mar, 2026",
+            "categoryId": "education",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 101,
+            "name": "Holi Festival Shopping",
+            "description": "Festival colors",
+            "date": "25 Mar, 2026",
+            "categoryId": "shopping",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 102,
+            "name": "Medical",
+            "description": "Health checkup",
+            "date": "15 Mar, 2026",
+            "categoryId": "healthcare",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 103,
+            "name": "Spring Vacation",
+            "description": "Family trip",
+            "date": "28 Mar, 2026",
+            "categoryId": "travel",
+            "amount": 12000,
+            "type": "expense"
+        },
+        {
+            "id": 104,
+            "name": "Electricity Bill",
+            "description": "Monthly utility",
+            "date": "10 Mar, 2026",
+            "categoryId": "utilities",
+            "amount": 2800,
+            "type": "expense"
+        }
+    ],
+    "goals": [
+        {
+            "id": 1,
+            "title": "House Down Payment",
+            "current": 150000,
+            "target": 500000,
+            "color": "#2563eb"
+        },
+        {
+            "id": 2,
+            "title": "Children Education",
+            "current": 45000,
+            "target": 200000,
+            "color": "#059669"
+        },
+        {
+            "id": 3,
+            "title": "Family Vacation Fund",
+            "current": 25000,
+            "target": 80000,
+            "color": "#f59e0b"
+        }
+    ]
+}

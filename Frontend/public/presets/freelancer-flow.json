@@ -1,0 +1,966 @@
+{
+    "id": "freelancer-flow",
+    "name": "Freelancer Flow",
+    "description": "Irregular income with tax and buffer-oriented structure.",
+    "transactions": [
+        {
+            "id": 1,
+            "name": "Web Design Project",
+            "description": "Client ABC",
+            "date": "05 Apr, 2025",
+            "categoryId": "income",
+            "amount": 35000,
+            "type": "income"
+        },
+        {
+            "id": 2,
+            "name": "Consulting Gig",
+            "description": "Technical advisory",
+            "date": "10 Apr, 2025",
+            "categoryId": "income",
+            "amount": 15000,
+            "type": "income"
+        },
+        {
+            "id": 3,
+            "name": "Home Office Rent",
+            "description": "Workspace setup",
+            "date": "01 Apr, 2025",
+            "categoryId": "housing",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 4,
+            "name": "Coffee & Work Supplies",
+            "description": "Office essentials",
+            "date": "05 Apr, 2025",
+            "categoryId": "food",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 5,
+            "name": "Software Licenses",
+            "description": "Tools & subscriptions",
+            "date": "01 Apr, 2025",
+            "categoryId": "education",
+            "amount": 4500,
+            "type": "expense"
+        },
+        {
+            "id": 6,
+            "name": "Internet Bill",
+            "description": "High-speed connection",
+            "date": "05 Apr, 2025",
+            "categoryId": "utilities",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 7,
+            "name": "Electricity",
+            "description": "Home office power",
+            "date": "10 Apr, 2025",
+            "categoryId": "utilities",
+            "amount": 600,
+            "type": "expense"
+        },
+        {
+            "id": 8,
+            "name": "Adobe Creative Cloud",
+            "description": "Design tools subscription",
+            "date": "15 Apr, 2025",
+            "categoryId": "entertainment",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 9,
+            "name": "Laptop Maintenance",
+            "description": "Hardware support",
+            "date": "12 Apr, 2025",
+            "categoryId": "healthcare",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 10,
+            "name": "Client Meeting",
+            "description": "Travel to office",
+            "date": "08 Apr, 2025",
+            "categoryId": "travel",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 11,
+            "name": "Tax Buffer Fund",
+            "description": "Quarterly tax provision",
+            "date": "20 Apr, 2025",
+            "categoryId": "investment",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 12,
+            "name": "Work Gadgets",
+            "description": "Mic & camera upgrade",
+            "date": "22 Apr, 2025",
+            "categoryId": "shopping",
+            "amount": 3000,
+            "type": "expense"
+        },
+        {
+            "id": 13,
+            "name": "Backend Development",
+            "description": "Backend project",
+            "date": "08 May, 2025",
+            "categoryId": "income",
+            "amount": 28000,
+            "type": "income"
+        },
+        {
+            "id": 14,
+            "name": "Content Writing",
+            "description": "Blog articles",
+            "date": "15 May, 2025",
+            "categoryId": "income",
+            "amount": 12000,
+            "type": "income"
+        },
+        {
+            "id": 15,
+            "name": "Home Office Rent",
+            "description": "Workspace setup",
+            "date": "01 May, 2025",
+            "categoryId": "housing",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 16,
+            "name": "Coffee & Groceries",
+            "description": "Work-from-home meals",
+            "date": "05 May, 2025",
+            "categoryId": "food",
+            "amount": 1800,
+            "type": "expense"
+        },
+        {
+            "id": 17,
+            "name": "Figma Annual",
+            "description": "Design tool subscription",
+            "date": "02 May, 2025",
+            "categoryId": "education",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 18,
+            "name": "Internet Bill",
+            "description": "High-speed connection",
+            "date": "05 May, 2025",
+            "categoryId": "utilities",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 19,
+            "name": "Equipment Upgrade",
+            "description": "Monitor & keyboard",
+            "date": "10 May, 2025",
+            "categoryId": "shopping",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 20,
+            "name": "Streaming Service",
+            "description": "Learning platform",
+            "date": "01 May, 2025",
+            "categoryId": "entertainment",
+            "amount": 400,
+            "type": "expense"
+        },
+        {
+            "id": 21,
+            "name": "Business Insurance",
+            "description": "Freelancer coverage",
+            "date": "15 May, 2025",
+            "categoryId": "healthcare",
+            "amount": 2500,
+            "type": "expense"
+        },
+        {
+            "id": 22,
+            "name": "Tax Buffer Fund",
+            "description": "Quarterly tax provision",
+            "date": "25 May, 2025",
+            "categoryId": "investment",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 23,
+            "name": "Mobile App Development",
+            "description": "App project",
+            "date": "05 Jun, 2025",
+            "categoryId": "income",
+            "amount": 45000,
+            "type": "income"
+        },
+        {
+            "id": 24,
+            "name": "UX Research",
+            "description": "User testing project",
+            "date": "12 Jun, 2025",
+            "categoryId": "income",
+            "amount": 18000,
+            "type": "income"
+        },
+        {
+            "id": 25,
+            "name": "Home Office Rent",
+            "description": "Workspace setup",
+            "date": "01 Jun, 2025",
+            "categoryId": "housing",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 26,
+            "name": "Work Meals",
+            "description": "Daily work lunches",
+            "date": "05 Jun, 2025",
+            "categoryId": "food",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 27,
+            "name": "Google Workspace",
+            "description": "Business email & docs",
+            "date": "01 Jun, 2025",
+            "categoryId": "education",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 28,
+            "name": "Utilities",
+            "description": "Electric & internet",
+            "date": "10 Jun, 2025",
+            "categoryId": "utilities",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 29,
+            "name": "Development Tools",
+            "description": "IDE & extensions",
+            "date": "15 Jun, 2025",
+            "categoryId": "shopping",
+            "amount": 2500,
+            "type": "expense"
+        },
+        {
+            "id": 30,
+            "name": "Coworking Space",
+            "description": "Client meetings venue",
+            "date": "18 Jun, 2025",
+            "categoryId": "travel",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 31,
+            "name": "Freelancing Course",
+            "description": "Business skills",
+            "date": "08 Jul, 2025",
+            "categoryId": "income",
+            "amount": 32000,
+            "type": "income"
+        },
+        {
+            "id": 32,
+            "name": "Branding Project",
+            "description": "Logo & identity",
+            "date": "15 Jul, 2025",
+            "categoryId": "income",
+            "amount": 22000,
+            "type": "income"
+        },
+        {
+            "id": 33,
+            "name": "Home Office Rent",
+            "description": "Workspace setup",
+            "date": "01 Jul, 2025",
+            "categoryId": "housing",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 34,
+            "name": "Coffee & Snacks",
+            "description": "Work supplies",
+            "date": "05 Jul, 2025",
+            "categoryId": "food",
+            "amount": 1600,
+            "type": "expense"
+        },
+        {
+            "id": 35,
+            "name": "Slack Premium",
+            "description": "Team collaboration",
+            "date": "01 Jul, 2025",
+            "categoryId": "education",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 36,
+            "name": "Internet & Electricity",
+            "description": "Home office utilities",
+            "date": "10 Jul, 2025",
+            "categoryId": "utilities",
+            "amount": 2100,
+            "type": "expense"
+        },
+        {
+            "id": 37,
+            "name": "Hardware Backup",
+            "description": "External drives",
+            "date": "12 Jul, 2025",
+            "categoryId": "shopping",
+            "amount": 3500,
+            "type": "expense"
+        },
+        {
+            "id": 38,
+            "name": "Client Transport",
+            "description": "Meeting travel",
+            "date": "15 Jul, 2025",
+            "categoryId": "travel",
+            "amount": 1000,
+            "type": "expense"
+        },
+        {
+            "id": 39,
+            "name": "API Integration",
+            "description": "Backend service",
+            "date": "05 Aug, 2025",
+            "categoryId": "income",
+            "amount": 28000,
+            "type": "income"
+        },
+        {
+            "id": 40,
+            "name": "QA Testing",
+            "description": "Quality assurance",
+            "date": "12 Aug, 2025",
+            "categoryId": "income",
+            "amount": 15000,
+            "type": "income"
+        },
+        {
+            "id": 41,
+            "name": "Home Office Rent",
+            "description": "Workspace setup",
+            "date": "01 Aug, 2025",
+            "categoryId": "housing",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 42,
+            "name": "Meals & Groceries",
+            "description": "Work-from-home food",
+            "date": "05 Aug, 2025",
+            "categoryId": "food",
+            "amount": 1900,
+            "type": "expense"
+        },
+        {
+            "id": 43,
+            "name": "GitHub Pro",
+            "description": "Repository management",
+            "date": "01 Aug, 2025",
+            "categoryId": "education",
+            "amount": 400,
+            "type": "expense"
+        },
+        {
+            "id": 44,
+            "name": "Utilities",
+            "description": "Electric & internet",
+            "date": "10 Aug, 2025",
+            "categoryId": "utilities",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 45,
+            "name": "Office Chair",
+            "description": "Ergonomic seating",
+            "date": "12 Aug, 2025",
+            "categoryId": "shopping",
+            "amount": 5000,
+            "type": "expense"
+        },
+        {
+            "id": 46,
+            "name": "Tax Buffer Fund",
+            "description": "Quarterly tax provision",
+            "date": "25 Aug, 2025",
+            "categoryId": "investment",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 47,
+            "name": "E-Commerce Setup",
+            "description": "Website for client",
+            "date": "08 Sep, 2025",
+            "categoryId": "income",
+            "amount": 40000,
+            "type": "income"
+        },
+        {
+            "id": 48,
+            "name": "SEO Optimization",
+            "description": "Content optimization",
+            "date": "18 Sep, 2025",
+            "categoryId": "income",
+            "amount": 14000,
+            "type": "income"
+        },
+        {
+            "id": 49,
+            "name": "Home Office Rent",
+            "description": "Workspace setup",
+            "date": "01 Sep, 2025",
+            "categoryId": "housing",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 50,
+            "name": "Coffee & Snacks",
+            "description": "Daily essentials",
+            "date": "05 Sep, 2025",
+            "categoryId": "food",
+            "amount": 1700,
+            "type": "expense"
+        },
+        {
+            "id": 51,
+            "name": "Zoom Pro",
+            "description": "Video conferencing",
+            "date": "01 Sep, 2025",
+            "categoryId": "education",
+            "amount": 300,
+            "type": "expense"
+        },
+        {
+            "id": 52,
+            "name": "Internet Bill",
+            "description": "High-speed connection",
+            "date": "05 Sep, 2025",
+            "categoryId": "utilities",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 53,
+            "name": "Professional Development",
+            "description": "Udemy courses",
+            "date": "10 Sep, 2025",
+            "categoryId": "entertainment",
+            "amount": 1200,
+            "type": "expense"
+        },
+        {
+            "id": 54,
+            "name": "Network Event",
+            "description": "Tech meetup travel",
+            "date": "15 Sep, 2025",
+            "categoryId": "travel",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 55,
+            "name": "UI/UX Design",
+            "description": "Design system project",
+            "date": "08 Oct, 2025",
+            "categoryId": "income",
+            "amount": 35000,
+            "type": "income"
+        },
+        {
+            "id": 56,
+            "name": "Code Review",
+            "description": "Technical consulting",
+            "date": "15 Oct, 2025",
+            "categoryId": "income",
+            "amount": 12000,
+            "type": "income"
+        },
+        {
+            "id": 57,
+            "name": "Home Office Rent",
+            "description": "Workspace setup",
+            "date": "01 Oct, 2025",
+            "categoryId": "housing",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 58,
+            "name": "Work Meals",
+            "description": "Daily food",
+            "date": "05 Oct, 2025",
+            "categoryId": "food",
+            "amount": 1800,
+            "type": "expense"
+        },
+        {
+            "id": 59,
+            "name": "Software Subscriptions",
+            "description": "Various tools",
+            "date": "01 Oct, 2025",
+            "categoryId": "education",
+            "amount": 1200,
+            "type": "expense"
+        },
+        {
+            "id": 60,
+            "name": "Utilities",
+            "description": "Electric & internet",
+            "date": "10 Oct, 2025",
+            "categoryId": "utilities",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 61,
+            "name": "Monitor Setup",
+            "description": "Dual monitor",
+            "date": "12 Oct, 2025",
+            "categoryId": "shopping",
+            "amount": 6000,
+            "type": "expense"
+        },
+        {
+            "id": 62,
+            "name": "Tax Buffer Fund",
+            "description": "Quarterly tax provision",
+            "date": "25 Oct, 2025",
+            "categoryId": "investment",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 63,
+            "name": "Performance Optimization",
+            "description": "Website speedup",
+            "date": "05 Nov, 2025",
+            "categoryId": "income",
+            "amount": 25000,
+            "type": "income"
+        },
+        {
+            "id": 64,
+            "name": "Data Analytics",
+            "description": "Analytics setup",
+            "date": "12 Nov, 2025",
+            "categoryId": "income",
+            "amount": 18000,
+            "type": "income"
+        },
+        {
+            "id": 65,
+            "name": "Home Office Rent",
+            "description": "Workspace setup",
+            "date": "01 Nov, 2025",
+            "categoryId": "housing",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 66,
+            "name": "Meals & Coffee",
+            "description": "Work sustenance",
+            "date": "05 Nov, 2025",
+            "categoryId": "food",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 67,
+            "name": "Tool Subscriptions",
+            "description": "Work software",
+            "date": "01 Nov, 2025",
+            "categoryId": "education",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 68,
+            "name": "Utilities",
+            "description": "Electric & internet",
+            "date": "10 Nov, 2025",
+            "categoryId": "utilities",
+            "amount": 2100,
+            "type": "expense"
+        },
+        {
+            "id": 69,
+            "name": "Winter Office Heater",
+            "description": "Room heating",
+            "date": "15 Nov, 2025",
+            "categoryId": "shopping",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 70,
+            "name": "Year-end Tax Buffer",
+            "description": "Tax preparation",
+            "date": "28 Nov, 2025",
+            "categoryId": "investment",
+            "amount": 12000,
+            "type": "expense"
+        },
+        {
+            "id": 71,
+            "name": "Mobile Development",
+            "description": "iOS & Android",
+            "date": "08 Dec, 2025",
+            "categoryId": "income",
+            "amount": 50000,
+            "type": "income"
+        },
+        {
+            "id": 72,
+            "name": "Security Audit",
+            "description": "Code security review",
+            "date": "15 Dec, 2025",
+            "categoryId": "income",
+            "amount": 20000,
+            "type": "income"
+        },
+        {
+            "id": 73,
+            "name": "Home Office Rent",
+            "description": "Workspace setup",
+            "date": "01 Dec, 2025",
+            "categoryId": "housing",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 74,
+            "name": "Festive Meals",
+            "description": "Holiday celebrations",
+            "date": "05 Dec, 2025",
+            "categoryId": "food",
+            "amount": 2500,
+            "type": "expense"
+        },
+        {
+            "id": 75,
+            "name": "New Tools",
+            "description": "Software tools",
+            "date": "01 Dec, 2025",
+            "categoryId": "education",
+            "amount": 1800,
+            "type": "expense"
+        },
+        {
+            "id": 76,
+            "name": "Utilities",
+            "description": "Electric & internet",
+            "date": "10 Dec, 2025",
+            "categoryId": "utilities",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 77,
+            "name": "Gift for Self",
+            "description": "Year-end reward",
+            "date": "20 Dec, 2025",
+            "categoryId": "shopping",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 78,
+            "name": "Holiday Break",
+            "description": "Vacation travel",
+            "date": "23 Dec, 2025",
+            "categoryId": "travel",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 79,
+            "name": "API Development",
+            "description": "REST API project",
+            "date": "08 Jan, 2026",
+            "categoryId": "income",
+            "amount": 32000,
+            "type": "income"
+        },
+        {
+            "id": 80,
+            "name": "Database Design",
+            "description": "DB architecture",
+            "date": "15 Jan, 2026",
+            "categoryId": "income",
+            "amount": 19000,
+            "type": "income"
+        },
+        {
+            "id": 81,
+            "name": "Home Office Rent",
+            "description": "Workspace setup",
+            "date": "01 Jan, 2026",
+            "categoryId": "housing",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 82,
+            "name": "Work Meals",
+            "description": "Daily sustenance",
+            "date": "05 Jan, 2026",
+            "categoryId": "food",
+            "amount": 1600,
+            "type": "expense"
+        },
+        {
+            "id": 83,
+            "name": "Software Licenses",
+            "description": "Tools & subscriptions",
+            "date": "01 Jan, 2026",
+            "categoryId": "education",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 84,
+            "name": "Utilities",
+            "description": "Electric & internet",
+            "date": "10 Jan, 2026",
+            "categoryId": "utilities",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 85,
+            "name": "Health Insurance",
+            "description": "Freelancer coverage",
+            "date": "15 Jan, 2026",
+            "categoryId": "healthcare",
+            "amount": 3000,
+            "type": "expense"
+        },
+        {
+            "id": 86,
+            "name": "Tax Buffer Fund",
+            "description": "Quarterly tax provision",
+            "date": "25 Jan, 2026",
+            "categoryId": "investment",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 87,
+            "name": "Web Design Refresh",
+            "description": "Personal portfolio",
+            "date": "08 Feb, 2026",
+            "categoryId": "income",
+            "amount": 28000,
+            "type": "income"
+        },
+        {
+            "id": 88,
+            "name": "Consulting",
+            "description": "Tech consulting",
+            "date": "15 Feb, 2026",
+            "categoryId": "income",
+            "amount": 16000,
+            "type": "income"
+        },
+        {
+            "id": 89,
+            "name": "Home Office Rent",
+            "description": "Workspace setup",
+            "date": "01 Feb, 2026",
+            "categoryId": "housing",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 90,
+            "name": "Coffee & Meals",
+            "description": "Daily food",
+            "date": "05 Feb, 2026",
+            "categoryId": "food",
+            "amount": 1700,
+            "type": "expense"
+        },
+        {
+            "id": 91,
+            "name": "Course Purchase",
+            "description": "Advanced training",
+            "date": "10 Feb, 2026",
+            "categoryId": "education",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 92,
+            "name": "Utilities",
+            "description": "Electric & internet",
+            "date": "10 Feb, 2026",
+            "categoryId": "utilities",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 93,
+            "name": "Upgrade Keyboard",
+            "description": "Equipment refresh",
+            "date": "12 Feb, 2026",
+            "categoryId": "shopping",
+            "amount": 3000,
+            "type": "expense"
+        },
+        {
+            "id": 94,
+            "name": "Business Conference",
+            "description": "Travel to event",
+            "date": "18 Feb, 2026",
+            "categoryId": "travel",
+            "amount": 5000,
+            "type": "expense"
+        },
+        {
+            "id": 95,
+            "name": "Tax Buffer Fund",
+            "description": "Quarterly tax provision",
+            "date": "25 Feb, 2026",
+            "categoryId": "investment",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 96,
+            "name": "Cloud Infrastructure",
+            "description": "Server setup",
+            "date": "05 Mar, 2026",
+            "categoryId": "income",
+            "amount": 38000,
+            "type": "income"
+        },
+        {
+            "id": 97,
+            "name": "Training Module",
+            "description": "Educational content",
+            "date": "15 Mar, 2026",
+            "categoryId": "income",
+            "amount": 18000,
+            "type": "income"
+        },
+        {
+            "id": 98,
+            "name": "Home Office Rent",
+            "description": "Workspace setup",
+            "date": "01 Mar, 2026",
+            "categoryId": "housing",
+            "amount": 10000,
+            "type": "expense"
+        },
+        {
+            "id": 99,
+            "name": "Work Meals",
+            "description": "Daily food",
+            "date": "05 Mar, 2026",
+            "categoryId": "food",
+            "amount": 1800,
+            "type": "expense"
+        },
+        {
+            "id": 100,
+            "name": "Subscription Renewal",
+            "description": "Software tools",
+            "date": "01 Mar, 2026",
+            "categoryId": "education",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 101,
+            "name": "Utilities",
+            "description": "Electric & internet",
+            "date": "10 Mar, 2026",
+            "categoryId": "utilities",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 102,
+            "name": "Spring Cleaning",
+            "description": "Office refresh",
+            "date": "15 Mar, 2026",
+            "categoryId": "shopping",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 103,
+            "name": "Tax Filing",
+            "description": "Annual tax return",
+            "date": "25 Mar, 2026",
+            "categoryId": "education",
+            "amount": 3000,
+            "type": "expense"
+        },
+        {
+            "id": 104,
+            "name": "Quarterly Tax Buffer",
+            "description": "Q1 tax provision",
+            "date": "28 Mar, 2026",
+            "categoryId": "investment",
+            "amount": 12000,
+            "type": "expense"
+        }
+    ],
+    "goals": [
+        {
+            "id": 1,
+            "title": "Tax Buffer Fund",
+            "current": 32000,
+            "target": 150000,
+            "color": "#dc2626"
+        },
+        {
+            "id": 2,
+            "title": "Equipment Fund",
+            "current": 18000,
+            "target": 100000,
+            "color": "#2563eb"
+        },
+        {
+            "id": 3,
+            "title": "Emergency Savings",
+            "current": 45000,
+            "target": 200000,
+            "color": "#059669"
+        }
+    ]
+}

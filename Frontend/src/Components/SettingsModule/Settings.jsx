@@ -1,37 +1,38 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext";
+import { TransactionContext } from "../../Context/TransactionContext";
 
 const STORAGE_KEY = "finique_settings_v1";
 
 const PRESET_OPTIONS = [
     {
-        id: "preset-student",
+        id: "student-budget", // Changed from "preset-student"
         title: "Student Budget",
         fileName: "student-budget.json",
         description: "Low income, controlled spending, savings-first profile.",
     },
     {
-        id: "preset-family",
+        id: "family-planner", // Changed from "preset-family"
         title: "Family Planner",
         fileName: "family-planner.json",
         description: "Household essentials, bills, and monthly planning flow.",
     },
     {
-        id: "preset-freelancer",
+        id: "freelancer-flow", // Changed from "preset-freelancer"
         title: "Freelancer Flow",
         fileName: "freelancer-flow.json",
         description: "Irregular income with tax and buffer-oriented structure.",
     },
     {
-        id: "preset-business",
+        id: "small-business", // Changed from "preset-business"
         title: "Small Business",
         fileName: "small-business.json",
         description:
             "Revenue-expense split with operational category defaults.",
     },
     {
-        id: "preset-minimal",
+        id: "minimal-tracker", // Changed from "preset-minimal"
         title: "Minimal Tracker",
         fileName: "minimal-tracker.json",
         description: "Simple setup for essential income and expense tracking.",
@@ -40,6 +41,7 @@ const PRESET_OPTIONS = [
 
 const Settings = () => {
     const { isDarkMode } = useContext(ThemeContext);
+    const { loadPresetData } = useContext(TransactionContext);
     const navigate = useNavigate();
 
     const [profileImage, setProfileImage] = useState("");
@@ -191,7 +193,7 @@ const Settings = () => {
 
         localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
         setStatusMessage("Settings saved successfully.");
-        setTimeout(() => setStatusMessage(""), 2500);
+        setTimeout(() => setStatusMessage(""), 2000);
     };
 
     const onProfileImageUpload = (e) => {
@@ -247,7 +249,7 @@ const Settings = () => {
             confirmPassword: "",
         }));
         setStatusMessage("Password updated successfully.");
-        setTimeout(() => setStatusMessage(""), 2500);
+        setTimeout(() => setStatusMessage(""), 2000);
     };
 
     const openViewerImagePicker = () => {
@@ -323,7 +325,7 @@ const Settings = () => {
             viewerConfirmPassword: "",
         }));
         setStatusMessage("Viewer password updated successfully.");
-        setTimeout(() => setStatusMessage(""), 2500);
+        setTimeout(() => setStatusMessage(""), 2000);
     };
 
     const deleteAccount = () => {
@@ -333,6 +335,7 @@ const Settings = () => {
             setStatusMessage(
                 "Enter the correct Admin Profile password to delete account.",
             );
+            setTimeout(() => setStatusMessage(""), 2000);
             return;
         }
 
@@ -353,14 +356,42 @@ const Settings = () => {
         setErrors({});
         setTouched({});
         setStatusMessage("Account data deleted locally.");
+        setTimeout(() => setStatusMessage(""), 2000);
     };
 
-    const handleUsePreset = (presetId) => {
-        setSelectedPreset(presetId);
-        setStatusMessage(
-            "Preset selected. JSON integration will apply across all modules once preset files are added.",
-        );
-        setTimeout(() => setStatusMessage(""), 2500);
+    const handleUsePreset = async (presetId) => {
+        try {
+            const presetData = await loadPresetData(presetId);
+            if (presetData) {
+                setSelectedPreset(presetId);
+                setStatusMessage(
+                    `✓ Preset "${presetData.name}" loaded successfully!`,
+                );
+                setTimeout(() => setStatusMessage(""), 2000);
+
+                // Save to localStorage
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify({
+                        profileImage,
+                        userName,
+                        userPassword,
+                        viewerName,
+                        viewerPassword,
+                        viewerProfileImage,
+                        selectedPreset: presetId,
+                        updatedAt: new Date().toISOString(),
+                    }),
+                );
+            } else {
+                setStatusMessage("✗ Failed to load preset. Please try again.");
+                setTimeout(() => setStatusMessage(""), 2000);
+            }
+        } catch (error) {
+            console.error("Error loading preset:", error);
+            setStatusMessage("✗ Error loading preset.");
+            setTimeout(() => setStatusMessage(""), 2000);
+        }
     };
 
     const getSettingsPayload = () => ({
@@ -388,10 +419,10 @@ const Settings = () => {
             URL.revokeObjectURL(url);
 
             setStatusMessage("Backup downloaded successfully.");
-            setTimeout(() => setStatusMessage(""), 2500);
+            setTimeout(() => setStatusMessage(""), 2000);
         } catch {
             setStatusMessage("Unable to generate backup file.");
-            setTimeout(() => setStatusMessage(""), 2500);
+            setTimeout(() => setStatusMessage(""), 2000);
         }
     };
 
@@ -404,13 +435,19 @@ const Settings = () => {
     return (
         <div className="p-8 space-y-6">
             {statusMessage && (
-                <div
-                    className={`rounded-lg px-4 py-3 text-sm font-medium ${
-                        isDarkMode
-                            ? "bg-blue-900/30 text-blue-300 border border-blue-800"
-                            : "bg-blue-50 text-blue-700 border border-blue-200"
-                    }`}>
-                    {statusMessage}
+                <div className="fixed top-[86px] right-6 z-50">
+                    <div
+                        className={`rounded-lg px-4 py-2.5 text-sm font-medium shadow-lg border backdrop-blur-sm transition-all duration-500 ${
+                            statusMessage.includes("X")
+                                ? isDarkMode
+                                    ? "bg-red-900/90 text-red-200 border-red-700"
+                                    : "bg-red-50 text-red-700 border-red-200"
+                                : isDarkMode
+                                  ? "bg-blue-900/40 text-blue-300 border-blue-700/50"
+                                  : "bg-blue-50 text-blue-700 border-blue-200"
+                        }`}>
+                        {statusMessage}
+                    </div>
                 </div>
             )}
 

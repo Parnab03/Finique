@@ -1,0 +1,966 @@
+{
+    "id": "minimal-tracker",
+    "name": "Minimal Tracker",
+    "description": "Simple setup for essential income and expense tracking.",
+    "transactions": [
+        {
+            "id": 1,
+            "name": "Salary",
+            "description": "Monthly income",
+            "date": "01 Apr, 2025",
+            "categoryId": "income",
+            "amount": 50000,
+            "type": "income"
+        },
+        {
+            "id": 2,
+            "name": "Rent",
+            "description": "Monthly rent",
+            "date": "01 Apr, 2025",
+            "categoryId": "housing",
+            "amount": 18000,
+            "type": "expense"
+        },
+        {
+            "id": 3,
+            "name": "Groceries",
+            "description": "Food shopping",
+            "date": "05 Apr, 2025",
+            "categoryId": "food",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 4,
+            "name": "Utilities",
+            "description": "Electricity & water",
+            "date": "10 Apr, 2025",
+            "categoryId": "utilities",
+            "amount": 1200,
+            "type": "expense"
+        },
+        {
+            "id": 5,
+            "name": "Travel",
+            "description": "Bus pass",
+            "date": "01 Apr, 2025",
+            "categoryId": "travel",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 6,
+            "name": "Food",
+            "description": "Outside meals",
+            "date": "15 Apr, 2025",
+            "categoryId": "food",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 7,
+            "name": "Shopping",
+            "description": "Clothes & items",
+            "date": "18 Apr, 2025",
+            "categoryId": "shopping",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 8,
+            "name": "Entertainment",
+            "description": "Movie & others",
+            "date": "20 Apr, 2025",
+            "categoryId": "entertainment",
+            "amount": 600,
+            "type": "expense"
+        },
+        {
+            "id": 9,
+            "name": "Health",
+            "description": "Medicine",
+            "date": "12 Apr, 2025",
+            "categoryId": "healthcare",
+            "amount": 500,
+            "type": "expense"
+        },
+        {
+            "id": 10,
+            "name": "Bonus",
+            "description": "Extra income",
+            "date": "25 Apr, 2025",
+            "categoryId": "income",
+            "amount": 5000,
+            "type": "income"
+        },
+        {
+            "id": 11,
+            "name": "Salary",
+            "description": "Monthly income",
+            "date": "01 May, 2025",
+            "categoryId": "income",
+            "amount": 50000,
+            "type": "income"
+        },
+        {
+            "id": 12,
+            "name": "Rent",
+            "description": "Monthly rent",
+            "date": "01 May, 2025",
+            "categoryId": "housing",
+            "amount": 18000,
+            "type": "expense"
+        },
+        {
+            "id": 13,
+            "name": "Groceries",
+            "description": "Food shopping",
+            "date": "05 May, 2025",
+            "categoryId": "food",
+            "amount": 1600,
+            "type": "expense"
+        },
+        {
+            "id": 14,
+            "name": "Utilities",
+            "description": "Electricity & water",
+            "date": "10 May, 2025",
+            "categoryId": "utilities",
+            "amount": 1300,
+            "type": "expense"
+        },
+        {
+            "id": 15,
+            "name": "Travel",
+            "description": "Bus pass",
+            "date": "01 May, 2025",
+            "categoryId": "travel",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 16,
+            "name": "Food",
+            "description": "Outside meals",
+            "date": "15 May, 2025",
+            "categoryId": "food",
+            "amount": 700,
+            "type": "expense"
+        },
+        {
+            "id": 17,
+            "name": "Shopping",
+            "description": "Clothes & items",
+            "date": "20 May, 2025",
+            "categoryId": "shopping",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 18,
+            "name": "Entertainment",
+            "description": "Streaming service",
+            "date": "01 May, 2025",
+            "categoryId": "entertainment",
+            "amount": 300,
+            "type": "expense"
+        },
+        {
+            "id": 19,
+            "name": "Health",
+            "description": "Medical checkup",
+            "date": "12 May, 2025",
+            "categoryId": "healthcare",
+            "amount": 400,
+            "type": "expense"
+        },
+        {
+            "id": 20,
+            "name": "Freelance Work",
+            "description": "Extra gig",
+            "date": "28 May, 2025",
+            "categoryId": "income",
+            "amount": 3000,
+            "type": "income"
+        },
+        {
+            "id": 21,
+            "name": "Salary",
+            "description": "Monthly income",
+            "date": "01 Jun, 2025",
+            "categoryId": "income",
+            "amount": 50000,
+            "type": "income"
+        },
+        {
+            "id": 22,
+            "name": "Rent",
+            "description": "Monthly rent",
+            "date": "01 Jun, 2025",
+            "categoryId": "housing",
+            "amount": 18000,
+            "type": "expense"
+        },
+        {
+            "id": 23,
+            "name": "Groceries",
+            "description": "Food shopping",
+            "date": "05 Jun, 2025",
+            "categoryId": "food",
+            "amount": 1700,
+            "type": "expense"
+        },
+        {
+            "id": 24,
+            "name": "Utilities",
+            "description": "Electricity & water",
+            "date": "10 Jun, 2025",
+            "categoryId": "utilities",
+            "amount": 1400,
+            "type": "expense"
+        },
+        {
+            "id": 25,
+            "name": "Travel",
+            "description": "Bus pass",
+            "date": "01 Jun, 2025",
+            "categoryId": "travel",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 26,
+            "name": "Food",
+            "description": "Outside meals",
+            "date": "15 Jun, 2025",
+            "categoryId": "food",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 27,
+            "name": "Shopping",
+            "description": "Essentials",
+            "date": "18 Jun, 2025",
+            "categoryId": "shopping",
+            "amount": 1800,
+            "type": "expense"
+        },
+        {
+            "id": 28,
+            "name": "Entertainment",
+            "description": "Movie tickets",
+            "date": "20 Jun, 2025",
+            "categoryId": "entertainment",
+            "amount": 500,
+            "type": "expense"
+        },
+        {
+            "id": 29,
+            "name": "Health",
+            "description": "Medicine",
+            "date": "12 Jun, 2025",
+            "categoryId": "healthcare",
+            "amount": 300,
+            "type": "expense"
+        },
+        {
+            "id": 30,
+            "name": "Salary",
+            "description": "Monthly income",
+            "date": "01 Jul, 2025",
+            "categoryId": "income",
+            "amount": 52000,
+            "type": "income"
+        },
+        {
+            "id": 31,
+            "name": "Rent",
+            "description": "Monthly rent",
+            "date": "01 Jul, 2025",
+            "categoryId": "housing",
+            "amount": 18000,
+            "type": "expense"
+        },
+        {
+            "id": 32,
+            "name": "Groceries",
+            "description": "Food shopping",
+            "date": "05 Jul, 2025",
+            "categoryId": "food",
+            "amount": 1800,
+            "type": "expense"
+        },
+        {
+            "id": 33,
+            "name": "Utilities",
+            "description": "Electricity & water",
+            "date": "10 Jul, 2025",
+            "categoryId": "utilities",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 34,
+            "name": "Travel",
+            "description": "Bus pass",
+            "date": "01 Jul, 2025",
+            "categoryId": "travel",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 35,
+            "name": "Food",
+            "description": "Outside meals",
+            "date": "15 Jul, 2025",
+            "categoryId": "food",
+            "amount": 900,
+            "type": "expense"
+        },
+        {
+            "id": 36,
+            "name": "Shopping",
+            "description": "Summer clothes",
+            "date": "18 Jul, 2025",
+            "categoryId": "shopping",
+            "amount": 2500,
+            "type": "expense"
+        },
+        {
+            "id": 37,
+            "name": "Entertainment",
+            "description": "Movie & cafe",
+            "date": "20 Jul, 2025",
+            "categoryId": "entertainment",
+            "amount": 700,
+            "type": "expense"
+        },
+        {
+            "id": 38,
+            "name": "Health",
+            "description": "Medical",
+            "date": "12 Jul, 2025",
+            "categoryId": "healthcare",
+            "amount": 400,
+            "type": "expense"
+        },
+        {
+            "id": 39,
+            "name": "Salary",
+            "description": "Monthly income",
+            "date": "01 Aug, 2025",
+            "categoryId": "income",
+            "amount": 50000,
+            "type": "income"
+        },
+        {
+            "id": 40,
+            "name": "Rent",
+            "description": "Monthly rent",
+            "date": "01 Aug, 2025",
+            "categoryId": "housing",
+            "amount": 18000,
+            "type": "expense"
+        },
+        {
+            "id": 41,
+            "name": "Groceries",
+            "description": "Food shopping",
+            "date": "05 Aug, 2025",
+            "categoryId": "food",
+            "amount": 1700,
+            "type": "expense"
+        },
+        {
+            "id": 42,
+            "name": "Utilities",
+            "description": "Electricity & water",
+            "date": "10 Aug, 2025",
+            "categoryId": "utilities",
+            "amount": 1600,
+            "type": "expense"
+        },
+        {
+            "id": 43,
+            "name": "Travel",
+            "description": "Bus pass",
+            "date": "01 Aug, 2025",
+            "categoryId": "travel",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 44,
+            "name": "Food",
+            "description": "Outside meals",
+            "date": "15 Aug, 2025",
+            "categoryId": "food",
+            "amount": 1000,
+            "type": "expense"
+        },
+        {
+            "id": 45,
+            "name": "Shopping",
+            "description": "Clothes",
+            "date": "20 Aug, 2025",
+            "categoryId": "shopping",
+            "amount": 2200,
+            "type": "expense"
+        },
+        {
+            "id": 46,
+            "name": "Entertainment",
+            "description": "Outing",
+            "date": "22 Aug, 2025",
+            "categoryId": "entertainment",
+            "amount": 600,
+            "type": "expense"
+        },
+        {
+            "id": 47,
+            "name": "Salary",
+            "description": "Monthly income",
+            "date": "01 Sep, 2025",
+            "categoryId": "income",
+            "amount": 50000,
+            "type": "income"
+        },
+        {
+            "id": 48,
+            "name": "Rent",
+            "description": "Monthly rent",
+            "date": "01 Sep, 2025",
+            "categoryId": "housing",
+            "amount": 18000,
+            "type": "expense"
+        },
+        {
+            "id": 49,
+            "name": "Groceries",
+            "description": "Food shopping",
+            "date": "05 Sep, 2025",
+            "categoryId": "food",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 50,
+            "name": "Utilities",
+            "description": "Electricity & water",
+            "date": "10 Sep, 2025",
+            "categoryId": "utilities",
+            "amount": 1400,
+            "type": "expense"
+        },
+        {
+            "id": 51,
+            "name": "Travel",
+            "description": "Bus pass",
+            "date": "01 Sep, 2025",
+            "categoryId": "travel",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 52,
+            "name": "Food",
+            "description": "Outside meals",
+            "date": "15 Sep, 2025",
+            "categoryId": "food",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 53,
+            "name": "Shopping",
+            "description": "Items",
+            "date": "18 Sep, 2025",
+            "categoryId": "shopping",
+            "amount": 1600,
+            "type": "expense"
+        },
+        {
+            "id": 54,
+            "name": "Entertainment",
+            "description": "Movie",
+            "date": "20 Sep, 2025",
+            "categoryId": "entertainment",
+            "amount": 500,
+            "type": "expense"
+        },
+        {
+            "id": 55,
+            "name": "Salary",
+            "description": "Monthly income",
+            "date": "01 Oct, 2025",
+            "categoryId": "income",
+            "amount": 51000,
+            "type": "income"
+        },
+        {
+            "id": 56,
+            "name": "Rent",
+            "description": "Monthly rent",
+            "date": "01 Oct, 2025",
+            "categoryId": "housing",
+            "amount": 18000,
+            "type": "expense"
+        },
+        {
+            "id": 57,
+            "name": "Groceries",
+            "description": "Food shopping",
+            "date": "05 Oct, 2025",
+            "categoryId": "food",
+            "amount": 1600,
+            "type": "expense"
+        },
+        {
+            "id": 58,
+            "name": "Utilities",
+            "description": "Electricity & water",
+            "date": "10 Oct, 2025",
+            "categoryId": "utilities",
+            "amount": 1300,
+            "type": "expense"
+        },
+        {
+            "id": 59,
+            "name": "Travel",
+            "description": "Bus pass",
+            "date": "01 Oct, 2025",
+            "categoryId": "travel",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 60,
+            "name": "Food",
+            "description": "Outside meals",
+            "date": "15 Oct, 2025",
+            "categoryId": "food",
+            "amount": 750,
+            "type": "expense"
+        },
+        {
+            "id": 61,
+            "name": "Shopping",
+            "description": "Festival clothes",
+            "date": "18 Oct, 2025",
+            "categoryId": "shopping",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 62,
+            "name": "Entertainment",
+            "description": "Festival",
+            "date": "25 Oct, 2025",
+            "categoryId": "entertainment",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 63,
+            "name": "Salary",
+            "description": "Monthly income",
+            "date": "01 Nov, 2025",
+            "categoryId": "income",
+            "amount": 50000,
+            "type": "income"
+        },
+        {
+            "id": 64,
+            "name": "Rent",
+            "description": "Monthly rent",
+            "date": "01 Nov, 2025",
+            "categoryId": "housing",
+            "amount": 18000,
+            "type": "expense"
+        },
+        {
+            "id": 65,
+            "name": "Groceries",
+            "description": "Food shopping",
+            "date": "05 Nov, 2025",
+            "categoryId": "food",
+            "amount": 1700,
+            "type": "expense"
+        },
+        {
+            "id": 66,
+            "name": "Utilities",
+            "description": "Electricity & water",
+            "date": "10 Nov, 2025",
+            "categoryId": "utilities",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 67,
+            "name": "Travel",
+            "description": "Bus pass",
+            "date": "01 Nov, 2025",
+            "categoryId": "travel",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 68,
+            "name": "Food",
+            "description": "Outside meals",
+            "date": "15 Nov, 2025",
+            "categoryId": "food",
+            "amount": 900,
+            "type": "expense"
+        },
+        {
+            "id": 69,
+            "name": "Shopping",
+            "description": "Winter items",
+            "date": "20 Nov, 2025",
+            "categoryId": "shopping",
+            "amount": 2500,
+            "type": "expense"
+        },
+        {
+            "id": 70,
+            "name": "Entertainment",
+            "description": "Events",
+            "date": "25 Nov, 2025",
+            "categoryId": "entertainment",
+            "amount": 700,
+            "type": "expense"
+        },
+        {
+            "id": 71,
+            "name": "Salary",
+            "description": "Monthly income",
+            "date": "01 Dec, 2025",
+            "categoryId": "income",
+            "amount": 52000,
+            "type": "income"
+        },
+        {
+            "id": 72,
+            "name": "Rent",
+            "description": "Monthly rent",
+            "date": "01 Dec, 2025",
+            "categoryId": "housing",
+            "amount": 18000,
+            "type": "expense"
+        },
+        {
+            "id": 73,
+            "name": "Groceries",
+            "description": "Food shopping",
+            "date": "05 Dec, 2025",
+            "categoryId": "food",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 74,
+            "name": "Utilities",
+            "description": "Electricity & water",
+            "date": "10 Dec, 2025",
+            "categoryId": "utilities",
+            "amount": 1600,
+            "type": "expense"
+        },
+        {
+            "id": 75,
+            "name": "Travel",
+            "description": "Bus pass",
+            "date": "01 Dec, 2025",
+            "categoryId": "travel",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 76,
+            "name": "Food",
+            "description": "Outside meals",
+            "date": "15 Dec, 2025",
+            "categoryId": "food",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 77,
+            "name": "Shopping",
+            "description": "Holiday gifts",
+            "date": "18 Dec, 2025",
+            "categoryId": "shopping",
+            "amount": 3000,
+            "type": "expense"
+        },
+        {
+            "id": 78,
+            "name": "Entertainment",
+            "description": "Holiday",
+            "date": "25 Dec, 2025",
+            "categoryId": "entertainment",
+            "amount": 1000,
+            "type": "expense"
+        },
+        {
+            "id": 79,
+            "name": "Salary",
+            "description": "Monthly income",
+            "date": "01 Jan, 2026",
+            "categoryId": "income",
+            "amount": 50000,
+            "type": "income"
+        },
+        {
+            "id": 80,
+            "name": "Rent",
+            "description": "Monthly rent",
+            "date": "01 Jan, 2026",
+            "categoryId": "housing",
+            "amount": 18000,
+            "type": "expense"
+        },
+        {
+            "id": 81,
+            "name": "Groceries",
+            "description": "Food shopping",
+            "date": "05 Jan, 2026",
+            "categoryId": "food",
+            "amount": 1600,
+            "type": "expense"
+        },
+        {
+            "id": 82,
+            "name": "Utilities",
+            "description": "Electricity & water",
+            "date": "10 Jan, 2026",
+            "categoryId": "utilities",
+            "amount": 1400,
+            "type": "expense"
+        },
+        {
+            "id": 83,
+            "name": "Travel",
+            "description": "Bus pass",
+            "date": "01 Jan, 2026",
+            "categoryId": "travel",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 84,
+            "name": "Food",
+            "description": "Outside meals",
+            "date": "15 Jan, 2026",
+            "categoryId": "food",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 85,
+            "name": "Shopping",
+            "description": "Items",
+            "date": "18 Jan, 2026",
+            "categoryId": "shopping",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 86,
+            "name": "Entertainment",
+            "description": "Movie",
+            "date": "20 Jan, 2026",
+            "categoryId": "entertainment",
+            "amount": 600,
+            "type": "expense"
+        },
+        {
+            "id": 87,
+            "name": "Salary",
+            "description": "Monthly income",
+            "date": "01 Feb, 2026",
+            "categoryId": "income",
+            "amount": 50000,
+            "type": "income"
+        },
+        {
+            "id": 88,
+            "name": "Rent",
+            "description": "Monthly rent",
+            "date": "01 Feb, 2026",
+            "categoryId": "housing",
+            "amount": 18000,
+            "type": "expense"
+        },
+        {
+            "id": 89,
+            "name": "Groceries",
+            "description": "Food shopping",
+            "date": "05 Feb, 2026",
+            "categoryId": "food",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 90,
+            "name": "Utilities",
+            "description": "Electricity & water",
+            "date": "10 Feb, 2026",
+            "categoryId": "utilities",
+            "amount": 1300,
+            "type": "expense"
+        },
+        {
+            "id": 91,
+            "name": "Travel",
+            "description": "Bus pass",
+            "date": "01 Feb, 2026",
+            "categoryId": "travel",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 92,
+            "name": "Food",
+            "description": "Outside meals",
+            "date": "14 Feb, 2026",
+            "categoryId": "food",
+            "amount": 1000,
+            "type": "expense"
+        },
+        {
+            "id": 93,
+            "name": "Shopping",
+            "description": "Gifts",
+            "date": "15 Feb, 2026",
+            "categoryId": "shopping",
+            "amount": 1800,
+            "type": "expense"
+        },
+        {
+            "id": 94,
+            "name": "Entertainment",
+            "description": "Valentine",
+            "date": "14 Feb, 2026",
+            "categoryId": "entertainment",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 95,
+            "name": "Health",
+            "description": "Medical",
+            "date": "12 Feb, 2026",
+            "categoryId": "healthcare",
+            "amount": 500,
+            "type": "expense"
+        },
+        {
+            "id": 96,
+            "name": "Salary",
+            "description": "Monthly income",
+            "date": "01 Mar, 2026",
+            "categoryId": "income",
+            "amount": 50000,
+            "type": "income"
+        },
+        {
+            "id": 97,
+            "name": "Rent",
+            "description": "Monthly rent",
+            "date": "01 Mar, 2026",
+            "categoryId": "housing",
+            "amount": 18000,
+            "type": "expense"
+        },
+        {
+            "id": 98,
+            "name": "Groceries",
+            "description": "Food shopping",
+            "date": "05 Mar, 2026",
+            "categoryId": "food",
+            "amount": 1600,
+            "type": "expense"
+        },
+        {
+            "id": 99,
+            "name": "Utilities",
+            "description": "Electricity & water",
+            "date": "10 Mar, 2026",
+            "categoryId": "utilities",
+            "amount": 1300,
+            "type": "expense"
+        },
+        {
+            "id": 100,
+            "name": "Travel",
+            "description": "Bus pass",
+            "date": "01 Mar, 2026",
+            "categoryId": "travel",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 101,
+            "name": "Food",
+            "description": "Outside meals",
+            "date": "15 Mar, 2026",
+            "categoryId": "food",
+            "amount": 850,
+            "type": "expense"
+        },
+        {
+            "id": 102,
+            "name": "Shopping",
+            "description": "Spring items",
+            "date": "18 Mar, 2026",
+            "categoryId": "shopping",
+            "amount": 1700,
+            "type": "expense"
+        },
+        {
+            "id": 103,
+            "name": "Entertainment",
+            "description": "Outing",
+            "date": "20 Mar, 2026",
+            "categoryId": "entertainment",
+            "amount": 600,
+            "type": "expense"
+        },
+        {
+            "id": 104,
+            "name": "Health",
+            "description": "Checkup",
+            "date": "12 Mar, 2026",
+            "categoryId": "healthcare",
+            "amount": 300,
+            "type": "expense"
+        }
+    ],
+    "goals": [
+        {
+            "id": 1,
+            "title": "Emergency Fund",
+            "current": 12000,
+            "target": 50000,
+            "color": "#2563eb"
+        },
+        {
+            "id": 2,
+            "title": "Monthly Savings",
+            "current": 5000,
+            "target": 20000,
+            "color": "#059669"
+        },
+        {
+            "id": 3,
+            "title": "Vacation Fund",
+            "current": 8000,
+            "target": 30000,
+            "color": "#f59e0b"
+        }
+    ]
+}

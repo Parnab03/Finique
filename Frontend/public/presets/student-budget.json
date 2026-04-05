@@ -1,0 +1,977 @@
+{
+    "id": "student-budget",
+    "name": "Student Budget",
+    "description": "Low income, controlled spending, savings-first profile.",
+    "transactions": [
+        {
+            "id": 1,
+            "name": "Part-time Internship",
+            "description": "Monthly stipend",
+            "date": "01 Apr, 2025",
+            "categoryId": "income",
+            "amount": 15000,
+            "type": "income"
+        },
+        {
+            "id": 2,
+            "name": "Hostel Fees",
+            "description": "Monthly hostel rent",
+            "date": "01 Apr, 2025",
+            "categoryId": "housing",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 3,
+            "name": "Grocery Store",
+            "description": "Weekly groceries",
+            "date": "05 Apr, 2025",
+            "categoryId": "food",
+            "amount": 1200,
+            "type": "expense"
+        },
+        {
+            "id": 4,
+            "name": "College Mess",
+            "description": "Lunch & Snacks",
+            "date": "10 Apr, 2025",
+            "categoryId": "food",
+            "amount": 400,
+            "type": "expense"
+        },
+        {
+            "id": 5,
+            "name": "Electricity (Hostel)",
+            "description": "Common expenses",
+            "date": "15 Apr, 2025",
+            "categoryId": "utilities",
+            "amount": 300,
+            "type": "expense"
+        },
+        {
+            "id": 6,
+            "name": "Udemy Course",
+            "description": "Python Programming",
+            "date": "08 Apr, 2025",
+            "categoryId": "education",
+            "amount": 599,
+            "type": "expense"
+        },
+        {
+            "id": 7,
+            "name": "Netflix Subscription",
+            "description": "Shared account",
+            "date": "01 Apr, 2025",
+            "categoryId": "entertainment",
+            "amount": 199,
+            "type": "expense"
+        },
+        {
+            "id": 8,
+            "name": "Movie Tickets",
+            "description": "Cinema night",
+            "date": "12 Apr, 2025",
+            "categoryId": "entertainment",
+            "amount": 400,
+            "type": "expense"
+        },
+        {
+            "id": 9,
+            "name": "Medical Checkup",
+            "description": "Campus clinic",
+            "date": "18 Apr, 2025",
+            "categoryId": "healthcare",
+            "amount": 500,
+            "type": "expense"
+        },
+        {
+            "id": 10,
+            "name": "Freelance Article",
+            "description": "Content writing",
+            "date": "20 Apr, 2025",
+            "categoryId": "income",
+            "amount": 5000,
+            "type": "income"
+        },
+        {
+            "id": 11,
+            "name": "Bus Travel",
+            "description": "Monthly pass",
+            "date": "03 Apr, 2025",
+            "categoryId": "travel",
+            "amount": 600,
+            "type": "expense"
+        },
+        {
+            "id": 12,
+            "name": "Campus Cafeteria",
+            "description": "Coffee & snacks",
+            "date": "22 Apr, 2025",
+            "categoryId": "food",
+            "amount": 250,
+            "type": "expense"
+        },
+
+        {
+            "id": 13,
+            "name": "Part-time Internship",
+            "description": "Monthly stipend",
+            "date": "01 May, 2025",
+            "categoryId": "income",
+            "amount": 15000,
+            "type": "income"
+        },
+        {
+            "id": 14,
+            "name": "Hostel Fees",
+            "description": "Monthly hostel rent",
+            "date": "01 May, 2025",
+            "categoryId": "housing",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 15,
+            "name": "Grocery Store",
+            "description": "Weekly groceries",
+            "date": "05 May, 2025",
+            "categoryId": "food",
+            "amount": 1100,
+            "type": "expense"
+        },
+        {
+            "id": 16,
+            "name": "Electricity (Hostel)",
+            "description": "Common expenses",
+            "date": "15 May, 2025",
+            "categoryId": "utilities",
+            "amount": 350,
+            "type": "expense"
+        },
+        {
+            "id": 17,
+            "name": "Freelance Article",
+            "description": "Content writing",
+            "date": "20 May, 2025",
+            "categoryId": "income",
+            "amount": 3000,
+            "type": "income"
+        },
+        {
+            "id": 18,
+            "name": "Movie Tickets",
+            "description": "Cinema night",
+            "date": "10 May, 2025",
+            "categoryId": "entertainment",
+            "amount": 350,
+            "type": "expense"
+        },
+        {
+            "id": 19,
+            "name": "Book Purchase",
+            "description": "Study material",
+            "date": "12 May, 2025",
+            "categoryId": "education",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 20,
+            "name": "First Aid Kit",
+            "description": "Health supplies",
+            "date": "18 May, 2025",
+            "categoryId": "healthcare",
+            "amount": 300,
+            "type": "expense"
+        },
+        {
+            "id": 21,
+            "name": "Campus Cafeteria",
+            "description": "Coffee & snacks",
+            "date": "22 May, 2025",
+            "categoryId": "food",
+            "amount": 280,
+            "type": "expense"
+        },
+        {
+            "id": 22,
+            "name": "Bus Travel",
+            "description": "Monthly pass",
+            "date": "03 May, 2025",
+            "categoryId": "travel",
+            "amount": 600,
+            "type": "expense"
+        },
+
+        {
+            "id": 23,
+            "name": "Part-time Internship",
+            "description": "Monthly stipend",
+            "date": "01 Jun, 2025",
+            "categoryId": "income",
+            "amount": 16000,
+            "type": "income"
+        },
+        {
+            "id": 24,
+            "name": "Hostel Fees",
+            "description": "Monthly hostel rent",
+            "date": "01 Jun, 2025",
+            "categoryId": "housing",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 25,
+            "name": "Grocery Store",
+            "description": "Weekly groceries",
+            "date": "05 Jun, 2025",
+            "categoryId": "food",
+            "amount": 1300,
+            "type": "expense"
+        },
+        {
+            "id": 26,
+            "name": "Internship Report",
+            "description": "Document binding",
+            "date": "08 Jun, 2025",
+            "categoryId": "education",
+            "amount": 400,
+            "type": "expense"
+        },
+        {
+            "id": 27,
+            "name": "Movie Tickets",
+            "description": "Cinema night",
+            "date": "14 Jun, 2025",
+            "categoryId": "entertainment",
+            "amount": 400,
+            "type": "expense"
+        },
+        {
+            "id": 28,
+            "name": "Electricity (Hostel)",
+            "description": "Common expenses",
+            "date": "15 Jun, 2025",
+            "categoryId": "utilities",
+            "amount": 380,
+            "type": "expense"
+        },
+        {
+            "id": 29,
+            "name": "Freelance Design",
+            "description": "Logo design",
+            "date": "25 Jun, 2025",
+            "categoryId": "income",
+            "amount": 4000,
+            "type": "income"
+        },
+        {
+            "id": 30,
+            "name": "Campus Cafeteria",
+            "description": "Coffee & snacks",
+            "date": "22 Jun, 2025",
+            "categoryId": "food",
+            "amount": 300,
+            "type": "expense"
+        },
+
+        {
+            "id": 31,
+            "name": "Part-time Internship",
+            "description": "Monthly stipend",
+            "date": "01 Jul, 2025",
+            "categoryId": "income",
+            "amount": 15000,
+            "type": "income"
+        },
+        {
+            "id": 32,
+            "name": "Hostel Fees",
+            "description": "Monthly hostel rent",
+            "date": "01 Jul, 2025",
+            "categoryId": "housing",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 33,
+            "name": "Grocery Store",
+            "description": "Weekly groceries",
+            "date": "05 Jul, 2025",
+            "categoryId": "food",
+            "amount": 1150,
+            "type": "expense"
+        },
+        {
+            "id": 34,
+            "name": "Online Course",
+            "description": "Data Science",
+            "date": "10 Jul, 2025",
+            "categoryId": "education",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 35,
+            "name": "Movie Tickets",
+            "description": "Cinema night",
+            "date": "12 Jul, 2025",
+            "categoryId": "entertainment",
+            "amount": 450,
+            "type": "expense"
+        },
+        {
+            "id": 36,
+            "name": "Electricity (Hostel)",
+            "description": "Common expenses",
+            "date": "15 Jul, 2025",
+            "categoryId": "utilities",
+            "amount": 300,
+            "type": "expense"
+        },
+        {
+            "id": 37,
+            "name": "Doctor Visit",
+            "description": "Medical checkup",
+            "date": "20 Jul, 2025",
+            "categoryId": "healthcare",
+            "amount": 600,
+            "type": "expense"
+        },
+        {
+            "id": 38,
+            "name": "Freelance Writing",
+            "description": "Article writing",
+            "date": "28 Jul, 2025",
+            "categoryId": "income",
+            "amount": 6000,
+            "type": "income"
+        },
+
+        {
+            "id": 39,
+            "name": "Part-time Internship",
+            "description": "Monthly stipend",
+            "date": "01 Aug, 2025",
+            "categoryId": "income",
+            "amount": 15000,
+            "type": "income"
+        },
+        {
+            "id": 40,
+            "name": "Hostel Fees",
+            "description": "Monthly hostel rent",
+            "date": "01 Aug, 2025",
+            "categoryId": "housing",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 41,
+            "name": "Grocery Store",
+            "description": "Weekly groceries",
+            "date": "05 Aug, 2025",
+            "categoryId": "food",
+            "amount": 1200,
+            "type": "expense"
+        },
+        {
+            "id": 42,
+            "name": "College Mess",
+            "description": "Lunch & Snacks",
+            "date": "10 Aug, 2025",
+            "categoryId": "food",
+            "amount": 500,
+            "type": "expense"
+        },
+        {
+            "id": 43,
+            "name": "Electricity (Hostel)",
+            "description": "Common expenses",
+            "date": "15 Aug, 2025",
+            "categoryId": "utilities",
+            "amount": 320,
+            "type": "expense"
+        },
+        {
+            "id": 44,
+            "name": "Movie Night",
+            "description": "Cinema with friends",
+            "date": "16 Aug, 2025",
+            "categoryId": "entertainment",
+            "amount": 500,
+            "type": "expense"
+        },
+        {
+            "id": 45,
+            "name": "Textbooks",
+            "description": "Study materials",
+            "date": "18 Aug, 2025",
+            "categoryId": "education",
+            "amount": 1200,
+            "type": "expense"
+        },
+        {
+            "id": 46,
+            "name": "Bus Travel",
+            "description": "Monthly pass",
+            "date": "01 Aug, 2025",
+            "categoryId": "travel",
+            "amount": 650,
+            "type": "expense"
+        },
+
+        {
+            "id": 47,
+            "name": "Part-time Internship",
+            "description": "Monthly stipend",
+            "date": "01 Sep, 2025",
+            "categoryId": "income",
+            "amount": 18000,
+            "type": "income"
+        },
+        {
+            "id": 48,
+            "name": "Hostel Fees",
+            "description": "Monthly hostel rent",
+            "date": "01 Sep, 2025",
+            "categoryId": "housing",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 49,
+            "name": "Grocery Store",
+            "description": "Weekly groceries",
+            "date": "05 Sep, 2025",
+            "categoryId": "food",
+            "amount": 1100,
+            "type": "expense"
+        },
+        {
+            "id": 50,
+            "name": "Electricity (Hostel)",
+            "description": "Common expenses",
+            "date": "15 Sep, 2025",
+            "categoryId": "utilities",
+            "amount": 300,
+            "type": "expense"
+        },
+        {
+            "id": 51,
+            "name": "Netflix Subscription",
+            "description": "Streaming service",
+            "date": "01 Sep, 2025",
+            "categoryId": "entertainment",
+            "amount": 199,
+            "type": "expense"
+        },
+        {
+            "id": 52,
+            "name": "Movie Tickets",
+            "description": "Cinema outing",
+            "date": "20 Sep, 2025",
+            "categoryId": "entertainment",
+            "amount": 400,
+            "type": "expense"
+        },
+        {
+            "id": 53,
+            "name": "Medical Prescription",
+            "description": "Health medication",
+            "date": "18 Sep, 2025",
+            "categoryId": "healthcare",
+            "amount": 450,
+            "type": "expense"
+        },
+        {
+            "id": 54,
+            "name": "Freelance Content",
+            "description": "Blog writing",
+            "date": "25 Sep, 2025",
+            "categoryId": "income",
+            "amount": 5500,
+            "type": "income"
+        },
+
+        {
+            "id": 55,
+            "name": "Part-time Internship",
+            "description": "Monthly stipend",
+            "date": "01 Oct, 2025",
+            "categoryId": "income",
+            "amount": 15000,
+            "type": "income"
+        },
+        {
+            "id": 56,
+            "name": "Hostel Fees",
+            "description": "Monthly hostel rent",
+            "date": "01 Oct, 2025",
+            "categoryId": "housing",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 57,
+            "name": "Grocery Store",
+            "description": "Weekly groceries",
+            "date": "05 Oct, 2025",
+            "categoryId": "food",
+            "amount": 1250,
+            "type": "expense"
+        },
+        {
+            "id": 58,
+            "name": "College Mess",
+            "description": "Lunch & Snacks",
+            "date": "12 Oct, 2025",
+            "categoryId": "food",
+            "amount": 450,
+            "type": "expense"
+        },
+        {
+            "id": 59,
+            "name": "Electricity (Hostel)",
+            "description": "Common expenses",
+            "date": "15 Oct, 2025",
+            "categoryId": "utilities",
+            "amount": 350,
+            "type": "expense"
+        },
+        {
+            "id": 60,
+            "name": "Online Course",
+            "description": "Machine Learning",
+            "date": "08 Oct, 2025",
+            "categoryId": "education",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 61,
+            "name": "Movie Tickets",
+            "description": "New release",
+            "date": "14 Oct, 2025",
+            "categoryId": "entertainment",
+            "amount": 500,
+            "type": "expense"
+        },
+        {
+            "id": 62,
+            "name": "Bus Travel",
+            "description": "Monthly pass",
+            "date": "01 Oct, 2025",
+            "categoryId": "travel",
+            "amount": 600,
+            "type": "expense"
+        },
+
+        {
+            "id": 63,
+            "name": "Part-time Internship",
+            "description": "Monthly stipend",
+            "date": "01 Nov, 2025",
+            "categoryId": "income",
+            "amount": 20000,
+            "type": "income"
+        },
+        {
+            "id": 64,
+            "name": "Hostel Fees",
+            "description": "Monthly hostel rent",
+            "date": "01 Nov, 2025",
+            "categoryId": "housing",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 65,
+            "name": "Grocery Store",
+            "description": "Weekly groceries",
+            "date": "05 Nov, 2025",
+            "categoryId": "food",
+            "amount": 1400,
+            "type": "expense"
+        },
+        {
+            "id": 66,
+            "name": "Christmas Gift",
+            "description": "Friend gifts",
+            "date": "15 Nov, 2025",
+            "categoryId": "shopping",
+            "amount": 2000,
+            "type": "expense"
+        },
+        {
+            "id": 67,
+            "name": "Electricity (Hostel)",
+            "description": "Common expenses",
+            "date": "15 Nov, 2025",
+            "categoryId": "utilities",
+            "amount": 400,
+            "type": "expense"
+        },
+        {
+            "id": 68,
+            "name": "New Year Party",
+            "description": "Celebration",
+            "date": "20 Nov, 2025",
+            "categoryId": "entertainment",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 69,
+            "name": "Winter Clothes",
+            "description": "Warm clothes",
+            "date": "18 Nov, 2025",
+            "categoryId": "shopping",
+            "amount": 2500,
+            "type": "expense"
+        },
+        {
+            "id": 70,
+            "name": "Freelance Project",
+            "description": "Website design",
+            "date": "28 Nov, 2025",
+            "categoryId": "income",
+            "amount": 8000,
+            "type": "income"
+        },
+
+        {
+            "id": 71,
+            "name": "Part-time Internship",
+            "description": "Monthly stipend",
+            "date": "01 Dec, 2025",
+            "categoryId": "income",
+            "amount": 15000,
+            "type": "income"
+        },
+        {
+            "id": 72,
+            "name": "Hostel Fees",
+            "description": "Monthly hostel rent",
+            "date": "01 Dec, 2025",
+            "categoryId": "housing",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 73,
+            "name": "Grocery Store",
+            "description": "Weekly groceries",
+            "date": "05 Dec, 2025",
+            "categoryId": "food",
+            "amount": 1100,
+            "type": "expense"
+        },
+        {
+            "id": 74,
+            "name": "College Mess",
+            "description": "Lunch & Snacks",
+            "date": "12 Dec, 2025",
+            "categoryId": "food",
+            "amount": 400,
+            "type": "expense"
+        },
+        {
+            "id": 75,
+            "name": "Electricity (Hostel)",
+            "description": "Common expenses",
+            "date": "15 Dec, 2025",
+            "categoryId": "utilities",
+            "amount": 320,
+            "type": "expense"
+        },
+        {
+            "id": 76,
+            "name": "Movie Tickets",
+            "description": "Cinema",
+            "date": "18 Dec, 2025",
+            "categoryId": "entertainment",
+            "amount": 400,
+            "type": "expense"
+        },
+        {
+            "id": 77,
+            "name": "Udemy Course",
+            "description": "Web Development",
+            "date": "10 Dec, 2025",
+            "categoryId": "education",
+            "amount": 1200,
+            "type": "expense"
+        },
+        {
+            "id": 78,
+            "name": "Bus Travel",
+            "description": "Monthly pass",
+            "date": "01 Dec, 2025",
+            "categoryId": "travel",
+            "amount": 600,
+            "type": "expense"
+        },
+
+        {
+            "id": 79,
+            "name": "Part-time Internship",
+            "description": "Monthly stipend",
+            "date": "01 Jan, 2026",
+            "categoryId": "income",
+            "amount": 16000,
+            "type": "income"
+        },
+        {
+            "id": 80,
+            "name": "Hostel Fees",
+            "description": "Monthly hostel rent",
+            "date": "01 Jan, 2026",
+            "categoryId": "housing",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 81,
+            "name": "Grocery Store",
+            "description": "Weekly groceries",
+            "date": "05 Jan, 2026",
+            "categoryId": "food",
+            "amount": 1200,
+            "type": "expense"
+        },
+        {
+            "id": 82,
+            "name": "Electricity (Hostel)",
+            "description": "Common expenses",
+            "date": "15 Jan, 2026",
+            "categoryId": "utilities",
+            "amount": 330,
+            "type": "expense"
+        },
+        {
+            "id": 83,
+            "name": "Valentine Movie",
+            "description": "Cinema date",
+            "date": "14 Jan, 2026",
+            "categoryId": "entertainment",
+            "amount": 600,
+            "type": "expense"
+        },
+        {
+            "id": 84,
+            "name": "Lab Materials",
+            "description": "Project supplies",
+            "date": "10 Jan, 2026",
+            "categoryId": "education",
+            "amount": 800,
+            "type": "expense"
+        },
+        {
+            "id": 85,
+            "name": "Doctor Visit",
+            "description": "Medical",
+            "date": "20 Jan, 2026",
+            "categoryId": "healthcare",
+            "amount": 500,
+            "type": "expense"
+        },
+        {
+            "id": 86,
+            "name": "Freelance Work",
+            "description": "Writing",
+            "date": "28 Jan, 2026",
+            "categoryId": "income",
+            "amount": 4500,
+            "type": "income"
+        },
+
+        {
+            "id": 87,
+            "name": "Part-time Internship",
+            "description": "Monthly stipend",
+            "date": "01 Feb, 2026",
+            "categoryId": "income",
+            "amount": 15000,
+            "type": "income"
+        },
+        {
+            "id": 88,
+            "name": "Hostel Fees",
+            "description": "Monthly hostel rent",
+            "date": "01 Feb, 2026",
+            "categoryId": "housing",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 89,
+            "name": "Grocery Store",
+            "description": "Weekly groceries",
+            "date": "05 Feb, 2026",
+            "categoryId": "food",
+            "amount": 1150,
+            "type": "expense"
+        },
+        {
+            "id": 90,
+            "name": "College Mess",
+            "description": "Lunch & Snacks",
+            "date": "10 Feb, 2026",
+            "categoryId": "food",
+            "amount": 420,
+            "type": "expense"
+        },
+        {
+            "id": 91,
+            "name": "Electricity (Hostel)",
+            "description": "Common expenses",
+            "date": "15 Feb, 2026",
+            "categoryId": "utilities",
+            "amount": 300,
+            "type": "expense"
+        },
+        {
+            "id": 92,
+            "name": "Movie Night",
+            "description": "Cinema",
+            "date": "16 Feb, 2026",
+            "categoryId": "entertainment",
+            "amount": 450,
+            "type": "expense"
+        },
+        {
+            "id": 93,
+            "name": "Textbooks",
+            "description": "Study",
+            "date": "12 Feb, 2026",
+            "categoryId": "education",
+            "amount": 1500,
+            "type": "expense"
+        },
+        {
+            "id": 94,
+            "name": "Bus Travel",
+            "description": "Monthly pass",
+            "date": "01 Feb, 2026",
+            "categoryId": "travel",
+            "amount": 600,
+            "type": "expense"
+        },
+        {
+            "id": 95,
+            "name": "Freelance Content",
+            "description": "Blog posts",
+            "date": "25 Feb, 2026",
+            "categoryId": "income",
+            "amount": 5000,
+            "type": "income"
+        },
+
+        {
+            "id": 96,
+            "name": "Part-time Internship",
+            "description": "Monthly stipend",
+            "date": "01 Mar, 2026",
+            "categoryId": "income",
+            "amount": 15000,
+            "type": "income"
+        },
+        {
+            "id": 97,
+            "name": "Hostel Fees",
+            "description": "Monthly hostel rent",
+            "date": "01 Mar, 2026",
+            "categoryId": "housing",
+            "amount": 8000,
+            "type": "expense"
+        },
+        {
+            "id": 98,
+            "name": "Grocery Store",
+            "description": "Weekly groceries",
+            "date": "03 Mar, 2026",
+            "categoryId": "food",
+            "amount": 1100,
+            "type": "expense"
+        },
+        {
+            "id": 99,
+            "name": "Electricity (Hostel)",
+            "description": "Common expenses",
+            "date": "10 Mar, 2026",
+            "categoryId": "utilities",
+            "amount": 300,
+            "type": "expense"
+        },
+        {
+            "id": 100,
+            "name": "Movie Tickets",
+            "description": "Cinema outing",
+            "date": "12 Mar, 2026",
+            "categoryId": "entertainment",
+            "amount": 400,
+            "type": "expense"
+        },
+        {
+            "id": 101,
+            "name": "Medical Checkup",
+            "description": "Campus clinic",
+            "date": "15 Mar, 2026",
+            "categoryId": "healthcare",
+            "amount": 450,
+            "type": "expense"
+        },
+        {
+            "id": 102,
+            "name": "Online Certification",
+            "description": "Professional course",
+            "date": "08 Mar, 2026",
+            "categoryId": "education",
+            "amount": 1800,
+            "type": "expense"
+        },
+        {
+            "id": 103,
+            "name": "Festival Gifts",
+            "description": "Holi gifts",
+            "date": "20 Mar, 2026",
+            "categoryId": "shopping",
+            "amount": 1200,
+            "type": "expense"
+        },
+        {
+            "id": 104,
+            "name": "Freelance Design",
+            "description": "UI/UX project",
+            "date": "28 Mar, 2026",
+            "categoryId": "income",
+            "amount": 7000,
+            "type": "income"
+        }
+    ],
+    "goals": [
+        {
+            "id": 1,
+            "title": "Emergency Fund",
+            "current": 8500,
+            "target": 25000,
+            "color": "#2563eb"
+        },
+        {
+            "id": 2,
+            "title": "Laptop Fund",
+            "current": 12000,
+            "target": 60000,
+            "color": "#059669"
+        },
+        {
+            "id": 3,
+            "title": "Summer Travel",
+            "current": 5200,
+            "target": 15000,
+            "color": "#f59e0b"
+        }
+    ]
+}
