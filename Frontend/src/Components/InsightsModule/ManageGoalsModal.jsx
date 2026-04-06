@@ -190,23 +190,23 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                         ? "bg-slate-800 border-slate-700"
                         : "bg-white border-slate-200"
                 }`}>
-                <div className="p-8 pb-4">
-                    <div className="flex items-center justify-between gap-4">
+                <div className="p-4 sm:p-8 pb-2 sm:pb-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                         <h2
-                            className={`text-2xl font-bold ${
+                            className={`text-lg sm:text-2xl font-bold ${
                                 isDarkMode ? "text-white" : "text-slate-900"
                             }`}>
                             Manage Savings Goals
                         </h2>
 
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2 sm:gap-3">
                             <div
-                                className={`flex gap-1 p-1 rounded-full ${
+                                className={`flex gap-1 p-0.5 sm:p-1 rounded-full ${
                                     isDarkMode ? "bg-slate-700" : "bg-slate-100"
                                 }`}>
                                 <button
                                     onClick={() => setActiveSection("add")}
-                                    className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
+                                    className={`flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
                                         activeSection === "add"
                                             ? "bg-blue-600 text-white shadow-lg"
                                             : isDarkMode
@@ -214,18 +214,19 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                               : "text-blue-600"
                                     }`}>
                                     <span>+</span>
-                                    Add Goal
+                                    <span>Add Goal</span>
                                 </button>
                                 <button
                                     onClick={() => setActiveSection("manage")}
-                                    className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
+                                    className={`flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
                                         activeSection === "manage"
                                             ? "bg-green-600 text-white shadow-lg"
                                             : isDarkMode
                                               ? "text-green-400"
                                               : "text-green-600"
                                     }`}>
-                                    Manage Goals
+                                    <span>✓</span>
+                                    <span>Manage Goals</span>
                                 </button>
                             </div>
 
@@ -242,12 +243,12 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                     </div>
                 </div>
 
-                <div className="p-8 pt-0 space-y-6 max-h-[600px] overflow-y-auto">
+                <div className="p-4 sm:p-8 pt-0 space-y-4 sm:space-y-6 max-h-[600px] overflow-y-auto">
                     {activeSection === "add" && (
                         <div className="space-y-4">
                             <div className="relative">
                                 <label
-                                    className={`block text-sm font-semibold mb-2.5 ${
+                                    className={`block text-xs sm:text-sm font-semibold mb-1 sm:mb-2.5 ${
                                         isDarkMode
                                             ? "text-slate-300"
                                             : "text-slate-700"
@@ -270,7 +271,7 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                         }
                                     }}
                                     placeholder="e.g., Laptop Fund"
-                                    className={`w-full px-4 py-3 ${inputBase} ${
+                                    className={`w-full px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm ${inputBase} ${
                                         errors.title ? "border-red-500" : ""
                                     }`}
                                 />
@@ -278,10 +279,10 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                     renderErrorBubble(errors.title)}
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-2 gap-2 sm:gap-4">
                                 <div className="relative">
                                     <label
-                                        className={`block text-sm font-semibold mb-2.5 ${
+                                        className={`block text-xs sm:text-sm font-semibold mb-1 sm:mb-2.5 ${
                                             isDarkMode
                                                 ? "text-slate-300"
                                                 : "text-slate-700"
@@ -289,7 +290,7 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                         CURRENT AMOUNT
                                     </label>
                                     <div
-                                        className={`flex items-center px-4 py-2.5 ${inputBase} ${
+                                        className={`flex items-center px-2 sm:px-4 py-1.5 sm:py-2.5 text-xs sm:text-sm ${inputBase} ${
                                             errors.current
                                                 ? "border-red-500"
                                                 : ""
@@ -331,7 +332,7 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
 
                                 <div className="relative">
                                     <label
-                                        className={`block text-sm font-semibold mb-2.5 ${
+                                        className={`block text-xs sm:text-sm font-semibold mb-1 sm:mb-2.5 ${
                                             isDarkMode
                                                 ? "text-slate-300"
                                                 : "text-slate-700"
@@ -339,7 +340,7 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                         TARGET AMOUNT
                                     </label>
                                     <div
-                                        className={`flex items-center px-4 py-2.5 ${inputBase} ${
+                                        className={`flex items-center px-2 sm:px-4 py-1.5 sm:py-2.5 text-xs sm:text-sm ${inputBase} ${
                                             errors.target
                                                 ? "border-red-500"
                                                 : ""
@@ -382,14 +383,14 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
 
                             <div>
                                 <label
-                                    className={`block text-sm font-semibold mb-2.5 ${
+                                    className={`block text-xs sm:text-sm font-semibold mb-1 sm:mb-2.5 ${
                                         isDarkMode
                                             ? "text-slate-300"
                                             : "text-slate-700"
                                     }`}>
                                     GOAL COLOR
                                 </label>
-                                <div className="flex gap-2 flex-wrap">
+                                <div className="flex gap-1.5 sm:gap-2 flex-wrap">
                                     {colors.map((color) => (
                                         <button
                                             key={color}
@@ -399,7 +400,7 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                                     color,
                                                 })
                                             }
-                                            className={`w-10 h-10 rounded-full border-2 transition-all ${
+                                            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 transition-all ${
                                                 newGoal.color === color
                                                     ? "border-slate-300 scale-110"
                                                     : "border-transparent"
@@ -412,7 +413,7 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
 
                             <button
                                 onClick={handleAddGoal}
-                                className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 active:scale-95 transition-all duration-150">
+                                className="w-full bg-blue-600 text-white py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base hover:bg-blue-700 active:scale-95 transition-all duration-150">
                                 Add Goal
                             </button>
                         </div>
@@ -430,17 +431,17 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                     No goals yet. Add one in the Add section.
                                 </p>
                             ) : (
-                                <div className="space-y-3">
+                                <div className="space-y-2 sm:space-y-3">
                                     {goals.map((goal) => (
                                         <div
                                             key={goal.id}
-                                            className={`p-4 rounded-lg border transition-all ${
+                                            className={`p-2 sm:p-4 rounded-lg border transition-all ${
                                                 isDarkMode
                                                     ? "bg-slate-700 border-slate-600 hover:bg-slate-650"
                                                     : "bg-slate-50 border-slate-200 hover:bg-slate-100"
                                             }`}>
                                             {editingId === goal.id ? (
-                                                <div className="space-y-3">
+                                                <div className="space-y-2 sm:space-y-3">
                                                     <input
                                                         type="text"
                                                         value={goal.title}
@@ -451,9 +452,9 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                                                 e.target.value,
                                                             )
                                                         }
-                                                        className={`w-full px-3 py-2 ${editInputBase}`}
+                                                        className={`w-full px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm ${editInputBase}`}
                                                     />
-                                                    <div className="grid grid-cols-2 gap-3">
+                                                    <div className="grid grid-cols-2 gap-1.5 sm:gap-3">
                                                         <input
                                                             type="number"
                                                             value={goal.current}
@@ -465,7 +466,7 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                                                         .value,
                                                                 )
                                                             }
-                                                            className={`w-full px-3 py-2 ${editInputBase} ${NUMBER_INPUT_NO_SPINNER}`}
+                                                            className={`w-full px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm ${editInputBase} ${NUMBER_INPUT_NO_SPINNER}`}
                                                         />
                                                         <input
                                                             type="number"
@@ -478,17 +479,17 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                                                         .value,
                                                                 )
                                                             }
-                                                            className={`w-full px-3 py-2 ${editInputBase} ${NUMBER_INPUT_NO_SPINNER}`}
+                                                            className={`w-full px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm ${editInputBase} ${NUMBER_INPUT_NO_SPINNER}`}
                                                         />
                                                     </div>
-                                                    <div className="flex gap-2">
+                                                    <div className="flex gap-1.5 sm:gap-2">
                                                         <button
                                                             onClick={() =>
                                                                 setEditingId(
                                                                     null,
                                                                 )
                                                             }
-                                                            className="flex-1 bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 active:scale-95 transition-all">
+                                                            className="flex-1 bg-green-600 text-white py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg font-semibold hover:bg-green-700 active:scale-95 transition-all">
                                                             Done
                                                         </button>
                                                         <button
@@ -497,7 +498,7 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                                                     null,
                                                                 )
                                                             }
-                                                            className={`flex-1 py-2 rounded-lg font-semibold border-2 transition-all ${
+                                                            className={`flex-1 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg font-semibold border-2 transition-all ${
                                                                 isDarkMode
                                                                     ? "border-slate-600 text-slate-300 hover:bg-slate-600"
                                                                     : "border-slate-300 text-slate-600 hover:bg-slate-100"
@@ -507,8 +508,8 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                                     </div>
                                                 </div>
                                             ) : (
-                                                <div className="flex items-center justify-between gap-4">
-                                                    <div className="flex items-center gap-3 flex-1">
+                                                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
+                                                    <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
                                                         <div
                                                             className="w-4 h-4 rounded-full flex-shrink-0"
                                                             style={{
@@ -518,7 +519,7 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                                         />
                                                         <div className="flex-1 min-w-0">
                                                             <p
-                                                                className={`font-semibold truncate ${
+                                                                className={`font-semibold truncate text-xs sm:text-base ${
                                                                     isDarkMode
                                                                         ? "text-white"
                                                                         : "text-slate-900"
@@ -526,7 +527,7 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                                                 {goal.title}
                                                             </p>
                                                             <p
-                                                                className={`text-sm ${
+                                                                className={`text-xs sm:text-sm ${
                                                                     isDarkMode
                                                                         ? "text-slate-400"
                                                                         : "text-slate-600"
@@ -538,7 +539,7 @@ const ManageGoalsModal = ({ isOpen, onClose, existingGoals, onSaveGoals }) => {
                                                             </p>
                                                         </div>
                                                     </div>
-                                                    <div className="flex gap-3 justify-center flex-shrink-0">
+                                                    <div className="flex gap-1 sm:gap-3 justify-start sm:justify-center flex-shrink-0">
                                                         <button
                                                             onClick={() =>
                                                                 setEditingId(

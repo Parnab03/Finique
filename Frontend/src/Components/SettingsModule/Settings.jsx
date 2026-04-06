@@ -480,11 +480,11 @@ const Settings = () => {
     const isPresetSelected = selectedPreset.trim().length > 0;
 
     return (
-        <div className="p-8 space-y-6">
+        <div className="p-3 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
             {statusMessage && (
-                <div className="fixed top-[86px] right-6 z-50">
+                <div className="fixed top-[86px] right-3 sm:right-6 z-50">
                     <div
-                        className={`rounded-lg px-4 py-2.5 text-sm font-medium shadow-lg border backdrop-blur-sm transition-all duration-500 ${
+                        className={`rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium shadow-lg border backdrop-blur-sm transition-all duration-500 ${
                             statusMessage.includes("X")
                                 ? isDarkMode
                                     ? "bg-red-900/90 text-red-200 border-red-700"
@@ -501,16 +501,16 @@ const Settings = () => {
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
                 <section className={cardClass}>
                     <h2
-                        className={`text-xl font-semibold mb-4 ${
+                        className={`text-lg sm:text-xl font-semibold mb-3 sm:mb-4 ${
                             isDarkMode ? "text-white" : "text-slate-900"
                         }`}>
                         Admin Profile
                     </h2>
 
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="relative">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                        <div className="relative flex-shrink-0">
                             <div
-                                className={`w-24 h-24 rounded-full overflow-hidden border ${
+                                className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border ${
                                     isDarkMode
                                         ? "border-slate-600 bg-slate-700"
                                         : "border-slate-300 bg-slate-100"
@@ -560,15 +560,16 @@ const Settings = () => {
                             <button
                                 type="button"
                                 onClick={openImagePicker}
-                                className={`absolute -bottom-1 -right-1 w-9 h-9 rounded-full flex items-center justify-center border-2 ${
+                                className={`absolute -bottom-1 -right-1 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border-2 ${
                                     isDarkMode
                                         ? "bg-blue-600 border-slate-800 text-white hover:bg-blue-700"
                                         : "bg-blue-600 border-white text-white hover:bg-blue-700"
                                 }`}
                                 aria-label="Change profile image">
                                 <svg
-                                    width="16"
-                                    height="16"
+                                    width="14"
+                                    height="14"
+                                    className="sm:w-4 sm:h-4"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="currentColor"
@@ -587,11 +588,11 @@ const Settings = () => {
                             />
                         </div>
 
-                        <div className="flex-1">
+                        <div className="flex-1 w-full sm:w-auto">
                             {!isEditingName ? (
                                 <div className="flex items-center gap-2">
                                     <p
-                                        className={`text-lg font-semibold ${
+                                        className={`text-base sm:text-lg font-semibold ${
                                             isDarkMode
                                                 ? "text-slate-100"
                                                 : "text-slate-900"
@@ -669,11 +670,13 @@ const Settings = () => {
                         </div>
                     </div>
 
-                    <div className="relative mb-4">
-                        <label className={labelClass}>Set New Password</label>
+                    <div className="relative mb-3 sm:mb-4">
+                        <label className={`${labelClass} text-xs sm:text-sm`}>
+                            Set New Password
+                        </label>
                         <input
                             type="password"
-                            className={`${inputClass} ${
+                            className={`${inputClass} py-1.5 sm:py-2.5 text-xs sm:text-sm ${
                                 errors.newPassword ? "border-red-500" : ""
                             }`}
                             value={newPassword}
@@ -699,11 +702,13 @@ const Settings = () => {
                             renderErrorBubble(errors.newPassword)}
                     </div>
 
-                    <div className="relative mb-4">
-                        <label className={labelClass}>Confirm Password</label>
+                    <div className="relative mb-3 sm:mb-4">
+                        <label className={`${labelClass} text-xs sm:text-sm`}>
+                            Confirm Password
+                        </label>
                         <input
                             type="password"
-                            className={`${inputClass} ${
+                            className={`${inputClass} py-1.5 sm:py-2.5 text-xs sm:text-sm ${
                                 errors.confirmPassword ? "border-red-500" : ""
                             }`}
                             value={confirmPassword}
@@ -733,27 +738,27 @@ const Settings = () => {
                         type="button"
                         onClick={handleSetNewPassword}
                         disabled={!canSetNewPassword}
-                        className={`w-full px-4 py-2.5 rounded-lg font-semibold transition-all ${
+                        className={`w-full px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-sm sm:text-base font-semibold transition-all ${
                             canSetNewPassword
                                 ? "bg-blue-600 text-white hover:bg-blue-700"
                                 : "bg-slate-400 text-white cursor-not-allowed opacity-60"
                         }`}>
-                        Set New Password
+                        Set Password
                     </button>
                 </section>
 
                 <section className={cardClass}>
                     <h2
-                        className={`text-xl font-semibold mb-4 ${
+                        className={`text-lg sm:text-xl font-semibold mb-3 sm:mb-4 ${
                             isDarkMode ? "text-white" : "text-slate-900"
                         }`}>
                         Viewer Profile
                     </h2>
 
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="relative">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                        <div className="relative flex-shrink-0">
                             <div
-                                className={`w-24 h-24 rounded-full overflow-hidden border ${
+                                className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border ${
                                     isDarkMode
                                         ? "border-slate-600 bg-slate-700"
                                         : "border-slate-300 bg-slate-100"
@@ -803,15 +808,16 @@ const Settings = () => {
                             <button
                                 type="button"
                                 onClick={openViewerImagePicker}
-                                className={`absolute -bottom-1 -right-1 w-9 h-9 rounded-full flex items-center justify-center border-2 ${
+                                className={`absolute -bottom-1 -right-1 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border-2 ${
                                     isDarkMode
                                         ? "bg-blue-600 border-slate-800 text-white hover:bg-blue-700"
                                         : "bg-blue-600 border-white text-white hover:bg-blue-700"
                                 }`}
                                 aria-label="Change viewer profile image">
                                 <svg
-                                    width="16"
-                                    height="16"
+                                    width="14"
+                                    height="14"
+                                    className="sm:w-4 sm:h-4"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="currentColor"
@@ -830,11 +836,11 @@ const Settings = () => {
                             />
                         </div>
 
-                        <div className="flex-1">
+                        <div className="flex-1 w-full sm:w-auto">
                             {!isEditingViewerName ? (
                                 <div className="flex items-center gap-2">
                                     <p
-                                        className={`text-lg font-semibold ${
+                                        className={`text-base sm:text-lg font-semibold truncate ${
                                             isDarkMode
                                                 ? "text-slate-100"
                                                 : "text-slate-900"
@@ -914,13 +920,13 @@ const Settings = () => {
                         </div>
                     </div>
 
-                    <div className="relative mb-4">
-                        <label className={labelClass}>
+                    <div className="relative mb-3 sm:mb-4">
+                        <label className={`${labelClass} text-xs sm:text-sm`}>
                             Set New Viewer Password
                         </label>
                         <input
                             type="password"
-                            className={`${inputClass} ${
+                            className={`${inputClass} py-1.5 sm:py-2.5 text-xs sm:text-sm ${
                                 errors.viewerNewPassword ? "border-red-500" : ""
                             }`}
                             value={viewerNewPassword}
@@ -946,13 +952,13 @@ const Settings = () => {
                             renderErrorBubble(errors.viewerNewPassword)}
                     </div>
 
-                    <div className="relative mb-4">
-                        <label className={labelClass}>
+                    <div className="relative mb-3 sm:mb-4">
+                        <label className={`${labelClass} text-xs sm:text-sm`}>
                             Confirm Viewer Password
                         </label>
                         <input
                             type="password"
-                            className={`${inputClass} ${
+                            className={`${inputClass} py-1.5 sm:py-2.5 text-xs sm:text-sm ${
                                 errors.viewerConfirmPassword
                                     ? "border-red-500"
                                     : ""
@@ -984,12 +990,15 @@ const Settings = () => {
                         type="button"
                         onClick={handleSetViewerNewPassword}
                         disabled={!canSetViewerNewPassword}
-                        className={`w-full px-4 py-2.5 rounded-lg font-semibold transition-all ${
+                        className={`w-full px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-sm sm:text-base font-semibold transition-all ${
                             canSetViewerNewPassword
                                 ? "bg-blue-600 text-white hover:bg-blue-700"
                                 : "bg-slate-400 text-white cursor-not-allowed opacity-60"
                         }`}>
-                        Set Viewer Password
+                        <span className="hidden sm:inline">
+                            Set Viewer Password
+                        </span>
+                        <span className="sm:hidden">Set Password</span>
                     </button>
                 </section>
             </div>
@@ -997,14 +1006,14 @@ const Settings = () => {
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
                 <section className={cardClass}>
                     <h2
-                        className={`text-xl font-semibold mb-2 ${
+                        className={`text-lg sm:text-xl font-semibold mb-2 ${
                             isDarkMode ? "text-white" : "text-slate-900"
                         }`}>
                         User Presets
                     </h2>
 
                     <p
-                        className={`text-sm mb-4 ${
+                        className={`text-xs sm:text-sm mb-3 sm:mb-4 ${
                             isDarkMode ? "text-slate-300" : "text-slate-600"
                         }`}>
                         Pick one preset. These presets will be linked to JSON
@@ -1012,14 +1021,14 @@ const Settings = () => {
                         files are added.
                     </p>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2 sm:gap-3">
                         {PRESET_OPTIONS.map((preset) => {
                             const isSelected = selectedPreset === preset.id;
 
                             return (
                                 <div
                                     key={preset.id}
-                                    className={`rounded-xl border p-3 transition-all ${
+                                    className={`rounded-xl border p-2.5 sm:p-3 transition-all ${
                                         isSelected
                                             ? isDarkMode
                                                 ? "border-blue-500 bg-blue-900/20"
@@ -1029,7 +1038,7 @@ const Settings = () => {
                                               : "border-slate-200 bg-slate-50"
                                     }`}>
                                     <p
-                                        className={`font-semibold text-sm ${
+                                        className={`font-semibold text-xs sm:text-sm ${
                                             isDarkMode
                                                 ? "text-slate-100"
                                                 : "text-slate-900"
@@ -1045,7 +1054,7 @@ const Settings = () => {
                                         {preset.fileName}
                                     </p>
                                     <p
-                                        className={`text-xs mt-2 min-h-[48px] ${
+                                        className={`text-xs mt-1.5 sm:mt-2 min-h-[48px] line-clamp-4 ${
                                             isDarkMode
                                                 ? "text-slate-300"
                                                 : "text-slate-600"
@@ -1058,14 +1067,12 @@ const Settings = () => {
                                         onClick={() =>
                                             handleUsePreset(preset.id)
                                         }
-                                        className={`mt-3 w-full px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
+                                        className={`mt-2 sm:mt-3 w-full px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs font-semibold transition-all ${
                                             isSelected
                                                 ? "bg-green-600 text-white"
                                                 : "bg-blue-600 text-white hover:bg-blue-700"
                                         }`}>
-                                        {isSelected
-                                            ? "Preset Active"
-                                            : "Use Preset"}
+                                        {isSelected ? "Active" : "Use Preset"}
                                     </button>
                                 </div>
                             );
@@ -1074,7 +1081,7 @@ const Settings = () => {
 
                     <button
                         onClick={saveSettings}
-                        className={`w-full mt-4 px-4 py-2.5 rounded-lg font-semibold transition-all ${
+                        className={`w-full mt-3 sm:mt-4 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-sm sm:text-base font-semibold transition-all ${
                             isDarkMode
                                 ? "bg-slate-700 text-slate-200 hover:bg-slate-600"
                                 : "bg-slate-100 text-slate-800 hover:bg-slate-200"
@@ -1085,14 +1092,14 @@ const Settings = () => {
 
                 <section className={cardClass}>
                     <h2
-                        className={`text-xl font-semibold mb-4 ${
+                        className={`text-lg sm:text-xl font-semibold mb-3 sm:mb-4 ${
                             isDarkMode ? "text-white" : "text-slate-900"
                         }`}>
                         Information & Security
                     </h2>
 
                     <div
-                        className={`rounded-xl p-4 mb-4 border ${
+                        className={`rounded-xl p-3 sm:p-4 mb-3 sm:mb-4 border ${
                             isDarkMode
                                 ? "bg-slate-700/50 border-slate-600 text-slate-200"
                                 : "bg-slate-50 border-slate-200 text-slate-700"
@@ -1116,10 +1123,10 @@ const Settings = () => {
                                 <path d="M18 6h6" />
                             </svg>
                             <div>
-                                <p className="font-semibold mb-1">
+                                <p className="font-semibold mb-1 text-xs sm:text-sm">
                                     How your data is handled
                                 </p>
-                                <p className="text-sm leading-relaxed">
+                                <p className="text-xs sm:text-sm leading-relaxed">
                                     Your profile, passwords, and preset
                                     preferences are stored in browser local
                                     storage on this device only. Login checks
@@ -1132,16 +1139,16 @@ const Settings = () => {
                     </div>
 
                     <div
-                        className={`rounded-xl p-4 mb-4 border ${
+                        className={`rounded-xl p-3 sm:p-4 mb-3 sm:mb-4 border ${
                             isDarkMode
                                 ? "bg-blue-900/20 border-blue-700/40 text-blue-200"
                                 : "bg-blue-50 border-blue-200 text-blue-800"
                         }`}>
-                        <div className="flex items-start gap-3">
+                        <div className="flex items-start gap-2 sm:gap-3">
                             <svg
-                                className="mt-0.5 shrink-0"
-                                width="18"
-                                height="18"
+                                className="mt-0.5 shrink-0 w-4 h-4 sm:w-[18px] sm:h-[18px]"
+                                width="16"
+                                height="16"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="currentColor"
@@ -1149,10 +1156,10 @@ const Settings = () => {
                                 <path d="M12 22s8-4 8-10V6l-8-4-8 4v6c0 6 8 10 8 10z" />
                             </svg>
                             <div className="w-full">
-                                <p className="font-semibold mb-2">
+                                <p className="font-semibold mb-2 text-xs sm:text-sm">
                                     Security status
                                 </p>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
                                     <p>
                                         Admin password:{" "}
                                         {isAdminPasswordSet ? "Set" : "Not set"}
@@ -1173,13 +1180,13 @@ const Settings = () => {
                         </div>
                     </div>
 
-                    <div className="relative pt-12">
-                        <label className={labelClass}>
+                    <div className="relative pt-8 sm:pt-12">
+                        <label className={`${labelClass} text-xs sm:text-sm`}>
                             Enter Admin Profile password to delete account
                         </label>
                         <input
                             type="password"
-                            className={`${inputClass} mb-3 ${
+                            className={`${inputClass} mb-2 sm:mb-3 py-1.5 sm:py-2.5 text-xs sm:text-sm ${
                                 errors.deleteConfirmText ? "border-red-500" : ""
                             }`}
                             value={deleteConfirmText}
@@ -1207,7 +1214,7 @@ const Settings = () => {
 
                     <button
                         onClick={deleteAccount}
-                        className="w-full px-4 py-2.5 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700 transition-all">
+                        className="w-full px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-sm sm:text-base bg-red-600 text-white font-semibold hover:bg-red-700 transition-all">
                         Delete Account
                     </button>
                 </section>

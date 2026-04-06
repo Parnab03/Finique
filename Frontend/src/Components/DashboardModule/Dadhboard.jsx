@@ -404,7 +404,7 @@ const Dashboard = () => {
     };
 
     return (
-        <div className={`p-8 space-y-8`}>
+        <div className={`p-4 sm:p-8 space-y-8`}>
             {/* Cards Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Total Balance Card */}
@@ -602,9 +602,9 @@ const Dashboard = () => {
                             ? "bg-slate-800 border-slate-700"
                             : "bg-white border-slate-200"
                     }`}>
-                    <div className="flex items-center justify-between mb-6">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-2 sm:gap-0">
                         <h3
-                            className={`text-lg font-semibold ${
+                            className={`text-base sm:text-lg font-semibold ${
                                 isDarkMode ? "text-white" : "text-slate-900"
                             }`}>
                             Monthly Spending Trend
@@ -613,14 +613,14 @@ const Dashboard = () => {
                         {/* Filter Buttons - Only show when there's data */}
                         {allTransactions.length > 0 &&
                             availableFilters.length > 0 && (
-                                <div className="flex gap-2">
+                                <div className="flex flex-wrap gap-1 sm:gap-2">
                                     {availableFilters.map((months) => (
                                         <button
                                             key={months}
                                             onClick={() =>
                                                 setMonthFilter(months)
                                             }
-                                            className={`px-3 py-1 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                            className={`px-2 py-1 sm:px-3 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 ${
                                                 monthFilter === months
                                                     ? "bg-blue-600 text-white"
                                                     : isDarkMode
@@ -637,59 +637,71 @@ const Dashboard = () => {
                     </div>
 
                     {allTransactions.length > 0 ? (
-                        <ResponsiveContainer width="100%" height="100%">
-                            <BarChart
-                                data={monthlyData}
-                                margin={{
-                                    top: 10,
-                                    right: 30,
-                                    left: 0,
-                                    bottom: 0,
-                                }}>
-                                <CartesianGrid
-                                    strokeDasharray="3 3"
-                                    stroke={gridColor}
-                                    vertical={false}
-                                />
-                                <XAxis
-                                    dataKey="month"
-                                    stroke={chartTextColor}
-                                    tick={{ fontSize: 12 }}
-                                />
-                                <YAxis
-                                    stroke={chartTextColor}
-                                    tick={{ fontSize: 12 }}
-                                    tickFormatter={(value) =>
-                                        `₹${(value / 1000).toFixed(0)}k`
-                                    }
-                                />
-                                <Tooltip
-                                    formatter={(value) =>
-                                        `₹${(value / 1000).toFixed(1)}k`
-                                    }
-                                    contentStyle={{
-                                        backgroundColor: isDarkMode
-                                            ? "#1e293b"
-                                            : "#ffffff",
-                                        border: isDarkMode
-                                            ? "1px solid #334155"
-                                            : "1px solid #e2e8f0",
-                                        borderRadius: "8px",
-                                        color: chartTextColor,
-                                        boxShadow:
-                                            "0 10px 15px -3px rgba(0,0,0,0.1)",
-                                    }}
-                                    cursor={false}
-                                />
-                                <Bar
-                                    dataKey="spending"
-                                    fill="#2563eb"
-                                    radius={[8, 8, 0, 0]}
-                                    isAnimationActive={false}
-                                    {...{ "data-testid": "bar" }}
-                                />
-                            </BarChart>
-                        </ResponsiveContainer>
+                        <div className="h-48 sm:h-80 w-full">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <BarChart
+                                    data={monthlyData}
+                                    margin={
+                                        typeof window !== "undefined" &&
+                                        window.innerWidth < 640
+                                            ? {
+                                                  top: 10,
+                                                  right: 10,
+                                                  left: -10,
+                                                  bottom: 0,
+                                              }
+                                            : {
+                                                  top: 10,
+                                                  right: 30,
+                                                  left: 0,
+                                                  bottom: 0,
+                                              }
+                                    }>
+                                    <CartesianGrid
+                                        strokeDasharray="3 3"
+                                        stroke={gridColor}
+                                        vertical={false}
+                                    />
+                                    <XAxis
+                                        dataKey="month"
+                                        stroke={chartTextColor}
+                                        tick={{ fontSize: 12 }}
+                                    />
+                                    <YAxis
+                                        stroke={chartTextColor}
+                                        tick={{ fontSize: 12 }}
+                                        tickFormatter={(value) =>
+                                            `₹${(value / 1000).toFixed(0)}k`
+                                        }
+                                    />
+                                    <Tooltip
+                                        formatter={(value) =>
+                                            `₹${(value / 1000).toFixed(1)}k`
+                                        }
+                                        contentStyle={{
+                                            backgroundColor: isDarkMode
+                                                ? "#1e293b"
+                                                : "#ffffff",
+                                            border: isDarkMode
+                                                ? "1px solid #334155"
+                                                : "1px solid #e2e8f0",
+                                            borderRadius: "8px",
+                                            color: chartTextColor,
+                                            boxShadow:
+                                                "0 10px 15px -3px rgba(0,0,0,0.1)",
+                                        }}
+                                        cursor={false}
+                                    />
+                                    <Bar
+                                        dataKey="spending"
+                                        fill="#2563eb"
+                                        radius={[8, 8, 0, 0]}
+                                        isAnimationActive={false}
+                                        {...{ "data-testid": "bar" }}
+                                    />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
                     ) : (
                         <div className="flex-1 flex items-center justify-center">
                             <div className="text-center">
@@ -722,9 +734,9 @@ const Dashboard = () => {
                             ? "bg-slate-800 border-slate-700"
                             : "bg-white border-slate-200"
                     }`}>
-                    <div className="flex items-center justify-between mb-6">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-2 sm:gap-0">
                         <h3
-                            className={`text-lg font-semibold ${
+                            className={`text-base sm:text-lg font-semibold ${
                                 isDarkMode ? "text-white" : "text-slate-900"
                             }`}>
                             Category-wise Spending
@@ -732,14 +744,14 @@ const Dashboard = () => {
 
                         {/* Month Filter Buttons - Only show when there's data */}
                         {allTransactions.length > 0 && (
-                            <div className="flex gap-2">
+                            <div className="flex flex-wrap gap-1 sm:gap-2">
                                 {lastSixMonths.map((month) => (
                                     <button
                                         key={month}
                                         onClick={() =>
                                             setCategoryMonthFilter(month)
                                         }
-                                        className={`px-2 py-1 rounded-lg text-xs font-medium transition-all duration-200 ${
+                                        className={`px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-lg text-xs font-medium transition-all duration-200 ${
                                             categoryMonthFilter === month
                                                 ? "bg-blue-600 text-white"
                                                 : isDarkMode
@@ -754,10 +766,10 @@ const Dashboard = () => {
                     </div>
 
                     {allTransactions.length > 0 ? (
-                        <div className="flex gap-6 h-80">
+                        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 h-auto sm:h-80">
                             {/* Left Side - Legend with Amount (Scrollable without scrollbar) */}
                             <div
-                                className="flex-1 space-y-1 pr-2 overflow-y-auto"
+                                className="w-full sm:flex-1 space-y-1 pr-2 overflow-y-auto max-h-48 sm:max-h-full"
                                 style={{
                                     scrollbarWidth: "none",
                                     msOverflowStyle: "none",
@@ -778,7 +790,7 @@ const Dashboard = () => {
                                             onMouseLeave={() =>
                                                 setHoveredCategory(null)
                                             }
-                                            className={`flex items-center gap-3 p-3 rounded-lg transition-all duration-200 cursor-pointer ${
+                                            className={`flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg transition-all duration-200 cursor-pointer ${
                                                 hoveredCategory === index
                                                     ? isDarkMode
                                                         ? "bg-slate-700/50"
@@ -792,7 +804,7 @@ const Dashboard = () => {
                                                 }}></div>
                                             <div className="flex-1 min-w-0">
                                                 <p
-                                                    className={`text-sm font-medium ${
+                                                    className={`text-xs sm:text-sm font-medium ${
                                                         isDarkMode
                                                             ? "text-slate-200"
                                                             : "text-slate-700"
@@ -800,7 +812,7 @@ const Dashboard = () => {
                                                     {item.name}
                                                 </p>
                                                 <p
-                                                    className={`text-xs ${
+                                                    className={`text-xs sm:text-xs ${
                                                         isDarkMode
                                                             ? "text-slate-500"
                                                             : "text-slate-500"
@@ -826,7 +838,7 @@ const Dashboard = () => {
                             </div>
 
                             {/* Right Side - Chart */}
-                            <div className="flex-1">
+                            <div className="w-full sm:flex-1 h-48 sm:h-auto">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <PieChart>
                                         <Pie
@@ -922,28 +934,28 @@ const Dashboard = () => {
                 }`}>
                 {/* Header with Title and Filters */}
                 <div
-                    className="p-6 border-b"
+                    className="p-3 sm:p-6 border-b"
                     style={{
                         borderColor: isDarkMode ? "#334155" : "#e2e8f0",
                     }}>
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
                         <h3
-                            className={`text-2xl font-bold ${
+                            className={`text-lg sm:text-2xl font-bold ${
                                 isDarkMode ? "text-white" : "text-slate-900"
                             }`}>
                             Recent Transactions
                         </h3>
 
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2 sm:gap-3">
                             {/* Filter Buttons */}
-                            <div className="flex gap-2">
+                            <div className="flex gap-1 sm:gap-2">
                                 {["All", "Income", "Expenses"].map((filter) => (
                                     <button
                                         key={filter}
                                         onClick={() =>
                                             setTransactionFilter(filter)
                                         }
-                                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                        className={`px-2 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 ${
                                             transactionFilter === filter
                                                 ? isDarkMode
                                                     ? "bg-slate-700 text-white"
@@ -962,131 +974,208 @@ const Dashboard = () => {
 
                 {/* Table - Only show when there's data */}
                 {allTransactions.length > 0 ? (
-                    <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <thead>
-                                <tr
-                                    className={`border-b ${
-                                        isDarkMode
-                                            ? "bg-slate-700/30 border-slate-700"
-                                            : "bg-slate-50 border-slate-200"
-                                    }`}>
-                                    <th
-                                        className={`text-left py-4 px-6 text-xs font-semibold tracking-wide ${
-                                            isDarkMode
-                                                ? "text-slate-400"
-                                                : "text-slate-600"
-                                        }`}>
-                                        TRANSACTION NAME
-                                    </th>
-                                    <th
-                                        className={`text-center py-4 px-6 text-xs font-semibold tracking-wide ${
-                                            isDarkMode
-                                                ? "text-slate-400"
-                                                : "text-slate-600"
-                                        }`}>
-                                        DATE
-                                    </th>
-                                    <th
-                                        className={`text-center py-4 px-6 text-xs font-semibold tracking-wide ${
-                                            isDarkMode
-                                                ? "text-slate-400"
-                                                : "text-slate-600"
-                                        }`}>
-                                        CATEGORY
-                                    </th>
-                                    <th
-                                        className={`text-center py-4 px-6 text-xs font-semibold tracking-wide ${
-                                            isDarkMode
-                                                ? "text-slate-400"
-                                                : "text-slate-600"
-                                        }`}>
-                                        AMOUNT
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredTransactions.map((transaction) => (
+                    <>
+                        {/* Desktop Table View */}
+                        <div className="hidden sm:block overflow-x-auto">
+                            <table className="w-full">
+                                <thead>
                                     <tr
-                                        key={transaction.id}
-                                        className={`border-b transition-all duration-200 ${
+                                        className={`border-b ${
                                             isDarkMode
-                                                ? "border-slate-700"
-                                                : "border-slate-200"
+                                                ? "bg-slate-700/30 border-slate-700"
+                                                : "bg-slate-50 border-slate-200"
                                         }`}>
-                                        {/* Transaction Name with Icon */}
-                                        <td className="py-4 px-6">
-                                            <div className="flex items-center gap-4">
-                                                <div
-                                                    className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                                                        isDarkMode
-                                                            ? "bg-slate-700 text-slate-300"
-                                                            : "bg-slate-100 text-slate-600"
-                                                    }`}
-                                                    style={{
-                                                        color: getCategoryById(
-                                                            transaction.categoryId,
-                                                        )?.color,
-                                                    }}>
-                                                    {(() => {
-                                                        const IconComponent =
-                                                            getCategoryIcon(
+                                        <th
+                                            className={`text-left py-2 sm:py-4 px-2 sm:px-6 text-xs font-semibold tracking-wide ${
+                                                isDarkMode
+                                                    ? "text-slate-400"
+                                                    : "text-slate-600"
+                                            }`}>
+                                            TRANSACTION NAME
+                                        </th>
+                                        <th
+                                            className={`text-center py-2 sm:py-4 px-2 sm:px-6 text-xs font-semibold tracking-wide ${
+                                                isDarkMode
+                                                    ? "text-slate-400"
+                                                    : "text-slate-600"
+                                            }`}>
+                                            DATE
+                                        </th>
+                                        <th
+                                            className={`text-center py-2 sm:py-4 px-2 sm:px-6 text-xs font-semibold tracking-wide ${
+                                                isDarkMode
+                                                    ? "text-slate-400"
+                                                    : "text-slate-600"
+                                            }`}>
+                                            CATEGORY
+                                        </th>
+                                        <th
+                                            className={`text-center py-2 sm:py-4 px-2 sm:px-6 text-xs font-semibold tracking-wide ${
+                                                isDarkMode
+                                                    ? "text-slate-400"
+                                                    : "text-slate-600"
+                                            }`}>
+                                            AMOUNT
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {filteredTransactions.map((transaction) => (
+                                        <tr
+                                            key={transaction.id}
+                                            className={`border-b transition-all duration-200 ${
+                                                isDarkMode
+                                                    ? "border-slate-700"
+                                                    : "border-slate-200"
+                                            }`}>
+                                            {/* Transaction Name with Icon */}
+                                            <td className="py-2 sm:py-4 px-2 sm:px-6">
+                                                <div className="flex items-center gap-2 sm:gap-4">
+                                                    <div
+                                                        className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                                            isDarkMode
+                                                                ? "bg-slate-700 text-slate-300"
+                                                                : "bg-slate-100 text-slate-600"
+                                                        }`}
+                                                        style={{
+                                                            color: getCategoryById(
                                                                 transaction.categoryId,
+                                                            )?.color,
+                                                        }}>
+                                                        {(() => {
+                                                            const IconComponent =
+                                                                getCategoryIcon(
+                                                                    transaction.categoryId,
+                                                                );
+                                                            return (
+                                                                <IconComponent />
                                                             );
-                                                        return (
-                                                            <IconComponent />
-                                                        );
-                                                    })()}
+                                                        })()}
+                                                    </div>
+                                                    <div>
+                                                        <p
+                                                            className={`font-semibold ${
+                                                                isDarkMode
+                                                                    ? "text-white"
+                                                                    : "text-slate-900"
+                                                            }`}>
+                                                            {transaction.name}
+                                                        </p>
+                                                        <p
+                                                            className={`text-sm ${
+                                                                isDarkMode
+                                                                    ? "text-slate-400"
+                                                                    : "text-slate-500"
+                                                            }`}>
+                                                            {
+                                                                transaction.description
+                                                            }
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <p
-                                                        className={`font-semibold ${
-                                                            isDarkMode
-                                                                ? "text-white"
-                                                                : "text-slate-900"
-                                                        }`}>
-                                                        {transaction.name}
-                                                    </p>
-                                                    <p
-                                                        className={`text-sm ${
-                                                            isDarkMode
-                                                                ? "text-slate-400"
-                                                                : "text-slate-500"
-                                                        }`}>
-                                                        {
-                                                            transaction.description
-                                                        }
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        {/* Date */}
-                                        <td
-                                            className={`py-4 px-6 text-center ${isDarkMode ? "text-slate-300" : "text-slate-700"}`}>
-                                            {transaction.date}
-                                        </td>
+                                            {/* Date */}
+                                            <td
+                                                className={`py-2 sm:py-4 px-2 sm:px-6 text-center text-xs sm:text-sm ${isDarkMode ? "text-slate-300" : "text-slate-700"}`}>
+                                                {transaction.date}
+                                            </td>
 
-                                        {/* Category Badge */}
-                                        <td className="py-4 px-6 text-center">
-                                            <span
-                                                className={`px-3 py-1 rounded-full text-xs font-bold ${
+                                            {/* Category Badge */}
+                                            <td className="py-2 sm:py-4 px-2 sm:px-6 text-center">
+                                                <span
+                                                    className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-bold ${
+                                                        transaction.type ===
+                                                        "income"
+                                                            ? "bg-emerald-100 text-emerald-700"
+                                                            : isDarkMode
+                                                              ? "bg-slate-700 text-slate-300"
+                                                              : "bg-slate-200 text-slate-700"
+                                                    }`}>
+                                                    {getCategoryName(
+                                                        transaction.categoryId,
+                                                    )}
+                                                </span>
+                                            </td>
+
+                                            {/* Amount */}
+                                            <td
+                                                className={`py-2 sm:py-4 px-2 sm:px-6 text-center font-bold text-sm sm:text-lg ${
                                                     transaction.type ===
                                                     "income"
-                                                        ? "bg-emerald-100 text-emerald-700"
-                                                        : isDarkMode
-                                                          ? "bg-slate-700 text-slate-300"
-                                                          : "bg-slate-200 text-slate-700"
+                                                        ? "text-emerald-500"
+                                                        : "text-red-500"
                                                 }`}>
-                                                {getCategoryName(
-                                                    transaction.categoryId,
-                                                )}
-                                            </span>
-                                        </td>
+                                                {transaction.type === "income"
+                                                    ? "+"
+                                                    : "-"}
+                                                ₹
+                                                {transaction.amount.toLocaleString()}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
 
-                                        {/* Amount */}
-                                        <td
-                                            className={`py-4 px-6 text-center font-bold text-lg ${
+                        {/* Mobile Card View */}
+                        <div className="sm:hidden space-y-0">
+                            {filteredTransactions.map((transaction) => (
+                                <div
+                                    key={transaction.id}
+                                    className={`p-4 border transition-all duration-200 flex items-center gap-0 ${
+                                        isDarkMode
+                                            ? "bg-slate-700/50 border-slate-700"
+                                            : "bg-slate-50 border-slate-200"
+                                    }`}>
+                                    {/* Icon */}
+                                    <div
+                                        className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                            isDarkMode
+                                                ? "bg-slate-700 text-slate-300"
+                                                : "bg-slate-100 text-slate-600"
+                                        }`}
+                                        style={{
+                                            color: getCategoryById(
+                                                transaction.categoryId,
+                                            )?.color,
+                                        }}>
+                                        {(() => {
+                                            const IconComponent =
+                                                getCategoryIcon(
+                                                    transaction.categoryId,
+                                                );
+                                            return <IconComponent />;
+                                        })()}
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="flex-1 min-w-0">
+                                        <p
+                                            className={`font-semibold text-sm truncate ${
+                                                isDarkMode
+                                                    ? "text-white"
+                                                    : "text-slate-900"
+                                            }`}>
+                                            {transaction.name}
+                                        </p>
+                                        <p
+                                            className={`text-xs mt-0.5 ${
+                                                isDarkMode
+                                                    ? "text-slate-400"
+                                                    : "text-slate-500"
+                                            }`}>
+                                            {getCategoryName(
+                                                transaction.categoryId,
+                                            )}{" "}
+                                            • {transaction.date}
+                                        </p>
+                                    </div>
+
+                                    {/* Amount */}
+                                    <div className="text-center flex-shrink-0">
+                                        <p
+                                            className={`font-bold text-sm ${
                                                 transaction.type === "income"
                                                     ? "text-emerald-500"
                                                     : "text-red-500"
@@ -1096,12 +1185,12 @@ const Dashboard = () => {
                                                 : "-"}
                                             ₹
                                             {transaction.amount.toLocaleString()}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </>
                 ) : (
                     <div className="py-12 flex items-center justify-center">
                         <div className="text-center">

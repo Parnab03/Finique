@@ -200,6 +200,7 @@ const Transactions = () => {
             amount: transaction.amount,
             date: dateValue,
             categoryId: transaction.categoryId,
+            type: transaction.type,
         });
     };
 
@@ -255,12 +256,12 @@ const Transactions = () => {
     };
 
     return (
-        <div className="p-8">
+        <div className="p-4 sm:p-8">
             <div className="mb-4">
                 {/* Filter Controls */}
-                <div className="flex flex-wrap gap-4 items-center justify-between">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                     {/* Activity Filter - Keeps Income */}
-                    <div className="flex gap-2">
+                    <div className="flex gap-1 sm:gap-2 flex-wrap">
                         {["All Activity", "Income", "Expenses"].map(
                             (filter) => (
                                 <button
@@ -273,7 +274,7 @@ const Transactions = () => {
                                                 : filter,
                                         )
                                     }
-                                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                    className={`px-2 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 ${
                                         (filter === "All Activity" &&
                                             transactionFilter === "All") ||
                                         transactionFilter === filter
@@ -291,27 +292,30 @@ const Transactions = () => {
                     </div>
 
                     {/* Sorting and Category Filters */}
-                    <div className="flex gap-2">
+                    <div className="flex gap-1 sm:gap-2 flex-wrap">
                         {/* Sort Filter */}
                         <div className="relative">
                             <button
                                 onClick={() => setSortOpen(!sortOpen)}
-                                className={`px-4 py-2 flex items-center gap-2 text-sm font-semibold ${
+                                className={`px-2 sm:px-4 py-1 sm:py-2 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-semibold rounded-lg transition-colors ${
                                     isDarkMode
                                         ? "bg-slate-700 text-slate-300 hover:bg-slate-600"
                                         : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                                } px-2.5 py-1.5 rounded-lg transition-colors`}>
+                                }`}>
                                 <svg
-                                    className="w-4 h-4"
+                                    className="w-3 h-3 sm:w-4 sm:h-4"
                                     fill="none"
                                     stroke="currentColor"
                                     strokeWidth="2"
                                     viewBox="0 0 24 24">
                                     <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                                 </svg>
-                                {sortLabels[sortOrder]}
+                                <span className="hidden sm:inline">
+                                    {sortLabels[sortOrder]}
+                                </span>
+                                <span className="sm:hidden">Sort</span>
                                 <svg
-                                    className="w-4 h-4"
+                                    className="w-3 h-3 sm:w-4 sm:h-4"
                                     fill="currentColor"
                                     viewBox="0 0 20 20">
                                     <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
@@ -364,18 +368,22 @@ const Transactions = () => {
                         <div className="relative">
                             <button
                                 onClick={() => setCategoryOpen(!categoryOpen)}
-                                className={`px-4 py-2 flex items-center gap-0.5 text-sm font-semibold ${
+                                className={`px-2 sm:px-4 py-1 sm:py-2 flex items-center gap-0.5 sm:gap-1 text-xs sm:text-sm font-semibold rounded-lg transition-colors ${
                                     isDarkMode
                                         ? "bg-slate-700 text-slate-300 hover:bg-slate-600"
                                         : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                                } px-2.5 py-1.5 rounded-lg transition-colors`}>
-                                {selectedCategory === "All"
-                                    ? "All Categories"
-                                    : TRANSACTION_CATEGORIES.find(
-                                          (cat) => cat.id === selectedCategory,
-                                      )?.name || selectedCategory}
+                                }`}>
+                                <span className="truncate">
+                                    {selectedCategory === "All"
+                                        ? "Categories"
+                                        : TRANSACTION_CATEGORIES.find(
+                                              (cat) =>
+                                                  cat.id === selectedCategory,
+                                          )?.name?.substring(0, 8) ||
+                                          selectedCategory?.substring(0, 8)}
+                                </span>
                                 <svg
-                                    className="w-4 h-4"
+                                    className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0"
                                     fill="currentColor"
                                     viewBox="0 0 20 20">
                                     <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
@@ -436,20 +444,33 @@ const Transactions = () => {
                         <div>
                             <button
                                 onClick={exportToCSV}
-                                className={`px-4 py-2 flex items-center gap-2 text-sm font-semibold rounded-lg transition-colors ${
-                                    isDarkMode
-                                        ? "bg-green-600 text-white hover:bg-green-700"
-                                        : "bg-green-100 text-green-700 hover:bg-green-200"
-                                }`}>
+                                disabled={selectedRole === "Viewer"}
+                                className={`px-2 sm:px-4 py-1 sm:py-2 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-semibold rounded-lg transition-colors ${
+                                    selectedRole === "Viewer"
+                                        ? isDarkMode
+                                            ? "bg-green-900/40 text-green-600/50 cursor-not-allowed"
+                                            : "bg-green-50 text-green-400 cursor-not-allowed"
+                                        : isDarkMode
+                                          ? "bg-green-600 text-white hover:bg-green-700"
+                                          : "bg-green-100 text-green-700 hover:bg-green-200"
+                                }`}
+                                title={
+                                    selectedRole === "Viewer"
+                                        ? "Viewers cannot export data"
+                                        : "Export filtered transactions to CSV"
+                                }>
                                 <svg
-                                    className="w-4 h-4"
+                                    className="w-3 h-3 sm:w-4 sm:h-4"
                                     fill="none"
                                     stroke="currentColor"
                                     strokeWidth="2"
                                     viewBox="0 0 24 24">
                                     <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                 </svg>
-                                Export CSV
+                                <span className="hidden sm:inline">
+                                    Export CSV
+                                </span>
+                                <span className="sm:hidden">Export</span>
                             </button>
                         </div>
                     </div>
@@ -458,12 +479,12 @@ const Transactions = () => {
 
             {/* Transactions Table */}
             <div
-                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
+                className={`rounded-2xl border transition-all duration-300 sm:overflow-hidden ${
                     isDarkMode
                         ? "bg-slate-800 border-slate-700"
                         : "bg-white border-slate-200"
                 }`}>
-                <div className="overflow-x-auto">
+                <div className="hidden sm:block overflow-x-auto">
                     <table className="w-full">
                         <thead>
                             <tr
@@ -473,7 +494,7 @@ const Transactions = () => {
                                         : "bg-slate-50 border-slate-200"
                                 }`}>
                                 <th
-                                    className={`rounded-tl-2xl text-left py-4 px-6 text-xs font-semibold tracking-wide ${
+                                    className={`rounded-tl-2xl text-left py-2 sm:py-4 px-2 sm:px-6 text-xs font-semibold tracking-wide ${
                                         isDarkMode
                                             ? "text-slate-400"
                                             : "text-slate-600"
@@ -481,7 +502,7 @@ const Transactions = () => {
                                     DATE
                                 </th>
                                 <th
-                                    className={`text-left py-4 px-6 text-xs font-semibold tracking-wide ${
+                                    className={`hidden sm:table-cell text-left py-2 sm:py-4 px-2 sm:px-6 text-xs font-semibold tracking-wide ${
                                         isDarkMode
                                             ? "text-slate-400"
                                             : "text-slate-600"
@@ -489,7 +510,7 @@ const Transactions = () => {
                                     DESCRIPTION
                                 </th>
                                 <th
-                                    className={`text-center py-4 px-6 text-xs font-semibold tracking-wide ${
+                                    className={`text-center py-2 sm:py-4 px-2 sm:px-6 text-xs font-semibold tracking-wide ${
                                         isDarkMode
                                             ? "text-slate-400"
                                             : "text-slate-600"
@@ -497,7 +518,7 @@ const Transactions = () => {
                                     CATEGORY
                                 </th>
                                 <th
-                                    className={`text-right py-4 px-6 text-xs font-semibold tracking-wide ${
+                                    className={`text-right py-2 sm:py-4 px-2 sm:px-6 text-xs font-semibold tracking-wide rounded-tr-2xl sm:rounded-tr-none ${
                                         isDarkMode
                                             ? "text-slate-400"
                                             : "text-slate-600"
@@ -505,7 +526,7 @@ const Transactions = () => {
                                     AMOUNT
                                 </th>
                                 <th
-                                    className={` text-center py-4 px-6 text-xs font-semibold tracking-wide ${
+                                    className={`hidden sm:table-cell rounded-tr-2xl text-center py-2 sm:py-4 px-2 sm:px-6 text-xs font-semibold tracking-wide ${
                                         isDarkMode
                                             ? "text-slate-400"
                                             : "text-slate-600"
@@ -817,7 +838,7 @@ const Transactions = () => {
                                             <>
                                                 {/* Date */}
                                                 <td
-                                                    className={`py-4 px-6 ${
+                                                    className={`py-2 sm:py-4 px-2 sm:px-6 text-xs sm:text-sm ${
                                                         isDarkMode
                                                             ? "text-slate-300"
                                                             : "text-slate-700"
@@ -825,11 +846,11 @@ const Transactions = () => {
                                                     {transaction.date}
                                                 </td>
 
-                                                {/* Description */}
-                                                <td className="py-4 px-6">
-                                                    <div className="flex items-center gap-3">
+                                                {/* Description - Hidden on mobile */}
+                                                <td className="hidden sm:table-cell py-2 sm:py-4 px-2 sm:px-6">
+                                                    <div className="flex items-center gap-2 sm:gap-3">
                                                         <div
-                                                            className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                                            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
                                                                 isDarkMode
                                                                     ? "bg-slate-700 text-slate-300"
                                                                     : "bg-slate-100 text-slate-600"
@@ -875,9 +896,9 @@ const Transactions = () => {
                                                 </td>
 
                                                 {/* Category Badge */}
-                                                <td className="py-4 px-6 text-center">
+                                                <td className="py-2 sm:py-4 px-2 sm:px-6 text-center">
                                                     <span
-                                                        className={`px-3 py-1 rounded-full text-xs font-bold ${
+                                                        className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-bold ${
                                                             transaction.type ===
                                                             "income"
                                                                 ? "bg-green-100 text-green-700"
@@ -893,7 +914,7 @@ const Transactions = () => {
 
                                                 {/* Amount */}
                                                 <td
-                                                    className={`py-4 px-6 text-right font-bold text-lg ${
+                                                    className={`py-2 sm:py-4 px-2 sm:px-6 text-right font-bold text-sm sm:text-lg ${
                                                         transaction.type ===
                                                         "income"
                                                             ? "text-green-500"
@@ -907,11 +928,11 @@ const Transactions = () => {
                                                     {transaction.amount.toLocaleString()}
                                                 </td>
 
-                                                {/* Actions */}
-                                                <td className="py-4 px-6">
+                                                {/* Actions - Hidden on mobile */}
+                                                <td className="hidden sm:table-cell py-2 sm:py-4 px-2 sm:px-6">
                                                     {selectedRole ===
                                                         "Admin" && (
-                                                        <div className="flex gap-3 justify-center">
+                                                        <div className="flex gap-1 sm:gap-3 justify-center">
                                                             <button
                                                                 onClick={() =>
                                                                     handleEditClick(
@@ -1045,6 +1066,328 @@ const Transactions = () => {
                             )}
                         </tbody>
                     </table>
+                </div>
+
+                {/* Mobile Card View */}
+                <div className="sm:hidden space-y-0">
+                    {filteredTransactions.length > 0 ? (
+                        filteredTransactions.map((transaction, index) => (
+                            <div
+                                key={transaction.id}
+                                className={`p-4 border transition-all duration-200 ${
+                                    index === 0 ? "rounded-t-2xl" : ""
+                                } ${
+                                    index === filteredTransactions.length - 1
+                                        ? "rounded-b-2xl"
+                                        : ""
+                                } ${
+                                    isDarkMode
+                                        ? "bg-slate-700/50 border-slate-700"
+                                        : "bg-slate-50 border-slate-200"
+                                }`}>
+                                {editingId === transaction.id ? (
+                                    // EDIT MODE - Mobile
+                                    <div className="space-y-2 max-h-80 overflow-y-auto pb-2">
+                                        <h3
+                                            className={`text-sm font-semibold sticky top-0 ${isDarkMode ? "text-white" : "text-slate-900"}`}>
+                                            Edit Transaction
+                                        </h3>
+
+                                        <input
+                                            type="text"
+                                            value={editData.name}
+                                            onChange={(e) =>
+                                                setEditData({
+                                                    ...editData,
+                                                    name: e.target.value,
+                                                })
+                                            }
+                                            placeholder="Title"
+                                            className={`w-full px-2 py-1 rounded text-xs border focus:outline-none focus:ring-2 focus:ring-blue-500 ${isDarkMode ? "bg-slate-700 border-slate-600 text-white" : "bg-slate-50 border-slate-300 text-slate-900"}`}
+                                        />
+
+                                        <input
+                                            type="text"
+                                            value={editData.description}
+                                            onChange={(e) =>
+                                                setEditData({
+                                                    ...editData,
+                                                    description: e.target.value,
+                                                })
+                                            }
+                                            placeholder="Description"
+                                            className={`w-full px-2 py-1 rounded text-xs border focus:outline-none focus:ring-2 focus:ring-blue-500 ${isDarkMode ? "bg-slate-700 border-slate-600 text-white" : "bg-slate-50 border-slate-300 text-slate-900"}`}
+                                        />
+
+                                        <input
+                                            type="number"
+                                            value={editData.amount}
+                                            onChange={(e) =>
+                                                setEditData({
+                                                    ...editData,
+                                                    amount:
+                                                        parseInt(
+                                                            e.target.value,
+                                                        ) || 0,
+                                                })
+                                            }
+                                            placeholder="Amount"
+                                            className={`w-full px-2 py-1 rounded text-xs border focus:outline-none focus:ring-2 focus:ring-blue-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${isDarkMode ? "bg-slate-700 border-slate-600 text-white" : "bg-slate-50 border-slate-300 text-slate-900"}`}
+                                        />
+
+                                        <select
+                                            value={editData.categoryId}
+                                            onChange={(e) =>
+                                                setEditData({
+                                                    ...editData,
+                                                    categoryId: e.target.value,
+                                                })
+                                            }
+                                            disabled={
+                                                editData.type === "income"
+                                            }
+                                            className={`w-full px-2 py-1 rounded text-xs border focus:outline-none focus:ring-2 focus:ring-blue-500 ${editData.type === "income" ? (isDarkMode ? "bg-slate-800 border-slate-600 text-slate-500 cursor-not-allowed" : "bg-slate-100 border-slate-300 text-slate-500 cursor-not-allowed") : isDarkMode ? "bg-slate-700 border-slate-600 text-white" : "bg-slate-50 border-slate-300 text-slate-900"}`}>
+                                            <option value="">
+                                                Select Category
+                                            </option>
+                                            {TRANSACTION_CATEGORIES.filter(
+                                                (cat) =>
+                                                    !(
+                                                        editData.type ===
+                                                            "expense" &&
+                                                        cat.id === "income"
+                                                    ),
+                                            ).map((cat) => (
+                                                <option
+                                                    key={cat.id}
+                                                    value={cat.id}>
+                                                    {cat.name}
+                                                </option>
+                                            ))}
+                                        </select>
+
+                                        <div>
+                                            <label
+                                                className={`text-xs font-medium ${isDarkMode ? "text-slate-400" : "text-slate-600"}`}>
+                                                Date (DD/MM/YYYY)
+                                            </label>
+                                            <input
+                                                type="date"
+                                                value={editData.date}
+                                                onChange={(e) =>
+                                                    setEditData({
+                                                        ...editData,
+                                                        date: e.target.value,
+                                                    })
+                                                }
+                                                className={`w-full px-2 py-1 rounded text-xs border focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer ${isDarkMode ? "bg-slate-700 border-slate-600 text-white" : "bg-slate-50 border-slate-300 text-slate-900"}`}
+                                                style={{
+                                                    colorScheme: isDarkMode
+                                                        ? "dark"
+                                                        : "light",
+                                                }}
+                                            />
+                                        </div>
+
+                                        <div className="flex gap-2 justify-start pt-2 border-t border-slate-600/20 sticky bottom-0 bg-inherit">
+                                            <button
+                                                onClick={handleSaveEdit}
+                                                className="px-3 py-1.5 bg-green-600 text-white text-xs font-semibold rounded hover:bg-green-700 active:scale-95 transition-all">
+                                                Save
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    setEditingId(null)
+                                                }
+                                                className={`px-3 py-1.5 text-xs font-semibold rounded border transition-all ${isDarkMode ? "border-slate-600 text-slate-300 hover:bg-slate-700" : "border-slate-300 text-slate-600 hover:bg-slate-100"}`}>
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    // NORMAL VIEW
+                                    <>
+                                        {/* Main Row: Icon, Content, Amount */}
+                                        <div className="flex items-center gap-3 mb-1">
+                                            {/* Icon */}
+                                            <div
+                                                className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                                    isDarkMode
+                                                        ? "bg-slate-700 text-slate-300"
+                                                        : "bg-slate-100 text-slate-600"
+                                                }`}
+                                                style={{
+                                                    color: getCategoryById(
+                                                        transaction.categoryId,
+                                                    )?.color,
+                                                }}>
+                                                {(() => {
+                                                    const IconComponent =
+                                                        getCategoryIcon(
+                                                            transaction.categoryId,
+                                                        );
+                                                    return <IconComponent />;
+                                                })()}
+                                            </div>
+
+                                            {/* Content */}
+                                            <div className="flex-1 min-w-0">
+                                                <p
+                                                    className={`font-semibold text-sm truncate ${
+                                                        isDarkMode
+                                                            ? "text-white"
+                                                            : "text-slate-900"
+                                                    }`}>
+                                                    {transaction.name}
+                                                </p>
+                                                <p
+                                                    className={`text-xs mt-0.5 ${
+                                                        isDarkMode
+                                                            ? "text-slate-400"
+                                                            : "text-slate-500"
+                                                    }`}>
+                                                    {getCategoryName(
+                                                        transaction.categoryId,
+                                                    )}{" "}
+                                                    • {transaction.date}
+                                                </p>
+                                            </div>
+
+                                            {/* Amount */}
+                                            <div className="text-center flex-shrink-0">
+                                                <p
+                                                    className={`font-bold text-sm ${
+                                                        transaction.type ===
+                                                        "income"
+                                                            ? "text-emerald-500"
+                                                            : "text-red-500"
+                                                    }`}>
+                                                    {transaction.type ===
+                                                    "income"
+                                                        ? "+"
+                                                        : "-"}
+                                                    ₹
+                                                    {transaction.amount.toLocaleString()}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        {/* Actions Row - Below Amount */}
+                                        {selectedRole === "Admin" && (
+                                            <div className="flex gap-1.5 justify-start pt-1.5">
+                                                <button
+                                                    onClick={() =>
+                                                        handleEditClick(
+                                                            transaction,
+                                                        )
+                                                    }
+                                                    className={`px-2.5 py-1 rounded text-xs font-medium transition-all duration-200 flex items-center gap-1 ${
+                                                        isDarkMode
+                                                            ? "bg-blue-600/15 text-blue-400 hover:bg-blue-600/30"
+                                                            : "bg-blue-100 text-blue-600 hover:bg-blue-200"
+                                                    }`}>
+                                                    <svg
+                                                        width="13"
+                                                        height="13"
+                                                        viewBox="0 0 24 24"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        strokeWidth="2">
+                                                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+                                                    </svg>
+                                                    Edit
+                                                </button>
+
+                                                <button
+                                                    onClick={() => {
+                                                        if (
+                                                            transaction.fromPreset
+                                                        ) {
+                                                            alert(
+                                                                "Preset data cannot be deleted",
+                                                            );
+                                                        } else {
+                                                            const result =
+                                                                deleteTransaction(
+                                                                    transaction.id,
+                                                                );
+                                                            if (
+                                                                result.success
+                                                            ) {
+                                                                alert(
+                                                                    result.message,
+                                                                );
+                                                                window.location.reload();
+                                                            } else {
+                                                                alert(
+                                                                    result.message,
+                                                                );
+                                                            }
+                                                        }
+                                                    }}
+                                                    className={`px-2.5 py-1 rounded text-xs font-medium transition-all duration-200 flex items-center gap-1 ${
+                                                        isDarkMode
+                                                            ? "bg-red-600/15 text-red-400 hover:bg-red-600/30"
+                                                            : "bg-red-100 text-red-600 hover:bg-red-200"
+                                                    }`}>
+                                                    <svg
+                                                        width="13"
+                                                        height="13"
+                                                        viewBox="0 0 24 24"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        strokeWidth="2">
+                                                        <polyline points="3 6 5 6 21 6" />
+                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                                        <line
+                                                            x1="10"
+                                                            y1="11"
+                                                            x2="10"
+                                                            y2="17"
+                                                        />
+                                                        <line
+                                                            x1="14"
+                                                            y1="11"
+                                                            x2="14"
+                                                            y2="17"
+                                                        />
+                                                    </svg>
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        )}
+                                        {selectedRole === "Viewer" && (
+                                            <div
+                                                className={`text-center text-xs py-1.5 rounded mt-2 ${isDarkMode ? "bg-slate-700/50 text-slate-400" : "bg-slate-100 text-slate-500"}`}>
+                                                Read-only
+                                            </div>
+                                        )}
+                                    </>
+                                )}
+                            </div>
+                        ))
+                    ) : (
+                        <div className="py-12 flex items-center justify-center">
+                            <div className="text-center">
+                                <h4
+                                    className={`text-lg font-semibold mb-2 ${
+                                        isDarkMode
+                                            ? "text-white"
+                                            : "text-slate-900"
+                                    }`}>
+                                    No Transactions
+                                </h4>
+                                <p
+                                    className={`text-center ${
+                                        isDarkMode
+                                            ? "text-slate-400"
+                                            : "text-slate-600"
+                                    }`}>
+                                    No transactions match your filters
+                                </p>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 {/* Pagination Footer */}

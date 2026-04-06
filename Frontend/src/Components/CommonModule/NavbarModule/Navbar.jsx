@@ -6,10 +6,11 @@ import { RoleContext } from "../../../Context/RoleContext";
 import { TransactionContext } from "../../../Context/TransactionContext";
 import Light_mode_logo from "./assets/Logo_light_mode.svg";
 import Dark_mode_logo from "./assets/Logo_dark_mode.svg";
+import Mobile_logo from "./assets/Mobile_Logo.svg";
 
 const STORAGE_KEY = "finique_settings_v1";
 
-const Navbar = () => {
+const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     const [viewOpen, setViewOpen] = useState(false);
     const [roleOpen, setRoleOpen] = useState(false);
     const { selectedRole, setSelectedRole } = useContext(RoleContext);
@@ -18,6 +19,7 @@ const Navbar = () => {
     const navigate = useNavigate();
     const { allTransactions } = useContext(TransactionContext);
     const [searchQuery, setSearchQuery] = useState("");
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
 
     // Profile data from Settings
     const [adminName, setAdminName] = useState("Admin Profile");
@@ -62,29 +64,73 @@ const Navbar = () => {
         if (e.key === "Enter" && searchQuery.trim()) {
             navigate(`/transactions?search=${encodeURIComponent(searchQuery)}`);
             setSearchQuery("");
+            setIsSearchOpen(false);
         }
     };
 
     return (
         <nav
             className={`${isDarkMode ? "bg-slate-950 border-slate-800" : "bg-white border-slate-200"} border-b`}>
-            <div className="flex items-center justify-between gap-0">
-                {/* Left - Logo */}
-                <div className="w-[239px] flex items-center px-6 py-4 flex-shrink-0">
-                    <img
-                        className="w-25 h-auto"
-                        src={isDarkMode ? Dark_mode_logo : Light_mode_logo}
-                        alt="Logo"
-                    />
-                </div>
-                <div
-                    className={`h-10 border-r ${isDarkMode ? "border-slate-800" : "border-slate-200"}`}></div>
+            <div className="flex items-center justify-between gap-2 sm:gap-0">
+                {/* Left - Logo & Hamburger */}
+                <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-6 py-1 sm:py-4 flex-shrink-0 md:w-[239px]">
+                    {/* Hamburger Menu - Mobile only */}
+                    <button
+                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                        className={`sm:hidden p-1.5 rounded-lg transition-all duration-200 ${
+                            isSidebarOpen
+                                ? isDarkMode
+                                    ? "bg-blue-900 text-blue-300"
+                                    : "bg-blue-100 text-blue-600"
+                                : isDarkMode
+                                  ? "text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+                                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-700"
+                        }`}
+                        title="Toggle menu">
+                        <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2.5}
+                                d={
+                                    isSidebarOpen
+                                        ? "M6 18L18 6M6 6l12 12"
+                                        : "M4 6h16M4 12h16M4 18h16"
+                                }
+                            />
+                        </svg>
+                    </button>
 
-                {/* Center - Title with Dropdowns and Search */}
-                <div className="flex items-center gap-8 flex-1 px-8 py-4 pr-0">
+                    {/* Logo - Mobile logo on mobile, full logo on sm+ */}
+                    <div className="flex items-center px-0.5 sm:px-0">
+                        {/* Mobile Logo - visible only on mobile */}
+                        <img
+                            className="sm:hidden w-8 h-auto"
+                            src={Mobile_logo}
+                            alt="Mobile Logo"
+                        />
+                        {/* Desktop Logo - visible on sm+ */}
+                        <img
+                            className="hidden sm:inline w-20 sm:w-24 md:w-full h-auto"
+                            src={isDarkMode ? Dark_mode_logo : Light_mode_logo}
+                            alt="Logo"
+                        />
+                    </div>
+                </div>
+
+                {/* Divider - hide on mobile */}
+                <div
+                    className={`hidden sm:block h-10 border-r ${isDarkMode ? "border-slate-800" : "border-slate-200"}`}></div>
+
+                {/* Center - Title with Dropdowns - Hide on mobile, show on sm+ */}
+                <div className="hidden sm:flex items-center gap-4 md:gap-8 flex-1 px-4 md:px-8 py-4 md:pr-3">
                     <div className="flex items-center gap-2">
                         <h1
-                            className={`text-2xl font-bold ${isDarkMode ? "text-white" : "text-slate-900"} whitespace-nowrap`}>
+                            className={`text-lg md:text-2xl font-bold ${isDarkMode ? "text-white" : "text-slate-900"} whitespace-nowrap`}>
                             {currentPageName}
                         </h1>
 
@@ -126,8 +172,8 @@ const Navbar = () => {
                     </div>
 
                     {/* Search Bar with Theme Toggle */}
-                    <div className="flex flex-end items-center gap-3 ml-auto w-full max-w-md">
-                        <div className="relative flex-1 max-w-sm">
+                    <div className="flex items-center gap-2 md:gap-3 ml-auto w-full max-w-md lg:max-w-lg">
+                        <div className="relative flex-1">
                             <svg
                                 className={`absolute left-3 top-2.5 w-5 h-5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}
                                 fill="none"
@@ -142,11 +188,11 @@ const Navbar = () => {
                             </svg>
                             <input
                                 type="text"
-                                placeholder="Search transactions by name, date, amount..."
+                                placeholder="Search transactions..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 onKeyDown={handleSearch}
-                                className={`w-full pl-10 pr-4 py-2 rounded-lg text-sm ${isDarkMode ? "bg-slate-800 border-slate-700 text-white placeholder-slate-500 focus:bg-slate-750 focus:border-blue-500" : "bg-slate-50 border border-slate-200 text-slate-700 placeholder-slate-400 focus:bg-white focus:border-blue-300"} border transition-colors focus:outline-none`}
+                                className={`w-full pl-10 pr-3 md:pr-4 py-2 rounded-lg text-xs md:text-sm ${isDarkMode ? "bg-slate-800 border-slate-700 text-white placeholder-slate-500 focus:bg-slate-750 focus:border-blue-500" : "bg-slate-50 border border-slate-200 text-slate-700 placeholder-slate-400 focus:bg-white focus:border-blue-300"} border transition-colors focus:outline-none`}
                             />
                         </div>
 
@@ -188,10 +234,133 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                {/* Right - User profile - Now using synced data */}
+                {/* Mobile Controls - Show on mobile only */}
+                <div className="flex sm:hidden items-center gap-1 px-1.5 py-1">
+                    {/* Search Button - Mobile */}
+                    <button
+                        onClick={() => setIsSearchOpen(!isSearchOpen)}
+                        className={`p-1.5 rounded-lg transition-colors ${
+                            isSearchOpen
+                                ? isDarkMode
+                                    ? "bg-blue-900 text-blue-300"
+                                    : "bg-blue-100 text-blue-600"
+                                : isDarkMode
+                                  ? "text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+                                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-700"
+                        }`}
+                        title="Search">
+                        <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                            />
+                        </svg>
+                    </button>
+
+                    {/* Dark Mode Toggle - Mobile */}
+                    <button
+                        onClick={() => setIsDarkMode(!isDarkMode)}
+                        className={`p-1.5 rounded-lg transition-colors ${
+                            isDarkMode
+                                ? "text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+                                : "text-slate-600 hover:bg-slate-100 hover:text-slate-700"
+                        }`}
+                        title="Toggle dark mode">
+                        {isDarkMode ? (
+                            <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 25 25"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M14.625 3.375C14.625 3.07663 14.5065 2.79048 14.2955 2.5795C14.0845 2.36853 13.7984 2.25 13.5 2.25C13.2016 2.25 12.9155 2.36853 12.7045 2.5795C12.4935 2.79048 12.375 3.07663 12.375 3.375V5.625C12.375 5.92337 12.4935 6.20952 12.7045 6.4205C12.9155 6.63147 13.2016 6.75 13.5 6.75C13.7984 6.75 14.0845 6.63147 14.2955 6.4205C14.5065 6.20952 14.625 5.92337 14.625 5.625V3.375ZM7.13587 5.54513C6.92274 5.34526 6.64021 5.23616 6.34807 5.24091C6.05593 5.24565 5.77709 5.36387 5.57056 5.57054C5.36403 5.77722 5.24601 6.05614 5.24147 6.34829C5.23694 6.64043 5.34624 6.92288 5.54625 7.13587L7.137 8.72662C7.34918 8.93155 7.63336 9.04495 7.92833 9.04238C8.2233 9.03982 8.50546 8.9215 8.71405 8.71292C8.92263 8.50434 9.04095 8.22217 9.04351 7.9272C9.04607 7.63223 8.93268 7.34805 8.72775 7.13587L7.13587 5.54513ZM21.4549 7.13587C21.6598 6.9237 21.7732 6.63952 21.7706 6.34455C21.7681 6.04958 21.6498 5.76741 21.4412 5.55883C21.2326 5.35025 20.9504 5.23193 20.6555 5.22937C20.3605 5.2268 20.0763 5.3402 19.8641 5.54513L18.2734 7.13587C18.0684 7.34805 17.9551 7.63223 17.9576 7.9272C17.9602 8.22217 18.0785 8.50434 18.2871 8.71292C18.4957 8.9215 18.7778 9.03982 19.0728 9.04238C19.3678 9.04495 19.6519 8.93155 19.8641 8.72662L21.4549 7.13587ZM13.5 7.875C12.0082 7.875 10.5774 8.46763 9.52252 9.52252C8.46763 10.5774 7.875 12.0082 7.875 13.5C7.875 14.9918 8.46763 16.4226 9.52252 17.4775C10.5774 18.5324 12.0082 19.125 13.5 19.125C14.9918 19.125 16.4226 18.5324 17.4775 17.4775C18.5324 16.4226 19.125 14.9918 19.125 13.5C19.125 12.0082 18.5324 10.5774 17.4775 9.52252C16.4226 8.46763 14.9918 7.875 13.5 7.875ZM3.375 12.375C3.07663 12.375 2.79048 12.4935 2.5795 12.7045C2.36853 12.9155 2.25 13.2016 2.25 13.5C2.25 13.7984 2.36853 14.0845 2.5795 14.2955C2.79048 14.5065 3.07663 14.625 3.375 14.625H5.625C5.92337 14.625 6.20952 14.5065 6.4205 14.2955C6.63147 14.0845 6.75 13.7984 6.75 13.5C6.75 13.2016 6.63147 12.9155 6.4205 12.7045C6.20952 12.4935 5.92337 12.375 5.625 12.375H3.375ZM21.375 12.375C21.0766 12.375 20.7905 12.4935 20.5795 12.7045C20.3685 12.9155 20.25 13.2016 20.25 13.5C20.25 13.7984 20.3685 14.0845 20.5795 14.2955C20.7905 14.5065 21.0766 14.625 21.375 14.625H23.625C23.9234 14.625 24.2095 14.5065 24.4205 14.2955C24.6315 14.0845 24.75 13.7984 24.75 13.5C24.75 13.2016 24.6315 12.9155 24.4205 12.7045C24.2095 12.4935 23.9234 12.375 23.625 12.375H21.375ZM8.72662 19.8641C8.83407 19.7603 8.91978 19.6362 8.97874 19.499C9.0377 19.3617 9.06873 19.2141 9.07003 19.0647C9.07133 18.9153 9.04287 18.7672 8.9863 18.6289C8.92973 18.4907 8.8462 18.3651 8.74057 18.2594C8.63494 18.1538 8.50933 18.0703 8.37107 18.0137C8.23282 17.9571 8.08468 17.9287 7.9353 17.93C7.78592 17.9313 7.6383 17.9623 7.50104 18.0213C7.36379 18.0802 7.23965 18.1659 7.13587 18.2734L5.54513 19.8641C5.43768 19.9679 5.35197 20.092 5.29301 20.2293C5.23405 20.3666 5.20302 20.5142 5.20172 20.6635C5.20042 20.8129 5.22888 20.9611 5.28545 21.0993C5.34202 21.2376 5.42555 21.3632 5.53118 21.4688C5.63681 21.5744 5.76242 21.658 5.90068 21.7145C6.03894 21.7711 6.18707 21.7996 6.33645 21.7983C6.48583 21.797 6.63345 21.7659 6.77071 21.707C6.90796 21.648 7.0321 21.5623 7.13587 21.4549L8.72662 19.8641ZM19.8641 18.2734C19.6519 18.0684 19.3678 17.9551 19.0728 17.9576C18.7778 17.9602 18.4957 18.0785 18.2871 18.2871C18.0785 18.4957 17.9602 18.7778 17.9576 19.0728C17.9551 19.3678 18.0684 19.6519 18.2734 19.8641L19.8641 21.4549C20.0763 21.6598 20.3605 21.7732 20.6555 21.7706C20.9504 21.7681 21.2326 21.6498 21.4412 21.4412C21.6498 21.2326 21.7681 20.9504 21.7706 20.6555C21.7732 20.3605 21.6598 20.0763 21.4549 19.8641L19.8641 18.2734ZM14.625 21.375C14.625 21.0766 14.5065 20.7905 14.2955 20.5795C14.0845 20.3685 13.7984 20.25 13.5 20.25C13.2016 20.25 12.9155 20.3685 12.7045 20.5795C12.4935 20.7905 12.375 21.0766 12.375 21.375V23.625C12.375 23.9234 12.4935 24.2095 12.7045 24.4205C12.9155 24.6315 13.2016 24.75 13.5 24.75C13.7984 24.75 14.0845 24.6315 14.2955 24.4205C14.5065 24.2095 14.625 23.9234 14.625 23.625V21.375Z"
+                                    fill="currentColor"
+                                />
+                            </svg>
+                        ) : (
+                            <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M9.675 0.0153916C9.54131 -0.00833877 9.40419 -0.00459614 9.272 0.0263916C4.09 0.400392 0 4.72239 0 10.0004C0 15.5234 4.477 20.0004 10 20.0004C14.356 20.0004 18.058 17.2164 19.43 13.3334C19.4854 13.1764 19.5008 13.0081 19.4747 12.8437C19.4486 12.6793 19.3819 12.524 19.2806 12.3919C19.1793 12.2598 19.0466 12.155 18.8946 12.0872C18.7425 12.0194 18.576 11.9906 18.41 12.0034C18.33 12.0094 18.305 12.0084 18.283 12.0084H18.282L18.254 12.0064C18.1694 12.0022 18.0847 12.0002 18 12.0004C15.8783 12.0004 13.8434 11.1575 12.3431 9.65725C10.8429 8.15696 10 6.12212 10 4.00039C10 3.04839 10.121 2.24839 10.404 1.44239C10.4673 1.30859 10.5001 1.1624 10.5 1.01439V1.00039C10.5001 0.765451 10.4175 0.537975 10.2666 0.357864C10.1158 0.177752 9.90632 0.0565063 9.675 0.0153916Z"
+                                    fill="currentColor"
+                                />
+                            </svg>
+                        )}
+                    </button>
+
+                    {/* Role Dropdown - Mobile only */}
+                    <div className="relative">
+                        <button
+                            onClick={() => setRoleOpen(!roleOpen)}
+                            className={`flex items-center gap-0.5 px-2 py-1 rounded-md text-xs font-semibold transition-colors ${isDarkMode ? "bg-blue-900 text-blue-400 hover:bg-blue-800" : "bg-blue-50 text-blue-600 hover:bg-blue-100"}`}
+                            title="Switch role">
+                            {selectedRole}
+                            <svg
+                                className="w-3 h-3"
+                                fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                            </svg>
+                        </button>
+                        {roleOpen && (
+                            <div
+                                className={`absolute top-full right-0 mt-1 w-32 ${isDarkMode ? "bg-slate-900 border-slate-700" : "bg-white border-slate-200"} border rounded-lg shadow-lg z-50`}>
+                                <button
+                                    onClick={() => {
+                                        setSelectedRole("Admin");
+                                        setRoleOpen(false);
+                                    }}
+                                    className={`w-full text-left px-3 py-2 ${isDarkMode ? "hover:bg-slate-800 text-slate-300" : "hover:bg-slate-50 text-slate-700"} text-xs font-medium rounded-t-lg`}>
+                                    Admin
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        setSelectedRole("Viewer");
+                                        setRoleOpen(false);
+                                    }}
+                                    className={`w-full text-left px-3 py-2 ${isDarkMode ? "hover:bg-slate-800 text-slate-300" : "hover:bg-slate-50 text-slate-700"} text-xs font-medium rounded-b-lg`}>
+                                    Viewer
+                                </button>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* User Profile - Mobile */}
+                    <div className="flex items-center flex-shrink-0">
+                        {currentImage ? (
+                            <img
+                                src={currentImage}
+                                alt={currentName}
+                                className="w-7 h-7 rounded-full object-cover"
+                            />
+                        ) : (
+                            <div
+                                className={`w-6 h-6 ${isDarkMode ? "bg-gradient-to-br from-blue-600 to-blue-800" : "bg-gradient-to-br from-blue-400 to-blue-600"} rounded-full flex items-center justify-center text-white font-bold text-xs`}>
+                                {currentInitials}
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Right - User profile - Desktop only */}
                 <div
-                    className={`flex items-center h-10 gap-3 flex-shrink-0 px-6 py-4 ${isDarkMode ? "border-l border-slate-800" : "border-l border-slate-200"}`}>
-                    <div className="text-right">
+                    className={`hidden sm:flex items-center h-10 gap-2 md:gap-3 flex-shrink-0 px-2 md:px-6 py-1 sm:py-4 ${isDarkMode ? "border-l border-slate-800" : "border-l border-slate-200"}`}>
+                    <div className="hidden md:block text-right">
                         <p
                             className={`text-sm font-semibold ${isDarkMode ? "text-white" : "text-slate-900"}`}>
                             {currentName}
@@ -215,6 +384,35 @@ const Navbar = () => {
                     )}
                 </div>
             </div>
+
+            {/* Mobile Search Bar - Expanded */}
+            {isSearchOpen && (
+                <div className="sm:hidden px-2 py-1">
+                    <div className="relative">
+                        <svg
+                            className={`absolute left-3 top-2.5 w-5 h-5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                            />
+                        </svg>
+                        <input
+                            type="text"
+                            autoFocus
+                            placeholder="Search transactions..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={handleSearch}
+                            className={`w-full pl-10 pr-3 py-2 rounded-lg text-sm ${isDarkMode ? "bg-slate-800 border-slate-700 text-white placeholder-slate-500" : "bg-slate-50 border border-slate-200 text-slate-700 placeholder-slate-400"} border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                        />
+                    </div>
+                </div>
+            )}
         </nav>
     );
 };

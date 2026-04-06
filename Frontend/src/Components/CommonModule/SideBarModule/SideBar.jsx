@@ -1,12 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ThemeContext } from "../../../Context/ThemeContext";
+import { RoleContext } from "../../../Context/RoleContext";
 import { TransactionContext } from "../../../Context/TransactionContext";
 
-const SideBar = () => {
+const SideBar = ({ onCloseMobileSidebar }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const { isDarkMode } = useContext(ThemeContext);
+    const { selectedRole } = useContext(RoleContext);
     const { isModalOpen, setIsModalOpen } = useContext(TransactionContext);
 
     // Map pathnames to active item IDs
@@ -68,23 +70,27 @@ const SideBar = () => {
     const handleNavClick = (item) => {
         setActive(item.id);
         navigate(item.routePath);
+        // Close mobile sidebar after navigation
+        if (onCloseMobileSidebar) {
+            onCloseMobileSidebar();
+        }
     };
 
     return (
         <>
             <aside
-                className={`h-full flex flex-col w-60 border-r ${
+                className={`h-full flex flex-col border-r transition-all duration-300 w-56 sm:w-full ${
                     isDarkMode
                         ? "bg-slate-950 border-slate-800"
                         : "bg-white border-slate-200"
-                } p-6 pt-3 pb-3 shadow-sm`}>
+                } p-3 sm:p-6 pt-2 sm:pt-3 sm:pb-3 shadow-sm`}>
                 {/* Navigation items*/}
-                <ul className="flex-1 space-y-2 overflow-y-auto">
+                <ul className="flex-1 space-y-1 sm:space-y-2 overflow-y-auto">
                     {navItems.map((item) => (
                         <li
                             key={item.id}
                             onClick={() => handleNavClick(item)}
-                            className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-all duration-300 ${
+                            className={`flex items-center gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg cursor-pointer transition-all duration-300 text-xs sm:text-base ${
                                 active === item.id
                                     ? isDarkMode
                                         ? "bg-blue-900 text-blue-400 font-bold"
@@ -108,20 +114,31 @@ const SideBar = () => {
                                     }
                                 />
                             </svg>
-                            {item.label}
+                            <span>{item.label}</span>
                         </li>
                     ))}
                 </ul>
 
                 {/* Bottom section*/}
-                <div className={`mt-auto space-y-3 pt-3`}>
+                <div className={`mt-auto space-y-2 sm:space-y-3 pt-2 sm:pt-3`}>
                     <button
-                        onClick={() => setIsModalOpen(true)}
-                        className={`flex items-center justify-center text-center gap-2 w-full px-6 py-2.5 rounded-xl transition-all duration-300 font-medium ${
-                            isDarkMode
-                                ? "bg-blue-600 text-white hover:bg-blue-550 active:bg-blue-500 shadow-[0_10px_15px_-3px_rgba(0,83,221,0.40),0_4px_6px_-4px_rgba(0,83,221,0.40)] hover:shadow-[0_10px_15px_-3px_rgba(0,83,221,0.60),0_4px_6px_-4px_rgba(0,83,221,0.60)]"
-                                : "bg-blue-600 text-white hover:bg-blue-550 active:bg-blue-500 shadow-[0_10px_15px_-3px_rgba(0,83,221,0.20),0_4px_6px_-4px_rgba(0,83,221,0.20)] hover:shadow-[0_10px_15px_-3px_rgba(0,83,221,0.35),0_4px_6px_-4px_rgba(0,83,221,0.35)]"
-                        } mb-6`}>
+                        onClick={() => {
+                            setIsModalOpen(true);
+                            // Close mobile sidebar when opening modal
+                            if (onCloseMobileSidebar) {
+                                onCloseMobileSidebar();
+                            }
+                        }}
+                        disabled={selectedRole === "Viewer"}
+                        className={`flex items-center justify-center text-center gap-2 w-full px-3 sm:px-6 py-2.5 sm:py-2.5 rounded-xl transition-all duration-300 font-medium text-xs sm:text-base ${
+                            selectedRole === "Viewer"
+                                ? isDarkMode
+                                    ? "bg-slate-700 text-slate-400 cursor-not-allowed opacity-60"
+                                    : "bg-slate-300 text-slate-500 cursor-not-allowed opacity-60"
+                                : isDarkMode
+                                  ? "bg-blue-600 text-white hover:bg-blue-550 active:bg-blue-500 shadow-[0_10px_15px_-3px_rgba(0,83,221,0.40),0_4px_6px_-4px_rgba(0,83,221,0.40)] hover:shadow-[0_10px_15px_-3px_rgba(0,83,221,0.60),0_4px_6px_-4px_rgba(0,83,221,0.60)]"
+                                  : "bg-blue-600 text-white hover:bg-blue-550 active:bg-blue-500 shadow-[0_10px_15px_-3px_rgba(0,83,221,0.20),0_4px_6px_-4px_rgba(0,83,221,0.20)] hover:shadow-[0_10px_15px_-3px_rgba(0,83,221,0.35),0_4px_6px_-4px_rgba(0,83,221,0.35)]"
+                        } mb-4 sm:mb-6`}>
                         <svg
                             width="9"
                             height="9"
@@ -130,17 +147,23 @@ const SideBar = () => {
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M3.5 4.66667H0V3.5H3.5V0H4.66667V3.5H8.16667V4.66667H4.66667V8.16667H3.5V4.66667Z"
-                                fill="white"
+                                fill={
+                                    selectedRole === "Viewer"
+                                        ? isDarkMode
+                                            ? "#94a3b8"
+                                            : "#64748b"
+                                        : "white"
+                                }
                             />
                         </svg>
-                        Add Transaction
+                        <span>Add Transaction</span>
                     </button>
 
                     <div
-                        className={`pt-3 border-t ${isDarkMode ? "border-slate-800" : "border-slate-200"}`}>
-                        <ul className="space-y-2">
+                        className={`pt-2 sm:pt-3 border-t ${isDarkMode ? "border-slate-800" : "border-slate-200"}`}>
+                        <ul className="space-y-1 sm:space-y-2">
                             <li
-                                className={`group flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-all duration-300 font-medium ${
+                                className={`group flex items-center justify-start gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg cursor-pointer transition-all duration-300 font-medium text-xs sm:text-base ${
                                     isDarkMode
                                         ? "text-slate-300 hover:bg-blue-900/30 hover:text-blue-400"
                                         : "text-slate-700 hover:bg-blue-50 hover:text-blue-600"
@@ -159,10 +182,10 @@ const SideBar = () => {
                                         className="group-hover:fill-blue-400 transition-colors"
                                     />
                                 </svg>
-                                Help
+                                <span>Help</span>
                             </li>
                             <li
-                                className={`group flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-all duration-300 font-medium ${
+                                className={`group flex items-center justify-start gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg cursor-pointer transition-all duration-300 font-medium text-xs sm:text-base ${
                                     isDarkMode
                                         ? "text-slate-300 hover:bg-red-900/30 hover:text-red-400"
                                         : "text-slate-700 hover:bg-red-50 hover:text-red-600"
@@ -181,7 +204,7 @@ const SideBar = () => {
                                         className="group-hover:fill-red-400 transition-colors"
                                     />
                                 </svg>
-                                Logout
+                                <span>Logout</span>
                             </li>
                         </ul>
                     </div>

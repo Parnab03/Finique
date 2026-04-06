@@ -85,19 +85,19 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
 
             {/* Modal Content */}
             <div
-                className={`relative rounded-2xl shadow-2xl max-w-xl w-full mx-4 overflow-hidden ${
+                className={`relative rounded-2xl shadow-2xl max-w-sm sm:max-w-2xl w-[95%] sm:w-full mx-2 sm:mx-4 max-h-[85vh] sm:max-h-[90vh] flex flex-col overflow-hidden ${
                     isDarkMode ? "bg-slate-800" : "bg-white"
                 }`}>
                 {/* Header */}
-                <div className="p-8 pb-2">
+                <div className="p-3 sm:p-6 pb-2 sm:pb-3 flex-shrink-0">
                     <h2
-                        className={`text-3xl font-bold mb-2 ${
+                        className={`text-lg sm:text-2xl md:text-3xl font-bold mb-0.5 sm:mb-2 ${
                             isDarkMode ? "text-white" : "text-slate-900"
                         }`}>
                         Add Transaction
                     </h2>
                     <p
-                        className={`text-sm ${
+                        className={`text-xs sm:text-sm ${
                             isDarkMode ? "text-slate-400" : "text-slate-600"
                         }`}>
                         Record a new movement in your ledger. Ensure all data
@@ -105,13 +105,13 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                     </p>
                 </div>
 
-                {/* Form */}
+                {/* Form - Scrollable */}
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="p-8 pt-6 space-y-6">
+                    className="p-3 sm:p-6 pt-2 sm:pt-6 space-y-2.5 sm:space-y-6 overflow-y-auto flex-1">
                     {/* Type Toggle */}
                     <div
-                        className={`flex gap-2 p-1.5 rounded-full ${
+                        className={`flex gap-1 sm:gap-2 p-1 rounded-full ${
                             isDarkMode ? "bg-slate-700" : "bg-slate-100"
                         }`}>
                         <Controller
@@ -124,7 +124,7 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                                         onClick={() =>
                                             field.onChange("expense")
                                         }
-                                        className={`flex-1 flex justify-center items-center gap-2 py-2.5 px-4 rounded-full font-semibold transition-all duration-200 ${
+                                        className={`flex-1 flex justify-center items-center gap-1 sm:gap-2 py-2 sm:py-2.5 px-2 sm:px-4 rounded-full font-semibold text-xs sm:text-sm transition-all duration-200 ${
                                             field.value === "expense"
                                                 ? isDarkMode
                                                     ? "bg-blue-600 text-white shadow-lg"
@@ -134,12 +134,12 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                                                   : "bg-transparent text-blue-600"
                                         }`}>
                                         <span>↓</span>
-                                        Expense
+                                        <span>Expense</span>
                                     </button>
                                     <button
                                         type="button"
                                         onClick={() => field.onChange("income")}
-                                        className={`flex-1 flex justify-center items-center gap-2 py-2.5 px-4 rounded-full font-semibold transition-all duration-200 ${
+                                        className={`flex-1 flex justify-center items-center gap-1 sm:gap-2 py-2 sm:py-2.5 px-2 sm:px-4 rounded-full font-semibold text-xs sm:text-sm transition-all duration-200 ${
                                             field.value === "income"
                                                 ? isDarkMode
                                                     ? "bg-green-600 text-white shadow-lg"
@@ -149,7 +149,7 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                                                   : "bg-transparent text-green-600"
                                         }`}>
                                         <span>↑</span>
-                                        Income
+                                        <span>Income</span>
                                     </button>
                                 </>
                             )}
@@ -157,11 +157,11 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                     </div>
 
                     {/* Date and Amount - Side by Side */}
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-2 sm:gap-4">
                         {/* Date Input */}
                         <div>
                             <label
-                                className={`block text-sm font-semibold mb-2.5 ${
+                                className={`block text-xs sm:text-sm font-semibold mb-1 sm:mb-2.5 ${
                                     isDarkMode
                                         ? "text-slate-300"
                                         : "text-slate-700"
@@ -180,7 +180,7 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                                                 field.onChange(date)
                                             }
                                             dateFormat="dd MMM, yyyy"
-                                            className={`w-full px-4 py-3 rounded-lg border font-medium pr-10 ${
+                                            className={`w-full px-2 sm:px-4 py-1.5 sm:py-3 rounded-lg border font-medium text-xs sm:text-sm pr-10 ${
                                                 isDarkMode
                                                     ? "bg-slate-700 border-slate-600 text-white"
                                                     : "bg-white border-slate-200 text-slate-900"
@@ -235,7 +235,7 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                         {/* Amount Input */}
                         <div>
                             <label
-                                className={`block text-sm font-semibold mb-2.5 ${
+                                className={`block text-xs sm:text-sm font-semibold mb-1 sm:mb-2.5 ${
                                     isDarkMode
                                         ? "text-slate-300"
                                         : "text-slate-700"
@@ -244,13 +244,13 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                             </label>
                             <div className="relative">
                                 <div
-                                    className={`flex items-center px-4 py-2.5 rounded-lg border ${
+                                    className={`flex items-center px-2 sm:px-4 py-1 sm:py-2 rounded-lg border ${
                                         isDarkMode
                                             ? "bg-slate-700 border-slate-600"
                                             : "bg-white border-slate-200"
                                     } ${errors.amount ? "border-red-500" : ""}`}>
                                     <span
-                                        className={`text-lg font-bold flex-shrink-0 ${
+                                        className={`text-sm sm:text-lg font-bold flex-shrink-0 ${
                                             isDarkMode
                                                 ? "text-slate-400"
                                                 : "text-slate-600"
@@ -273,7 +273,7 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                                                 type="number"
                                                 {...field}
                                                 placeholder="0"
-                                                className={`flex-1 ml-1 pb-0.5 bg-transparent outline-none font-medium text-left min-w-0 [&::-webkit-outer-spin-button]:[appearance:none] [&::-webkit-inner-spin-button]:[appearance:none] [-moz-appearance:textfield] ${
+                                                className={`flex-1 ml-1 pb-0.5 bg-transparent outline-none font-medium text-left text-xs sm:text-sm min-w-0 [&::-webkit-outer-spin-button]:[appearance:none] [&::-webkit-inner-spin-button]:[appearance:none] [-moz-appearance:textfield] ${
                                                     isDarkMode
                                                         ? "text-white placeholder-slate-500"
                                                         : "text-slate-900 placeholder-slate-400"
@@ -310,7 +310,7 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                     {/* Title */}
                     <div>
                         <label
-                            className={`block text-sm font-semibold mb-2.5 ${
+                            className={`block text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2.5 ${
                                 isDarkMode ? "text-slate-300" : "text-slate-700"
                             }`}>
                             TITLE
@@ -325,7 +325,7 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                                         type="text"
                                         {...field}
                                         placeholder="e.g. AWS Cloud Services"
-                                        className={`w-full px-4 py-2.5 rounded-lg border font-medium ${
+                                        className={`w-full px-2 sm:px-4 py-1.5 sm:py-2.5 rounded-lg border font-medium text-xs sm:text-sm ${
                                             isDarkMode
                                                 ? "bg-slate-700 border-slate-600 text-white placeholder-slate-500"
                                                 : "bg-white border-slate-200 text-slate-900 placeholder-slate-400"
@@ -361,7 +361,7 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                     {/* Short Description */}
                     <div>
                         <label
-                            className={`block text-sm font-semibold mb-2.5 ${
+                            className={`block text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2.5 ${
                                 isDarkMode ? "text-slate-300" : "text-slate-700"
                             }`}>
                             SHORT DESCRIPTION
@@ -376,7 +376,7 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                                         type="text"
                                         {...field}
                                         placeholder="e.g. Monthly AWS Subscription"
-                                        className={`w-full px-4 py-2.5 rounded-lg border font-medium ${
+                                        className={`w-full px-2 sm:px-4 py-1.5 sm:py-2.5 rounded-lg border font-medium text-xs sm:text-sm ${
                                             isDarkMode
                                                 ? "bg-slate-700 border-slate-600 text-white placeholder-slate-500"
                                                 : "bg-white border-slate-200 text-slate-900 placeholder-slate-400"
@@ -415,7 +415,7 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                     {/* Category (Only for Expense) - Dimmed and disabled for Income */}
                     <div>
                         <label
-                            className={`block text-sm font-semibold mb-2.5 ${
+                            className={`block text-xs sm:text-sm font-semibold mb-1 sm:mb-2.5 ${
                                 isDarkMode ? "text-slate-300" : "text-slate-700"
                             } ${transactionType === "income" ? "opacity-50" : ""}`}>
                             CATEGORY
@@ -441,7 +441,7 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                                                     );
                                                 }
                                             }}
-                                            className={`w-full px-4 py-2.5 rounded-lg border font-medium flex justify-between items-center transition-all ${
+                                            className={`w-full px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg border font-medium text-sm flex justify-between items-center transition-all ${
                                                 isDisabled
                                                     ? isDarkMode
                                                         ? "bg-slate-800 border-slate-700 text-slate-500 cursor-not-allowed opacity-50"
@@ -450,12 +450,12 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                                                       ? "bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
                                                       : "bg-white border-slate-200 text-slate-900 hover:bg-slate-50"
                                             } focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed`}>
-                                            <span>
+                                            <span className="truncate text-left">
                                                 {selectedCategory?.name ||
                                                     "Select Category"}
                                             </span>
                                             <svg
-                                                className={`w-5 h-5 transition-transform duration-200 ${
+                                                className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-200 flex-shrink-0 ${
                                                     isCategoryDropdownOpen &&
                                                     !isDisabled
                                                         ? "rotate-180"
@@ -495,7 +495,7 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                                                             false,
                                                         );
                                                     }}
-                                                    className={`w-full text-left px-4 py-2.5 font-medium transition-all first:rounded-t-lg last:rounded-b-lg ${
+                                                    className={`w-full text-left px-2 sm:px-4 py-1.5 sm:py-2.5 font-medium text-xs sm:text-sm transition-all first:rounded-t-lg last:rounded-b-lg ${
                                                         field.value === cat.id
                                                             ? isDarkMode
                                                                 ? "bg-blue-600 text-white"
@@ -515,16 +515,16 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
                     </div>
 
                     {/* Buttons */}
-                    <div className="flex gap-3 pt-4">
+                    <div className="flex gap-1.5 sm:gap-2 pt-2 sm:pt-4">
                         <button
                             type="submit"
-                            className="flex-[1.5] bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-all shadow-sm">
+                            className="flex-[1.5] bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1.5 sm:py-3 rounded-xl text-xs sm:text-base transition-all shadow-sm">
                             Add Transaction
                         </button>
                         <button
                             type="button"
                             onClick={handleCancel}
-                            className={`flex-1 font-semibold py-3 rounded-xl transition-all ${
+                            className={`flex-1 font-semibold py-1.5 sm:py-3 rounded-xl text-xs sm:text-base transition-all ${
                                 isDarkMode
                                     ? "bg-slate-700 text-slate-300 hover:bg-slate-600"
                                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -536,16 +536,16 @@ const AddTransactionModal = ({ isOpen, onClose, onAddTransaction }) => {
 
                 {/* Smart Insights Section - Separate */}
                 <div
-                    className={`px-8 py-6 border-t ${
+                    className={`px-3 sm:px-6 py-2.5 sm:py-6 border-t flex-shrink-0 ${
                         isDarkMode
                             ? "bg-slate-700/50 border-slate-700"
                             : "bg-slate-50 border-slate-200"
                     }`}>
-                    <div className="flex gap-3 items-start">
+                    <div className="flex gap-2 items-start">
                         {/* Text Content */}
                         <div className="flex-1 min-w-0">
                             <h4
-                                className={`font-semibold text-sm mb-1 ${
+                                className={`font-semibold text-xs sm:text-sm mb-0.5 ${
                                     isDarkMode
                                         ? "text-blue-300"
                                         : "text-blue-600"

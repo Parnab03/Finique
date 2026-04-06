@@ -6,6 +6,25 @@
     font-family: "Inter", sans-serif;
 }
 
+/* Responsive Font Sizes */
+@layer components {
+    @screen md {
+        /* Laptop screens - reduce font sizes */
+        h1 {
+            @apply text-2xl;
+        }
+        h2 {
+            @apply text-xl;
+        }
+        h3 {
+            @apply text-lg;
+        }
+        p {
+            @apply text-sm;
+        }
+    }
+}
+
 /* Base transitions - removed global 500ms */
 * {
     @apply transition-all duration-300;
