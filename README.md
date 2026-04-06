@@ -240,8 +240,8 @@ All data is stored securely in **browser's localStorage**:
 | View Dashboard        | ✓     | ✓      |
 | View Insights         | ✓     | ✓      |
 | Manage Goals          | ✓     | ✗      |
-| Download Reports      | ✓     | ✓      |
-| Manage Settings       | ✓     | ✗      |
+| Download Reports      | ✓     | ✗      |
+| Manage Settings       | ✓     | ✓      |
 
 ---
 
