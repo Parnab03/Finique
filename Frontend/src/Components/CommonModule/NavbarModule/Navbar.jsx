@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { ThemeContext } from "../../../Context/ThemeContext";
 import { RoleContext } from "../../../Context/RoleContext";
 import { TransactionContext } from "../../../Context/TransactionContext";
+import { AuthContext } from "../../../Context/AuthContext";
 import Light_mode_logo from "./assets/Logo_light_mode.svg";
 import Dark_mode_logo from "./assets/Logo_dark_mode.svg";
 import Mobile_logo from "./assets/Mobile_Logo.svg";
@@ -18,6 +19,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
     const navigate = useNavigate();
     const { allTransactions } = useContext(TransactionContext);
+    const { isGuest, logout } = useContext(AuthContext);
     const [searchQuery, setSearchQuery] = useState("");
     const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -38,6 +40,15 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
     // Load profile data from Settings storage
     useEffect(() => {
+        if (isGuest) {
+            // Set guest names
+            setAdminName("Guest Admin");
+            setViewerName("Guest Viewer");
+            setAdminImage("");
+            setViewerImage("");
+            return;
+        }
+
         const raw = localStorage.getItem(STORAGE_KEY);
         if (!raw) return;
 
@@ -50,7 +61,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         } catch {
             // Ignore malformed storage
         }
-    }, [location]); // Re-check when navigating back from Settings
+    }, [location, isGuest]); // Re-check when navigating back from Settings or when guest mode changes
 
     const currentName = selectedRole === "Admin" ? adminName : viewerName;
     const currentImage = selectedRole === "Admin" ? adminImage : viewerImage;
@@ -370,18 +381,61 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                             {selectedRole === "Admin" ? "Admin" : "Viewer"}
                         </p>
                     </div>
-                    {currentImage ? (
-                        <img
-                            src={currentImage}
-                            alt={currentName}
-                            className="w-10 h-10 rounded-full object-cover"
-                        />
-                    ) : (
-                        <div
-                            className={`w-10 h-10 ${isDarkMode ? "bg-gradient-to-br from-blue-600 to-blue-800" : "bg-gradient-to-br from-blue-400 to-blue-600"} rounded-full flex items-center justify-center text-white font-bold text-sm`}>
-                            {currentInitials}
-                        </div>
-                    )}
+
+                    {/* Profile Dropdown Button */}
+                    <div className="relative">
+                        <button
+                            onClick={() => setViewOpen(!viewOpen)}
+                            className="relative focus:outline-none">
+                            {currentImage ? (
+                                <img
+                                    src={currentImage}
+                                    alt={currentName}
+                                    className="w-10 h-10 rounded-full object-cover hover:ring-2 hover:ring-blue-500 transition-all cursor-pointer"
+                                />
+                            ) : (
+                                <div
+                                    className={`w-10 h-10 ${isDarkMode ? "bg-gradient-to-br from-blue-600 to-blue-800" : "bg-gradient-to-br from-blue-400 to-blue-600"} rounded-full flex items-center justify-center text-white font-bold text-sm hover:ring-2 hover:ring-blue-500 transition-all cursor-pointer`}>
+                                    {currentInitials}
+                                </div>
+                            )}
+                        </button>
+
+                        {/* Profile Dropdown Menu */}
+                        {viewOpen && (
+                            <div
+                                className={`absolute top-full right-0 mt-2 w-48 ${isDarkMode ? "bg-slate-900 border-slate-700" : "bg-white border-slate-200"} border rounded-lg shadow-lg z-50`}>
+                                <div
+                                    className={`px-4 py-3 border-b ${isDarkMode ? "border-slate-700" : "border-slate-200"}`}>
+                                    <p
+                                        className={`text-sm font-semibold ${isDarkMode ? "text-white" : "text-slate-900"}`}>
+                                        {currentName}
+                                    </p>
+                                    <p
+                                        className={`text-xs ${isDarkMode ? "text-slate-400" : "text-slate-500"}`}>
+                                        {`${selectedRole === "Admin" ? "Admin" : "Viewer"}${isGuest ? " (Guest)" : " Account"}`}
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        navigate("/settings");
+                                        setViewOpen(false);
+                                    }}
+                                    className={`w-full text-left px-4 py-2.5 ${isDarkMode ? "hover:bg-slate-800 text-slate-300" : "hover:bg-slate-50 text-slate-700"} text-sm font-medium transition-colors`}>
+                                    Settings
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        logout();
+                                        navigate("/signin");
+                                        setViewOpen(false);
+                                    }}
+                                    className={`w-full text-left px-4 py-2.5 ${isDarkMode ? "hover:bg-slate-800 text-slate-300" : "hover:bg-slate-50 text-slate-700"} text-sm font-medium border-t ${isDarkMode ? "border-slate-700" : "border-slate-200"} transition-colors`}>
+                                    Sign Out
+                                </button>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 

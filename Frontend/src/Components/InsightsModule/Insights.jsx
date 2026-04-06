@@ -214,7 +214,7 @@ const Insights = () => {
             : null;
 
     const monthlyComparison =
-        previousMonthExpense !== null
+        previousMonthExpense !== null && previousMonthExpense > 0
             ? ((currentMonthExpense - previousMonthExpense) /
                   previousMonthExpense) *
               100
@@ -274,9 +274,9 @@ const Insights = () => {
         topCategory
             ? `Highest Spending: ${topCategory.categoryId} (₹${topCategory.amount.toLocaleString()}) - ${Math.round((topCategory.amount / totalExpense) * 100)}% of total`
             : "No category trend yet. Start logging expenses by category.",
-        monthlyComparison !== null
-            ? `Monthly Comparison: ${monthlyComparison > 0 ? "↑ Increased" : "↓ Decreased"} by ${Math.round(Math.abs(monthlyComparison))}% vs last month (${previousMonthExpense > 0 ? `₹${previousMonthExpense.toLocaleString()}` : "N/A"})`
-            : "Add more months of data for monthly comparisons.",
+        monthlyComparison !== null && !isNaN(monthlyComparison)
+            ? `Monthly Comparison: ${monthlyComparison > 0 ? "↑ Increased" : "↓ Decreased"} by ${Math.round(Math.abs(monthlyComparison))}% vs last month | ${selectedMonth} Expense: ₹${currentMonthExpense.toLocaleString()}`
+            : "View detailed monthly breakdown in Transactions section to analyze spending patterns.",
         totalIncome > 0
             ? `Net Balance: ₹${netBalance.toLocaleString()} (Income: ₹${totalIncome.toLocaleString()})`
             : "No income tracked yet. Add income transactions.",

@@ -4,12 +4,14 @@ import { TransactionContext } from "../Context/TransactionContext";
 import Navbar from "./CommonModule/NavbarModule/Navbar";
 import SideBar from "./CommonModule/SideBarModule/SideBar";
 import AddTransactionModal from "./TransactionsModule/AddTransactionModal";
+import HelpModal from "./CommonModule/HelpModule/HelpModal";
 
 const Layout = ({ children }) => {
     const { isDarkMode } = useContext(ThemeContext);
     const { isModalOpen, setIsModalOpen, addTransaction } =
         useContext(TransactionContext);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isHelpOpen, setIsHelpOpen] = useState(false);
 
     return (
         <div
@@ -26,7 +28,7 @@ const Layout = ({ children }) => {
             <div className="fixed top-10 sm:top-[70px] left-0 right-0 bottom-0 flex">
                 {/* Desktop Sidebar - Hidden on mobile, visible on md+ screens */}
                 <div className="hidden md:block fixed md:left-0 md:top-[70px] md:bottom-0 md:w-48 lg:w-60 md:z-30 md:overflow-y-auto">
-                    <SideBar />
+                    <SideBar onOpenHelp={() => setIsHelpOpen(true)} />
                 </div>
 
                 {/* Mobile Sidebar Overlay */}
@@ -43,6 +45,10 @@ const Layout = ({ children }) => {
                                 onCloseMobileSidebar={() =>
                                     setIsSidebarOpen(false)
                                 }
+                                onOpenHelp={() => {
+                                    setIsHelpOpen(true);
+                                    setIsSidebarOpen(false);
+                                }}
                             />
                         </div>
                     </>
@@ -60,6 +66,12 @@ const Layout = ({ children }) => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onAddTransaction={addTransaction}
+            />
+
+            {/* Help Modal */}
+            <HelpModal
+                isOpen={isHelpOpen}
+                onClose={() => setIsHelpOpen(false)}
             />
         </div>
     );

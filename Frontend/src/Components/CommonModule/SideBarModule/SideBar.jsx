@@ -3,13 +3,15 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { ThemeContext } from "../../../Context/ThemeContext";
 import { RoleContext } from "../../../Context/RoleContext";
 import { TransactionContext } from "../../../Context/TransactionContext";
+import { AuthContext } from "../../../Context/AuthContext";
 
-const SideBar = ({ onCloseMobileSidebar }) => {
+const SideBar = ({ onCloseMobileSidebar, onOpenHelp }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const { isDarkMode } = useContext(ThemeContext);
     const { selectedRole } = useContext(RoleContext);
     const { isModalOpen, setIsModalOpen } = useContext(TransactionContext);
+    const { logout } = useContext(AuthContext);
 
     // Map pathnames to active item IDs
     const getActiveFromPath = (pathname) => {
@@ -163,6 +165,14 @@ const SideBar = ({ onCloseMobileSidebar }) => {
                         className={`pt-2 sm:pt-3 border-t ${isDarkMode ? "border-slate-800" : "border-slate-200"}`}>
                         <ul className="space-y-1 sm:space-y-2">
                             <li
+                                onClick={() => {
+                                    if (onOpenHelp) {
+                                        onOpenHelp();
+                                    }
+                                    if (onCloseMobileSidebar) {
+                                        onCloseMobileSidebar();
+                                    }
+                                }}
                                 className={`group flex items-center justify-start gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg cursor-pointer transition-all duration-300 font-medium text-xs sm:text-base ${
                                     isDarkMode
                                         ? "text-slate-300 hover:bg-blue-900/30 hover:text-blue-400"
@@ -185,6 +195,13 @@ const SideBar = ({ onCloseMobileSidebar }) => {
                                 <span>Help</span>
                             </li>
                             <li
+                                onClick={() => {
+                                    logout();
+                                    navigate("/signin");
+                                    if (onCloseMobileSidebar) {
+                                        onCloseMobileSidebar();
+                                    }
+                                }}
                                 className={`group flex items-center justify-start gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg cursor-pointer transition-all duration-300 font-medium text-xs sm:text-base ${
                                     isDarkMode
                                         ? "text-slate-300 hover:bg-red-900/30 hover:text-red-400"
@@ -204,7 +221,7 @@ const SideBar = ({ onCloseMobileSidebar }) => {
                                         className="group-hover:fill-red-400 transition-colors"
                                     />
                                 </svg>
-                                <span>Logout</span>
+                                <span>Sign Out</span>
                             </li>
                         </ul>
                     </div>

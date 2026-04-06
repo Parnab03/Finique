@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext";
 import { TransactionContext } from "../../Context/TransactionContext";
+import { AuthContext } from "../../Context/AuthContext";
 
 const STORAGE_KEY = "finique_settings_v1";
 
@@ -50,6 +51,7 @@ const Settings = () => {
     const { isDarkMode } = useContext(ThemeContext);
     const { loadPresetData, reloadTransactions } =
         useContext(TransactionContext);
+    const { isGuest, logout } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [profileImage, setProfileImage] = useState("");
@@ -82,6 +84,13 @@ const Settings = () => {
     useEffect(() => {
         const raw = localStorage.getItem(STORAGE_KEY);
         if (!raw) {
+            // Set guest names if in guest mode
+            if (isGuest) {
+                setUserName("Guest Admin");
+                setViewerName("Guest Viewer");
+                setDraftUserName("Guest Admin");
+                setDraftViewerName("Guest Viewer");
+            }
             // Set default preset to "no-presets" for new users
             setSelectedPreset("no-presets");
             return;
@@ -89,22 +98,32 @@ const Settings = () => {
 
         try {
             const saved = JSON.parse(raw);
-            const savedName = saved.userName || "Admin Profile";
 
-            setProfileImage(saved.profileImage || "");
-            setUserName(savedName);
-            setDraftUserName(savedName);
-            setUserPassword(saved.userPassword || "");
-            setViewerName(saved.viewerName || "Public Viewer");
-            setDraftViewerName(saved.viewerName || "Public Viewer");
-            setViewerProfileImage(saved.viewerProfileImage || "");
-            setViewerPassword(saved.viewerPassword || "");
+            // If guest mode, show guest names
+            if (isGuest) {
+                setUserName("Guest Admin");
+                setViewerName("Guest Viewer");
+                setDraftUserName("Guest Admin");
+                setDraftViewerName("Guest Viewer");
+                setUserPassword("");
+                setViewerPassword("");
+            } else {
+                const savedName = saved.userName || "Admin Profile";
+                setProfileImage(saved.profileImage || "");
+                setUserName(savedName);
+                setDraftUserName(savedName);
+                setUserPassword(saved.userPassword || "");
+                setViewerName(saved.viewerName || "Public Viewer");
+                setDraftViewerName(saved.viewerName || "Public Viewer");
+                setViewerProfileImage(saved.viewerProfileImage || "");
+                setViewerPassword(saved.viewerPassword || "");
+            }
             setSelectedPreset(saved.selectedPreset || "no-presets");
         } catch {
             // Ignore malformed storage
             setSelectedPreset("no-presets");
         }
-    }, []);
+    }, [isGuest]);
 
     const cardClass = `${
         isDarkMode
@@ -215,7 +234,23 @@ const Settings = () => {
 
         const reader = new FileReader();
         reader.onload = () => {
-            setProfileImage(String(reader.result || ""));
+            const imageData = String(reader.result || "");
+            setProfileImage(imageData);
+            // Auto-save after image upload
+            setTimeout(() => {
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify({
+                        profileImage: imageData,
+                        userName,
+                        userPassword,
+                        viewerName,
+                        viewerPassword,
+                        viewerProfileImage,
+                        selectedPreset,
+                    }),
+                );
+            }, 0);
         };
         reader.readAsDataURL(file);
     };
@@ -235,9 +270,24 @@ const Settings = () => {
             return;
         }
 
-        setUserName(draftUserName.trim());
+        const newName = draftUserName.trim();
+        setUserName(newName);
         setErrors((prev) => ({ ...prev, draftUserName: "" }));
         setIsEditingName(false);
+
+        // Auto-save after name change
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({
+                profileImage,
+                userName: newName,
+                userPassword,
+                viewerName,
+                viewerPassword,
+                viewerProfileImage,
+                selectedPreset,
+            }),
+        );
     };
 
     const canSetNewPassword =
@@ -261,6 +311,21 @@ const Settings = () => {
             newPassword: "",
             confirmPassword: "",
         }));
+
+        // Auto-save after password change
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({
+                profileImage,
+                userName,
+                userPassword: newPassword,
+                viewerName,
+                viewerPassword,
+                viewerProfileImage,
+                selectedPreset,
+            }),
+        );
+
         setStatusMessage("Password updated successfully.");
         setTimeout(() => setStatusMessage(""), 2000);
     };
@@ -275,7 +340,23 @@ const Settings = () => {
 
         const reader = new FileReader();
         reader.onload = () => {
-            setViewerProfileImage(String(reader.result || ""));
+            const imageData = String(reader.result || "");
+            setViewerProfileImage(imageData);
+            // Auto-save after image upload
+            setTimeout(() => {
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify({
+                        profileImage,
+                        userName,
+                        userPassword,
+                        viewerName,
+                        viewerPassword,
+                        viewerProfileImage: imageData,
+                        selectedPreset,
+                    }),
+                );
+            }, 0);
         };
         reader.readAsDataURL(file);
     };
@@ -291,9 +372,24 @@ const Settings = () => {
             return;
         }
 
-        setViewerName(draftViewerName.trim());
+        const newViewerName = draftViewerName.trim();
+        setViewerName(newViewerName);
         setErrors((prev) => ({ ...prev, draftViewerName: "" }));
         setIsEditingViewerName(false);
+
+        // Auto-save after viewer name change
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({
+                profileImage,
+                userName,
+                userPassword,
+                viewerName: newViewerName,
+                viewerPassword,
+                viewerProfileImage,
+                selectedPreset,
+            }),
+        );
     };
 
     const canSetViewerNewPassword =
@@ -337,6 +433,21 @@ const Settings = () => {
             viewerNewPassword: "",
             viewerConfirmPassword: "",
         }));
+
+        // Auto-save after viewer password change
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({
+                profileImage,
+                userName,
+                userPassword,
+                viewerName,
+                viewerPassword: viewerNewPassword,
+                viewerProfileImage,
+                selectedPreset,
+            }),
+        );
+
         setStatusMessage("Viewer password updated successfully.");
         setTimeout(() => setStatusMessage(""), 2000);
     };
@@ -352,24 +463,14 @@ const Settings = () => {
             return;
         }
 
-        localStorage.removeItem(STORAGE_KEY);
-        setProfileImage("");
-        setUserName("");
-        setDraftUserName("");
-        setUserPassword("");
-        setViewerName("");
-        setViewerPassword("");
-        setViewerProfileImage("");
-        setSelectedPreset("");
-        setDeleteConfirmText("");
-        setNewPassword("");
-        setConfirmPassword("");
-        setViewerNewPassword("");
-        setViewerConfirmPassword("");
-        setErrors({});
-        setTouched({});
-        setStatusMessage("Account data deleted locally.");
-        setTimeout(() => setStatusMessage(""), 2000);
+        // Delete all data from localStorage
+        localStorage.clear();
+
+        // Call logout to clear auth context
+        logout();
+
+        // Navigate to sign-in page
+        navigate("/signin");
     };
 
     const handleUsePreset = async (presetId) => {
@@ -481,6 +582,38 @@ const Settings = () => {
 
     return (
         <div className="p-3 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
+            {/* Guest Mode Notice */}
+            {isGuest && (
+                <div
+                    className={`rounded-lg p-4 border ${
+                        isDarkMode
+                            ? "bg-amber-900/30 border-amber-700 text-amber-300"
+                            : "bg-amber-50 border-amber-200 text-amber-800"
+                    }`}>
+                    <div className="flex items-start gap-3">
+                        <svg
+                            className="w-5 h-5 mt-0.5 flex-shrink-0"
+                            fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path
+                                fillRule="evenodd"
+                                d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                                clipRule="evenodd"
+                            />
+                        </svg>
+                        <div>
+                            <p className="font-semibold">
+                                You're using Guest Mode
+                            </p>
+                            <p className="text-sm mt-1">
+                                Account creation is disabled in guest mode. Sign
+                                in or create an account to manage profiles.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {statusMessage && (
                 <div className="fixed top-[86px] right-3 sm:right-6 z-50">
                     <div
@@ -559,11 +692,16 @@ const Settings = () => {
 
                             <button
                                 type="button"
+                                disabled={isGuest}
                                 onClick={openImagePicker}
-                                className={`absolute -bottom-1 -right-1 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border-2 ${
-                                    isDarkMode
-                                        ? "bg-blue-600 border-slate-800 text-white hover:bg-blue-700"
-                                        : "bg-blue-600 border-white text-white hover:bg-blue-700"
+                                className={`absolute -bottom-1 -right-1 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border-2 transition-all ${
+                                    isGuest
+                                        ? isDarkMode
+                                            ? "bg-slate-600 border-slate-700 text-slate-400 cursor-not-allowed"
+                                            : "bg-slate-400 border-slate-300 text-slate-300 cursor-not-allowed"
+                                        : isDarkMode
+                                          ? "bg-blue-600 border-slate-800 text-white hover:bg-blue-700"
+                                          : "bg-blue-600 border-white text-white hover:bg-blue-700"
                                 }`}
                                 aria-label="Change profile image">
                                 <svg
@@ -601,14 +739,19 @@ const Settings = () => {
                                     </p>
                                     <button
                                         type="button"
+                                        disabled={isGuest}
                                         onClick={() => {
                                             setDraftUserName(userName);
                                             setIsEditingName(true);
                                         }}
                                         className={`p-2 rounded-lg transition-all ${
-                                            isDarkMode
-                                                ? "text-slate-300 hover:bg-slate-700 hover:text-white"
-                                                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                                            isGuest
+                                                ? isDarkMode
+                                                    ? "text-slate-600 cursor-not-allowed"
+                                                    : "text-slate-400 cursor-not-allowed"
+                                                : isDarkMode
+                                                  ? "text-slate-300 hover:bg-slate-700 hover:text-white"
+                                                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                                         }`}
                                         aria-label="Edit name">
                                         <svg
@@ -676,9 +819,10 @@ const Settings = () => {
                         </label>
                         <input
                             type="password"
+                            disabled={isGuest}
                             className={`${inputClass} py-1.5 sm:py-2.5 text-xs sm:text-sm ${
                                 errors.newPassword ? "border-red-500" : ""
-                            }`}
+                            } ${isGuest ? "opacity-50 cursor-not-allowed" : ""}`}
                             value={newPassword}
                             onChange={(e) => {
                                 setNewPassword(e.target.value);
@@ -708,9 +852,10 @@ const Settings = () => {
                         </label>
                         <input
                             type="password"
+                            disabled={isGuest}
                             className={`${inputClass} py-1.5 sm:py-2.5 text-xs sm:text-sm ${
                                 errors.confirmPassword ? "border-red-500" : ""
-                            }`}
+                            } ${isGuest ? "opacity-50 cursor-not-allowed" : ""}`}
                             value={confirmPassword}
                             onChange={(e) => {
                                 setConfirmPassword(e.target.value);
@@ -737,9 +882,9 @@ const Settings = () => {
                     <button
                         type="button"
                         onClick={handleSetNewPassword}
-                        disabled={!canSetNewPassword}
+                        disabled={!canSetNewPassword || isGuest}
                         className={`w-full px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-sm sm:text-base font-semibold transition-all ${
-                            canSetNewPassword
+                            canSetNewPassword && !isGuest
                                 ? "bg-blue-600 text-white hover:bg-blue-700"
                                 : "bg-slate-400 text-white cursor-not-allowed opacity-60"
                         }`}>
@@ -807,11 +952,16 @@ const Settings = () => {
 
                             <button
                                 type="button"
+                                disabled={isGuest}
                                 onClick={openViewerImagePicker}
-                                className={`absolute -bottom-1 -right-1 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border-2 ${
-                                    isDarkMode
-                                        ? "bg-blue-600 border-slate-800 text-white hover:bg-blue-700"
-                                        : "bg-blue-600 border-white text-white hover:bg-blue-700"
+                                className={`absolute -bottom-1 -right-1 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border-2 transition-all ${
+                                    isGuest
+                                        ? isDarkMode
+                                            ? "bg-slate-600 border-slate-700 text-slate-400 cursor-not-allowed"
+                                            : "bg-slate-400 border-slate-300 text-slate-300 cursor-not-allowed"
+                                        : isDarkMode
+                                          ? "bg-blue-600 border-slate-800 text-white hover:bg-blue-700"
+                                          : "bg-blue-600 border-white text-white hover:bg-blue-700"
                                 }`}
                                 aria-label="Change viewer profile image">
                                 <svg
@@ -849,14 +999,19 @@ const Settings = () => {
                                     </p>
                                     <button
                                         type="button"
+                                        disabled={isGuest}
                                         onClick={() => {
                                             setDraftViewerName(viewerName);
                                             setIsEditingViewerName(true);
                                         }}
                                         className={`p-2 rounded-lg transition-all ${
-                                            isDarkMode
-                                                ? "text-slate-300 hover:bg-slate-700 hover:text-white"
-                                                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                                            isGuest
+                                                ? isDarkMode
+                                                    ? "text-slate-600 cursor-not-allowed"
+                                                    : "text-slate-400 cursor-not-allowed"
+                                                : isDarkMode
+                                                  ? "text-slate-300 hover:bg-slate-700 hover:text-white"
+                                                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                                         }`}
                                         aria-label="Edit viewer name">
                                         <svg
@@ -926,9 +1081,10 @@ const Settings = () => {
                         </label>
                         <input
                             type="password"
+                            disabled={isGuest}
                             className={`${inputClass} py-1.5 sm:py-2.5 text-xs sm:text-sm ${
                                 errors.viewerNewPassword ? "border-red-500" : ""
-                            }`}
+                            } ${isGuest ? "opacity-50 cursor-not-allowed" : ""}`}
                             value={viewerNewPassword}
                             onChange={(e) => {
                                 setViewerNewPassword(e.target.value);
@@ -958,11 +1114,12 @@ const Settings = () => {
                         </label>
                         <input
                             type="password"
+                            disabled={isGuest}
                             className={`${inputClass} py-1.5 sm:py-2.5 text-xs sm:text-sm ${
                                 errors.viewerConfirmPassword
                                     ? "border-red-500"
                                     : ""
-                            }`}
+                            } ${isGuest ? "opacity-50 cursor-not-allowed" : ""}`}
                             value={viewerConfirmPassword}
                             onChange={(e) => {
                                 setViewerConfirmPassword(e.target.value);
@@ -989,9 +1146,9 @@ const Settings = () => {
                     <button
                         type="button"
                         onClick={handleSetViewerNewPassword}
-                        disabled={!canSetViewerNewPassword}
+                        disabled={!canSetViewerNewPassword || isGuest}
                         className={`w-full px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-sm sm:text-base font-semibold transition-all ${
-                            canSetViewerNewPassword
+                            canSetViewerNewPassword && !isGuest
                                 ? "bg-blue-600 text-white hover:bg-blue-700"
                                 : "bg-slate-400 text-white cursor-not-allowed opacity-60"
                         }`}>
@@ -1212,11 +1369,13 @@ const Settings = () => {
                             renderErrorBubble(errors.deleteConfirmText)}
                     </div>
 
-                    <button
-                        onClick={deleteAccount}
-                        className="w-full px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-sm sm:text-base bg-red-600 text-white font-semibold hover:bg-red-700 transition-all">
-                        Delete Account
-                    </button>
+                    <div className="space-y-3 mt-4">
+                        <button
+                            onClick={deleteAccount}
+                            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base bg-red-600 text-white font-semibold hover:bg-red-700 transition-all">
+                            Delete Account
+                        </button>
+                    </div>
                 </section>
             </div>
         </div>
